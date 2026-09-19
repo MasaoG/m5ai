@@ -22,8 +22,8 @@ function row(tblId, label, value, state) {
     tr.insertCell();
     tr.cells[0].textContent = label;
   }
-  const cls = { ok: 't-ok', ng: 't-ng', warn: 't-wn' }[state] || 't-na';
-  const tag = { ok: 'OK', ng: 'NG', warn: '注意' }[state] || '—';
+  const cls = { ok: 't-ok', ng: 't-ng', warn: 't-wn', info: 't-na' }[state] || 't-na';
+  const tag = { ok: 'OK', ng: 'NG', warn: '注意', info: '参考' }[state] || '—';
   tr.cells[1].innerHTML = '';
   const b = document.createElement('span');
   b.className = 'tag ' + cls;
@@ -86,16 +86,18 @@ function checkEnv() {
   const dm = navigator.deviceMemory;
   R.mem = dm || null;
   row('tblEnv', 'メモリ（概算）',
-      dm ? dm + 'GB 以上（ブラウザからは正確に取れません）' : '取得できません', 'warn');
+      (dm ? dm + 'GB 以上' : '取得できません') +
+      ' — ブラウザからは正確に取れません。端末の設定画面で確認してください', 'info');
 
   navigator.storage?.estimate?.().then((e) => {
     const gb = e.quota ? (e.quota / 1073741824).toFixed(1) : '?';
     R.quota = gb;
-    row('tblEnv', 'ストレージ割当', gb + 'GB（実際の空き容量とは異なります）', 'warn');
+    row('tblEnv', 'ストレージ割当',
+        gb + 'GB — 実際の空き容量とは異なります。エクスプローラで確認してください', 'info');
   }).catch(() => {});
 
   R.online = navigator.onLine;
-  row('tblEnv', 'ネットワーク', R.online ? 'オンライン' : 'オフライン', 'na');
+  row('tblEnv', 'ネットワーク', R.online ? 'オンライン' : 'オフライン', 'info');
 }
 
 /* ===========================================================================
@@ -125,7 +127,10 @@ async function checkAI(startDownload) {
     return;
   }
   if (!startDownload && a !== 'available') {
-    row('tblAI', '判定', '「ダウンロードを開始」を押してください', 'warn');
+    row('tblAI', '判定',
+        '「ダウンロードを開始」を押してください（約4GB・数分かかります）', 'warn');
+    row('tblAI', '補足',
+        'Chrome やモデルの更新後は downloadable に戻ることがあります', 'info');
     return;
   }
 
@@ -134,7 +139,10 @@ async function checkAI(startDownload) {
     const s = await LanguageModel.create({
       monitor(mo) {
         mo.addEventListener('downloadprogress', (e) => {
-          row('tblAI', 'ダウンロード', Math.round(e.loaded * 100) + '%', 'warn');
+          const pct = Math.round(e.loaded * 100);
+          // 100% になったら「注意」ではなく OK にする
+          row('tblAI', 'ダウンロード', pct + '%',
+              pct >= 100 ? 'ok' : 'warn');
         });
       }
     });
@@ -155,7 +163,21 @@ async function checkAI(startDownload) {
     } catch {}
 
     s.destroy();
-    row('tblAI', '判定', '準備できています', 'ok');
+
+    // ダウンロード後は状態が変わっているので取り直す。
+    // これをしないと上の行が downloadable のまま残ります。
+    try {
+      const after = await LanguageModel.availability();
+      R.availability = after;
+      row('tblAI', 'availability()', after,
+          after === 'available' ? 'ok' : 'warn');
+      row('tblAI', '判定',
+          after === 'available' ? '準備できています'
+                                : '「ダウンロードを開始」をもう一度押してください',
+          after === 'available' ? 'ok' : 'warn');
+    } catch {
+      row('tblAI', '判定', '準備できています', 'ok');
+    }
   } catch (e) {
     row('tblAI', 'セッション作成', 'エラー: ' + e.message, 'ng');
   }
