@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI ブリッジ — Core2 × Prompt API</title>
+<!--
+  外部リソースを一切読み込まないこと。
+  機内モードでの動作デモが成立しなくなります。
+  フォントも CDN も使いません。
+-->
+<style>
+:root{
+  --paper:#f7f6f3;
+  --panel:#ffffff;
+  --ink:#1a1d21;
+  --ink-2:#5b6167;
+  --ink-3:#8d949a;
+  --rule:#dfe3e1;
+  --grid:#eceeec;
+  --live:#0f766e;
+  --servo:#b45309;
+  --ai:#5b21b6;
+  --bad:#b91c1c;
+  --mono: ui-monospace, "SFMono-Regular", "Menlo", "Consolas", "Liberation Mono", monospace;
+  --sans: system-ui, -apple-system, "Hiragino Sans", "Yu Gothic UI", "Meiryo", sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:22px 22px;
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:14px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1180px;margin:0 auto;padding:20px 18px 60px}
+
+/* ---- header ---- */
+header{display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap;padding-bottom:14px;border-bottom:2px solid var(--ink)}
+h1{font-size:18px;font-weight:700;margin:0;letter-spacing:.02em}
+.sub{font-family:var(--mono);font-size:11px;color:var(--ink-2);letter-spacing:.04em}
+.spacer{flex:1}
+
+/* ---- status strip ---- */
+.strip{display:flex;gap:0;flex-wrap:wrap;border:1px solid var(--rule);border-radius:6px;overflow:hidden;background:var(--panel);margin:14px 0 18px}
+.stat{flex:1 1 150px;padding:9px 13px;border-right:1px solid var(--rule);display:flex;align-items:center;gap:9px;min-width:0}
+.stat:last-child{border-right:0}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--ink-3);flex:none}
+.dot.on{background:var(--live);box-shadow:0 0 0 3px rgba(15,118,110,.16)}
+.dot.err{background:var(--bad);box-shadow:0 0 0 3px rgba(185,28,28,.16)}
+.stat b{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.05em;color:var(--ink-2);text-transform:uppercase}
+.stat span{font-family:var(--mono);font-size:12px;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* ---- layout ---- */
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+@media(max-width:900px){.cols{grid-template-columns:1fr}}
+
+.card{background:var(--panel);border:1px solid var(--rule);border-radius:8px;margin-bottom:18px}
+.card>h2{
+  font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-2);margin:0;padding:11px 15px;border-bottom:1px solid var(--rule);
+  display:flex;align-items:center;gap:8px;
+}
+.card>h2 .tag{margin-left:auto;font-size:10px;letter-spacing:.06em;padding:2px 7px;border-radius:3px;background:var(--grid);color:var(--ink-2)}
+.body{padding:15px}
+
+/* ---- controls ---- */
+button{
+  font-family:var(--sans);font-size:13px;font-weight:600;
+  padding:8px 15px;border-radius:5px;border:1px solid var(--ink);
+  background:var(--ink);color:#fff;cursor:pointer;
+}
+button:hover:not(:disabled){opacity:.86}
+button:disabled{opacity:.35;cursor:not-allowed}
+button.ghost{background:transparent;color:var(--ink);border-color:var(--rule)}
+button.ghost:hover:not(:disabled){border-color:var(--ink)}
+button:focus-visible{outline:2px solid var(--live);outline-offset:2px}
+.row{display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+label{font-family:var(--mono);font-size:11px;letter-spacing:.05em;color:var(--ink-2);text-transform:uppercase}
+input[type=range]{flex:1;min-width:120px;accent-color:var(--servo)}
+input[type=text],textarea,select{
+  font-family:var(--mono);font-size:12.5px;line-height:1.55;color:var(--ink);
+  border:1px solid var(--rule);border-radius:5px;padding:8px 10px;background:#fcfcfb;width:100%;
+}
+textarea{resize:vertical}
+input:focus,textarea:focus,select:focus{outline:2px solid var(--live);outline-offset:-1px;border-color:transparent}
+
+/* ---- readout ---- */
+.reads{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.read{border:1px solid var(--rule);border-radius:6px;padding:11px 13px;background:#fcfcfb}
+.read i{font-style:normal;font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;color:var(--ink-3);text-transform:uppercase;display:block}
+.read b{font-family:var(--mono);font-size:27px;font-weight:600;letter-spacing:-.02em;line-height:1.25;display:block}
+.read b u{text-decoration:none;font-size:14px;color:var(--ink-3);margin-left:2px}
+
+/* ---- scope (signature) ---- */
+.scope{border:1px solid var(--rule);border-radius:6px;background:#fcfcfb;padding:12px 13px 8px}
+.scope canvas{width:100%;height:118px;display:block}
+.scope .cap{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10.5px;color:var(--ink-3);letter-spacing:.05em;padding-top:6px;border-top:1px dashed var(--rule);margin-top:6px}
+
+/* ---- ai output ---- */
+.aiout{border-left:3px solid var(--ai);background:#faf8ff;padding:11px 14px;border-radius:0 6px 6px 0;margin-bottom:12px;min-height:56px}
+.aiout .msg{font-size:15px;font-weight:600}
+.aiout .why{font-size:12.5px;color:var(--ink-2);margin-top:3px}
+.aiout .idle{color:var(--ink-3);font-family:var(--mono);font-size:12px}
+pre.json{font-family:var(--mono);font-size:11.5px;background:#fcfcfb;border:1px solid var(--rule);border-radius:5px;padding:9px 11px;margin:0;overflow-x:auto;color:var(--ink-2)}
+
+/* ---- log ---- */
+.log{font-family:var(--mono);font-size:11.5px;line-height:1.65;height:216px;overflow-y:auto;background:#fcfcfb;border-radius:0 0 7px 7px;padding:10px 14px}
+.log div{white-space:pre-wrap;word-break:break-all;padding:1px 0}
+.log .rx{color:var(--live)}
+.log .tx{color:var(--servo)}
+.log .ai{color:var(--ai)}
+.log .er{color:var(--bad);font-weight:600}
+.log .sys{color:var(--ink-3)}
+
+.hint{font-size:12px;color:var(--ink-2);margin:9px 0 0}
+.hint code{font-family:var(--mono);font-size:11.5px;background:var(--grid);padding:1px 4px;border-radius:3px}
+.warn{border-left:3px solid var(--bad);background:#fef6f5;padding:9px 12px;border-radius:0 5px 5px 0;font-size:12.5px;margin-top:12px}
+.tabs{display:flex;gap:0;border-bottom:1px solid var(--rule);margin:-15px -15px 15px;padding:0 15px}
+.tabs button{background:none;border:0;border-bottom:2px solid transparent;color:var(--ink-3);border-radius:0;padding:9px 12px;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+.tabs button[aria-selected=true]{color:var(--ink);border-bottom-color:var(--ink)}
+.pane[hidden]{display:none}
+footer{margin-top:26px;padding-top:14px;border-top:1px solid var(--rule);font-family:var(--mono);font-size:11px;color:var(--ink-3);display:flex;gap:18px;flex-wrap:wrap}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div>
+    <h1>AI ブリッジ</h1>
+    <div class="sub">M5STACK CORE2 FOR AWS &nbsp;×&nbsp; CHROME PROMPT API</div>
+  </div>
+  <div class="spacer"></div>
+  <div class="row">
+    <button id="btnConnect">ボードに接続</button>
+    <button id="btnDisconnect" class="ghost" disabled>切断</button>
+  </div>
+</header>
+
+<div class="strip">
+  <div class="stat"><span class="dot" id="dotSerial"></span><b>Serial</b><span id="txtSerial">未接続</span></div>
+  <div class="stat"><span class="dot" id="dotAI"></span><b>Gemini&nbsp;Nano</b><span id="txtAI">確認中</span></div>
+  <div class="stat"><span class="dot" id="dotNet"></span><b>Network</b><span id="txtNet">—</span></div>
+  <div class="stat"><span class="dot" id="dotRate"></span><b>推論</b><span id="txtRate">0 回</span></div>
+</div>
+
+<div class="cols">
+
+  <!-- ============ 左列 ============ -->
+  <div>
+
+    <section class="card">
+      <h2>ボードの状態<span class="tag" id="tagSrc">実機</span></h2>
+      <div class="body">
+        <div class="reads">
+          <div class="read"><i>温度</i><b><span id="vT">--.-</span><u>℃</u></b></div>
+          <div class="read"><i>湿度</i><b><span id="vH">--.-</span><u>%</u></b></div>
+        </div>
+
+        <div class="scope">
+          <canvas id="scope" width="640" height="236" aria-label="サーボに送っているパルス波形"></canvas>
+          <div class="cap">
+            <span>周期 20.0 ms / 50 Hz</span>
+            <span id="scopeUs">パルス幅 -- µs</span>
+            <span id="scopeDeg">-- °</span>
+          </div>
+        </div>
+
+        <div class="row" style="margin-top:14px">
+          <label for="sld">手動</label>
+          <input type="range" id="sld" min="0" max="180" value="90" disabled>
+          <span style="font-family:var(--mono);font-size:13px;width:44px;text-align:right" id="sldVal">90°</span>
+        </div>
+        <p class="hint">スライダーを動かすと <code>{"servo":角度}</code> がボードに送られます。</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>通信ログ</h2>
+      <div class="row" style="padding:10px 15px;border-bottom:1px solid var(--rule)">
+        <button class="ghost" id="btnClear">消去</button>
+        <label style="display:flex;align-items:center;gap:6px;text-transform:none;letter-spacing:0">
+          <input type="checkbox" id="chkRaw" style="width:auto"> 生データも表示
+        </label>
+      </div>
+      <div class="log" id="log"></div>
+    </section>
+
+  </div>
+
+  <!-- ============ 右列 ============ -->
+  <div>
+
+    <section class="card">
+      <h2>AI の判断<span class="tag" id="tagLat">—</span></h2>
+      <div class="body">
+        <div class="aiout" id="aiOut"><div class="idle">まだ推論していません</div></div>
+        <pre class="json" id="aiJson">{ }</pre>
+
+        <div id="custom" style="display:none"></div>
+
+        <div class="row" style="margin-top:13px">
+          <button id="btnAsk" disabled>いま判断させる</button>
+          <select id="selMode" style="width:auto;flex:1">
+            <option value="manual">手動 — ボタンを押したときだけ</option>
+            <option value="threshold" selected>変化したとき — 湿度が5%以上動いたら</option>
+            <option value="interval">定期 — 30秒ごと</option>
+            <option value="always">毎回 — 1秒ごと（負荷確認用）</option>
+          </select>
+        </div>
+        <p class="hint">推論は端末の CPU / GPU を使います。「毎回」は重くなるので、確認したら戻してください。</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>AI の設定<span class="tag">編集できます</span></h2>
+      <div class="body">
+        <div class="tabs" role="tablist">
+          <button role="tab" aria-selected="true" data-pane="paneSys">システムプロンプト</button>
+          <button role="tab" aria-selected="false" data-pane="paneSch">出力スキーマ</button>
+          <button role="tab" aria-selected="false" data-pane="paneLogic">ロジック</button>
+          <button role="tab" aria-selected="false" data-pane="paneView">表示</button>
+          <button role="tab" aria-selected="false" data-pane="paneOpt">パラメータ</button>
+        </div>
+
+        <div class="pane" id="paneSys">
+          <textarea id="taSys" rows="9"></textarea>
+          <p class="hint">ここを書き換えるだけで、コードを触らずに役割を変えられます。</p>
+        </div>
+
+        <div class="pane" id="paneSch" hidden>
+          <textarea id="taSch" rows="15"></textarea>
+          <p class="hint"><code>minimum</code> / <code>maximum</code> にサーボの可動範囲を書いておくと、AI は範囲外の角度を返せなくなります。</p>
+        </div>
+
+        <div class="pane" id="paneLogic" hidden>
+          <label for="taAsk">いつ AI を呼ぶか</label>
+          <p class="hint" style="margin:3px 0 6px">true を返すと推論します。<code>d</code> が今の値、<code>last</code> が前回呼んだときの値（初回は null）。</p>
+          <textarea id="taAsk" rows="7" spellcheck="false"></textarea>
+
+          <label for="taCmd" style="display:block;margin-top:14px">AI の出力をボードへ渡す形</label>
+          <p class="hint" style="margin:3px 0 6px">返したオブジェクトが JSON でボードに送られます。<code>r</code> が AI の返事。</p>
+          <textarea id="taCmd" rows="8" spellcheck="false"></textarea>
+
+          <div class="warn" id="logicErr" style="display:none"></div>
+        </div>
+
+        <div class="pane" id="paneView" hidden>
+          <label for="taView">画面に何を出すか</label>
+          <p class="hint" style="margin:3px 0 6px"><code>box</code> が「AI の判断」の下に出る自由エリア、<code>d</code> がセンサー値、<code>r</code> が AI の返事（まだなければ null）。HTML を組み立てて <code>box.innerHTML</code> に入れます。</p>
+          <textarea id="taView" rows="12" spellcheck="false"></textarea>
+          <div class="warn" id="viewErr" style="display:none"></div>
+        </div>
+
+        <div class="pane" id="paneOpt" hidden>
+          <div class="row" style="margin-bottom:11px">
+            <label for="rngTemp" style="width:110px">temperature</label>
+            <input type="range" id="rngTemp" min="0" max="2" step="0.1" value="0.2">
+            <span style="font-family:var(--mono);width:32px;text-align:right" id="vTemp">0.2</span>
+          </div>
+          <div class="row" style="margin-bottom:11px">
+            <label for="rngTopK" style="width:110px">topK</label>
+            <input type="range" id="rngTopK" min="1" max="8" step="1" value="3">
+            <span style="font-family:var(--mono);width:32px;text-align:right" id="vTopK">3</span>
+          </div>
+          <label style="display:flex;align-items:center;gap:7px;text-transform:none;letter-spacing:0;font-size:12.5px">
+            <input type="checkbox" id="chkNoSchema" style="width:auto">
+            スキーマ制約を外す（何が返るか見てみる）
+          </label>
+          <div class="warn">制約を外すと <code>JSON.parse</code> が失敗します。それが <code>responseConstraint</code> を使う理由です。</div>
+        </div>
+
+        <div class="row" style="margin-top:14px">
+          <button id="btnApply">設定を反映</button>
+          <button class="ghost" id="btnReset">初期値に戻す</button>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<footer>
+  <span>PORT.A = G32/G33（I2C）</span>
+  <span>PORT.B = G26（PWM）</span>
+  <span>115200 baud / JSON Lines</span>
+  <span id="footMode"></span>
+</footer>
+
+</div>
+
+<script src="prompt.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
