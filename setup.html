@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>事前準備 — インターンシップ ハンズオン</title>
+<title>事前準備のお願い — インターンシップ ハンズオン</title>
 <style>
 :root{
   --paper:#f7f6f3; --panel:#fff; --ink:#1a1d21; --ink-2:#5b6167; --ink-3:#8d949a;
@@ -16,16 +16,19 @@ body{margin:0;background:var(--paper);
   background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
   background-size:22px 22px;color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.75}
 .wrap{max-width:720px;margin:0 auto;padding:26px 18px 70px}
-h1{font-size:23px;margin:0 0 4px;letter-spacing:.01em}
-.lede{color:var(--ink-2);font-size:14px;margin:0 0 4px}
+h1{font-size:23px;margin:0 0 5px;letter-spacing:.01em}
+.lede{color:var(--ink-2);font-size:14px;margin:0 0 6px}
 .meta{font-family:var(--mono);font-size:11.5px;color:var(--ink-3);letter-spacing:.04em;
-  padding-bottom:14px;border-bottom:2px solid var(--ink);margin-bottom:22px}
+  padding-bottom:14px;border-bottom:2px solid var(--ink);margin-bottom:8px}
+.fresh{background:#eef4fa;border:1px solid #b8d4ea;border-radius:7px;padding:11px 15px;
+  font-size:13.5px;color:#1c4b70;margin:16px 0 4px}
 
 .card{background:var(--panel);border:1px solid var(--rule);border-radius:9px;margin:18px 0;overflow:hidden}
-.card>h2{font-size:15px;margin:0;padding:14px 18px;border-bottom:1px solid var(--rule);
+.card>h2{font-size:15.5px;margin:0;padding:14px 18px;border-bottom:1px solid var(--rule);
   display:flex;align-items:center;gap:11px}
 .card>h2 .n{width:23px;height:23px;border-radius:50%;background:var(--ink);color:#fff;
   display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex:none}
+.card.soft>h2 .n{background:var(--ink-3)}
 .body{padding:16px 18px}
 .body>*:first-child{margin-top:0}
 .body>*:last-child{margin-bottom:0}
@@ -34,7 +37,7 @@ button{font-family:var(--sans);font-size:15px;font-weight:600;padding:12px 24px;
   border:1px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer}
 button:hover:not(:disabled){opacity:.87}
 button:disabled{opacity:.35;cursor:not-allowed}
-button.big{font-size:16px;padding:14px 30px;width:100%}
+button.big{font-size:16px;padding:15px 30px;width:100%}
 button.ghost{background:transparent;color:var(--ink);border-color:var(--rule);font-size:13px;padding:8px 16px}
 button:focus-visible{outline:2px solid var(--ok);outline-offset:2px}
 
@@ -50,9 +53,10 @@ button:focus-visible{outline:2px solid var(--ok);outline-offset:2px}
 .pct{font-family:var(--mono);font-size:12px;color:var(--ink-2)}
 
 table{width:100%;border-collapse:collapse;font-size:14px;margin:12px 0}
-td{padding:7px 4px;border-bottom:1px solid var(--grid);vertical-align:top}
-td:first-child{width:170px;color:var(--ink-2);font-size:13px}
-td:last-child{font-family:var(--mono);font-size:13px}
+td,th{padding:7px 4px;border-bottom:1px solid var(--grid);vertical-align:top;text-align:left}
+th{font-size:12.5px;color:var(--ink-2);font-weight:600}
+td:first-child{width:175px;color:var(--ink-2);font-size:13.5px}
+#tbl td:last-child{font-family:var(--mono);font-size:13px}
 .tag{display:inline-block;font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.06em;
   padding:2px 7px;border-radius:3px;margin-right:7px}
 .t-ok{background:#e3f2ef;color:var(--ok)} .t-ng{background:#fdeceb;color:var(--bad)}
@@ -61,18 +65,22 @@ td:last-child{font-family:var(--mono);font-size:13px}
 ul{padding-left:20px;margin:11px 0} li{margin:5px 0}
 .note{font-size:13.5px;color:var(--ink-2);background:#fcfcfb;border-left:3px solid var(--rule);
   padding:11px 14px;border-radius:0 5px 5px 0;margin:13px 0}
-.note.warn{border-left-color:var(--warn);background:#fdf7ed}
+.note.warn{border-left-color:var(--warn);background:#fdf7ed;color:#7a5316}
 code{font-family:var(--mono);font-size:13px;background:var(--grid);padding:1.5px 5px;border-radius:3px}
 textarea{width:100%;font-family:var(--mono);font-size:12px;line-height:1.6;border:1px solid var(--rule);
   border-radius:6px;padding:11px;background:#fcfcfb;resize:vertical}
 .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-details{margin:11px 0;border:1px solid var(--rule);border-radius:6px;background:#fcfcfb}
+details{margin:10px 0;border:1px solid var(--rule);border-radius:6px;background:#fcfcfb}
 summary{cursor:pointer;padding:10px 14px;font-size:14px;font-weight:600}
 details .in{padding:0 14px 13px}
-footer{margin-top:30px;padding-top:15px;border-top:1px solid var(--rule);
-  font-size:13px;color:var(--ink-3)}
+details .in>*:first-child{margin-top:0}
+footer{margin-top:30px;padding-top:15px;border-top:1px solid var(--rule);font-size:13px;color:var(--ink-3)}
 a{color:var(--ok)}
-@media print{body{background:#fff}.card{break-inside:avoid}}
+@media print{
+  body{background:#fff;background-image:none}
+  .card{break-inside:avoid;border-color:#ccc}
+  button{display:none}
+}
 </style>
 </head>
 <body>
@@ -82,10 +90,14 @@ a{color:var(--ok)}
 <p class="lede">インターンシップで使うAIを、あらかじめお使いのPCに用意していただきます。</p>
 <div class="meta">所要 10〜20分（ダウンロード待ち時間を含む）</div>
 
+<div class="fresh">
+  このページは随時更新されます。<strong>案内メールの内容と違っている場合は、こちらが最新です。</strong>
+</div>
+
 <div class="card">
   <h2><span class="n">!</span>なぜ必要か</h2>
   <div class="body">
-    <p>このハンズオンでは、<strong>ブラウザの中で動くAI</strong>を使います。クラウドに送るのではなく、お使いのPCの中だけで推論が完結する仕組みです。</p>
+    <p>このハンズオンでは、<strong>ブラウザーの中で動くAI</strong>を使います。クラウドに送るのではなく、お使いのPCの中だけで推論が完結する仕組みです。</p>
     <p>そのため、<strong>AIのモデル（約4GB）をPCにダウンロードしておく必要があります。</strong>当日に全員分をまとめてダウンロードすると、会場のネットワークが持ちません。</p>
     <div class="note">自宅や研究室など、<strong>時間に余裕があるネットワーク</strong>で済ませておいてください。</div>
   </div>
@@ -107,7 +119,7 @@ a{color:var(--ok)}
 <div class="card">
   <h2><span class="n">2</span>AIを準備する</h2>
   <div class="body">
-    <p>下のボタンを押すだけです。</p>
+    <p>下のボタンを押すだけです。判定からダウンロードまで自動で進みます。</p>
 
     <button class="big" id="btnGo">準備を開始する</button>
 
@@ -157,14 +169,14 @@ a{color:var(--ok)}
           <tr><td>空きストレージ</td><td>22GB 以上</td></tr>
           <tr><td>CPU</td><td>4コア以上</td></tr>
         </table>
-        <p><strong>満たさない場合でも問題ありません。</strong>当日は貸出用のPCをご用意しています。その旨を運営にお知らせください。</p>
+        <p><strong>満たさない場合でも問題ありません。</strong>当日は貸出用のPCをご用意しています。その旨を案内メールにご返信ください。</p>
       </div>
     </details>
 
     <details>
       <summary>ボタンを押しても何も起きない</summary>
       <div class="in">
-        <p>Chrome 以外のブラウザで開いている可能性があります。アドレスバーに <code>chrome://version</code> と入力して、バージョンが148以上か確認してください。</p>
+        <p>Chrome 以外のブラウザーで開いている可能性があります。アドレスバーに <code>chrome://version</code> と入力して、バージョンが148以上か確認してください。</p>
       </div>
     </details>
 
@@ -186,28 +198,76 @@ a{color:var(--ok)}
   </div>
 </div>
 
-<div class="card" id="mentorCard">
-  <h2><span class="n">M</span>メンターの方へ</h2>
+<div class="card soft">
+  <h2><span class="n">◆</span>当日の持ち物</h2>
   <div class="body">
-    <p>上記に加えて、<strong>ハンズオンを一度通しで体験しておいてください。</strong>当日チームに伴走する際、内容を知らないと支援できません。</p>
+    <p><strong>筆記用具のみお持ちください。</strong></p>
+    <p>PC、マイコンボード、センサー、その他の機材はすべてこちらでご用意します。ご自身のPCをお使いになりたい方は、手順2で「準備できました」と表示されることをご確認のうえ、お持ちください。</p>
+  </div>
+</div>
+
+<div class="card soft">
+  <h2><span class="n">◆</span>事前学習について（任意）</h2>
+  <div class="body">
+    <p><strong>やらなくても大丈夫です。</strong>ハンズオンは、プログラミングやハードウェアが初めての方に合わせて作っています。</p>
+    <p>興味のある方は、以下に触れておくとより楽しめます。</p>
     <ul>
-      <li>教材トップ: <a href="./" id="lnkTop">ハンズオンページ</a></li>
-      <li>詳しい診断: <a href="./check.html">check.html</a></li>
+      <li>Python の基本文法（変数・繰り返し・関数）</li>
+      <li>「M5Stack」で画像検索して、どんなデバイスか見ておく</li>
+      <li>ブラウザーの開発者ツール（F12キー）を開いてみる</li>
     </ul>
-    <p>特に以下の4点は、当日そのまま質問される箇所です。</p>
+  </div>
+</div>
+
+<div class="card">
+  <h2><span class="n">M</span>メンターの方へ（追加のお願い）</h2>
+  <div class="body">
+    <p>上記の事前準備に加えて、<strong>ハンズオンを一度通しで体験しておいてください。</strong>当日チームに伴走していただく際、内容を知らないと支援ができません。所要は2〜3時間程度です。</p>
+
     <table>
-      <tr><td>質問No.1</td><td>IDEとページのポート競合</td></tr>
-      <tr><td>サーボが落ちる</td><td>Grove の赤線</td></tr>
-      <tr><td>サーボが暴れる</td><td>共通GND</td></tr>
-      <tr><td>AIが不安定</td><td>スキーマ制約</td></tr>
+      <tr><td>教材トップ</td><td><a href="./">ハンズオンページ</a></td></tr>
+      <tr><td>詳しい診断</td><td><a href="./check.html">check.html</a></td></tr>
+      <tr><td>配線図</td><td><a href="./docs/wiring-summary.md">docs/wiring-summary.md</a></td></tr>
     </table>
-    <p class="note warn"><strong>メンターの一番大事な仕事は、チームに機能を足させることではなく、削らせることです。</strong>開発時間は約160分しかありません。</p>
+
+    <p>機材一式をお渡ししますので、HO-0 から HO-5 まで順に進めてください。</p>
+
+    <details open>
+      <summary>当日そのまま質問される4点</summary>
+      <div class="in">
+        <p>参加者が詰まる箇所は、ほぼこの4つに集中します。</p>
+        <table>
+          <tr><th>症状</th><th>原因</th></tr>
+          <tr><td><strong>ポートが選べない</strong></td><td><strong>IDEとページの両方が繋ごうとしている（質問No.1）</strong></td></tr>
+          <tr><td>サーボで再起動する</td><td>Groveケーブルの赤線がブレッドボードに刺さっている</td></tr>
+          <tr><td>サーボが暴れる</td><td>M5StackのGNDがブレッドボードと繋がっていない</td></tr>
+          <tr><td>AIでエラーが出る</td><td>スキーマ制約を使っていない</td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details>
+      <summary>メンターの一番大事な仕事</summary>
+      <div class="in">
+        <p><strong>チームに機能を足させることではなく、削らせることです。</strong></p>
+        <p>Day2 の開発時間は約160分しかありません。親切心から「それも実装しよう」と言うと、発表までに動かなくなります。</p>
+        <p>中間の進捗共有では、各チームに以下を必ず言わせてください。</p>
+        <ul>
+          <li>今、何がどこまで<strong>動いているか</strong></li>
+          <li>一番詰まっていること</li>
+          <li><strong>間に合わないなら何を削るか</strong></li>
+        </ul>
+        <p>3つ目を言わせることで、諦めの意思決定が場に出ます。</p>
+      </div>
+    </details>
+
+    <p class="note">開催の1週間前に、60分程度のブリーフィングを予定しています。<strong>それまでに一度触っておいていただけると、議論が具体的になります。</strong>日程は別途ご連絡します。</p>
   </div>
 </div>
 
 <footer>
-  当日は筆記用具のみお持ちください。PC・機材はすべてご用意します。<br>
-  ご不明な点は案内メールの連絡先までお願いします。
+  ご不明な点は案内メールの連絡先までお願いします。<br>
+  当日お会いできるのを楽しみにしています。
 </footer>
 
 </div>
@@ -254,13 +314,13 @@ async function run() {
   $('btnGo').textContent = '確認中…';
   show(null);
 
-  // --- ブラウザ ---
+  // --- ブラウザー ---
   const ua = navigator.userAgent;
   const ver = (ua.match(/Chrome\/(\d+)/) || [])[1] | 0;
   const other = /Edg\//.test(ua) ? 'Edge' : navigator.brave ? 'Brave'
               : /OPR\//.test(ua) ? 'Opera' : null;
   R.chrome = ver; R.browser = other || 'Chrome';
-  addRow('ブラウザ', (other || 'Chrome') + ' ' + (ver || '?'),
+  addRow('ブラウザー', (other || 'Chrome') + ' ' + (ver || '?'),
          (!other && ver >= 148) ? 'ok' : 'ng');
 
   if (other) {
@@ -315,6 +375,7 @@ async function run() {
     });
     s.destroy();
 
+    // ダウンロード後は状態が変わっているので取り直す
     const after = await LanguageModel.availability();
     R.availability = after;
     R.done = (after === 'available');
@@ -339,7 +400,7 @@ function buildReport() {
   L.push('【事前準備の結果】');
   L.push('お名前: ');
   L.push('');
-  L.push('ブラウザ: ' + (R.browser || '?') + ' ' + (R.chrome || '?'));
+  L.push('ブラウザー: ' + (R.browser || '?') + ' ' + (R.chrome || '?'));
   L.push('AIの状態: ' + (R.availability || '未確認'));
   L.push('準備完了: ' + (R.done ? 'はい' : 'いいえ'));
   L.push('OS: ' + (navigator.platform || '不明'));

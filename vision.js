@@ -19,7 +19,7 @@
 
        <script src="vision.js"></script>
 
-     そのあと、ブラウザのコンソールで試せます。
+     そのあと、ブラウザーのコンソールで試せます。
 
        await Vision.start();              // カメラを起動
        await Vision.ask('何が見えますか'); // 1 フレーム撮って AI に渡す

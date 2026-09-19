@@ -46,7 +46,7 @@ function log(kind, text) {
 }
 
 /* ===========================================================================
-   1. ブラウザと端末
+   1. ブラウザーと端末
    =========================================================================== */
 
 function checkEnv() {
@@ -57,13 +57,13 @@ function checkEnv() {
   row('tblEnv', 'Chrome バージョン', ver ? String(ver) : '不明',
       ver >= 148 ? 'ok' : 'ng');
 
-  // Chromium 系の別ブラウザを弾く
+  // Chromium 系の別ブラウザーを弾く
   const isEdge = /Edg\//.test(ua);
   const isBrave = !!navigator.brave;
   const isOpera = /OPR\//.test(ua);
   const other = isEdge ? 'Edge' : isBrave ? 'Brave' : isOpera ? 'Opera' : null;
   R.browser = other || 'Chrome';
-  row('tblEnv', 'ブラウザ', other ? other + '（Chrome 公式ビルドが必要）' : 'Chrome',
+  row('tblEnv', 'ブラウザー', other ? other + '（Chrome 公式ビルドが必要）' : 'Chrome',
       other ? 'ng' : 'ok');
 
   R.secure = isSecureContext;
@@ -87,7 +87,7 @@ function checkEnv() {
   R.mem = dm || null;
   row('tblEnv', 'メモリ（概算）',
       (dm ? dm + 'GB 以上' : '取得できません') +
-      ' — ブラウザからは正確に取れません。端末の設定画面で確認してください', 'info');
+      ' — ブラウザーからは正確に取れません。端末の設定画面で確認してください', 'info');
 
   navigator.storage?.estimate?.().then((e) => {
     const gb = e.quota ? (e.quota / 1073741824).toFixed(1) : '?';
@@ -150,7 +150,7 @@ async function checkAI(startDownload) {
     R.createMs = ms;
     row('tblAI', 'セッション作成', ms + ' ms', 'ok');
 
-    // 使えるパラメータの上限を控えておく
+    // 使えるパラメーターの上限を控えておく
     if (typeof s.inputQuota === 'number') {
       R.inputQuota = s.inputQuota;
       row('tblAI', 'inputQuota', String(s.inputQuota), 'na');
@@ -448,12 +448,12 @@ function generate() {
   L.push('実施日時: ' + d);
   L.push('端末名  : ');
   L.push('');
-  L.push('### ブラウザと端末');
+  L.push('### ブラウザーと端末');
   L.push('');
   L.push('| 項目 | 値 |');
   L.push('|---|---|');
   L.push(`| Chrome バージョン | ${R.chrome ?? '—'} |`);
-  L.push(`| ブラウザ | ${R.browser ?? '—'} |`);
+  L.push(`| ブラウザー | ${R.browser ?? '—'} |`);
   L.push(`| セキュアコンテキスト | ${R.secure ? 'はい' : 'いいえ'} |`);
   L.push(`| Web Serial | ${R.serialApi ? '利用可' : '不可'} |`);
   L.push(`| Prompt API | ${R.lmApi ? '利用可' : '不可'} |`);

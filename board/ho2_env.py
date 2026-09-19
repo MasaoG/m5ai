@@ -1,6 +1,6 @@
 # HO-2  温湿度センサーを読む（ENV Ⅲ / SHT30）
 #
-# 接続: ENV Ⅲ Unit → PORT.A（本体上部・赤いコネクタ）
+# 接続: ENV Ⅲ Unit → PORT.A（本体上部・赤いコネクター）
 # Core2 の PORT.A は G32 = SDA / G33 = SCL です。
 # ベース側面の PORT.B / PORT.C とは別なので間違えないこと。
 

@@ -57,7 +57,7 @@ const RESPONSE_SCHEMA = {
 
 
 /* ---------------------------------------------------------------------------
-   3. 推論パラメータ
+   3. 推論パラメーター
    --------------------------------------------------------------------------- */
 
 const AI_OPTIONS = {
@@ -91,7 +91,7 @@ function toBoardCommand(aiResult) {
   if (typeof aiResult.servo === 'number')  cmd.servo  = Math.round(aiResult.servo);
   if (typeof aiResult.status === 'string') cmd.status = aiResult.status;
   if (typeof aiResult.msg === 'string')    cmd.msg    = aiResult.msg;
-  // reason は長いのでボードには送らず、ブラウザ側だけで表示します。
+  // reason は長いのでボードには送らず、ブラウザー側だけで表示します。
   return cmd;
 }
 

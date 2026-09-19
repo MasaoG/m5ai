@@ -87,7 +87,7 @@ async function connect(preferSaved = true) {
   if (FAKE_BOARD) return startFakeBoard();
 
   if (!('serial' in navigator)) {
-    log('er', 'このブラウザは Web Serial に対応していません');
+    log('er', 'このブラウザーは Web Serial に対応していません');
     return;
   }
 
@@ -103,7 +103,7 @@ async function connect(preferSaved = true) {
 
     // 許可済みがなければ選択ダイアログを出します。
     // requestPort() はクリックなどのユーザー操作からしか呼べません。
-    // ページ読み込み時の自動接続はブラウザが許可しません。
+    // ページ読み込み時の自動接続はブラウザーが許可しません。
     S.port = picked || await navigator.serial.requestPort();
     if (picked) log('sys', '前回のポートに再接続します');
 
