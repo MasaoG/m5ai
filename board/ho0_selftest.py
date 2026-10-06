@@ -76,7 +76,7 @@ def wait_button():
 # === テスト1  LED バー ======================================================
 
 def test_led():
-    draw(1, 6, "LED バー", "赤→緑→青→白", "10個すべて光りますか")
+    draw(1, 7, "LED バー", "赤→緑→青→白", "10個すべて光りますか")
     say('--- [1] LED バー (G25 / SK6812 x10) ---')
 
     for name, color in [('赤', 0xff0000), ('緑', 0x00ff00),
@@ -92,7 +92,7 @@ def test_led():
         time.sleep_ms(70)
     rgb25.fill_color(0x000000)
 
-    draw(1, 6, "LED バー", "確認できましたか", "A:次へ  B:もう一度")
+    draw(1, 7, "LED バー", "確認できましたか", "A:次へ  B:もう一度")
     say('    → 10個すべて点灯し、1個ずつ流れれば OK')
     return wait_button()
 
@@ -102,20 +102,20 @@ def test_led():
 # 白100%は電流が大きいので、確認のあとすぐ戻します。
 
 def test_brightness():
-    draw(2, 6, "明るさ", "12% → 50% → 100%", "本体が熱くなりませんか")
+    draw(2, 7, "明るさ", "12% → 50% → 100%", "本体が熱くなりませんか")
     say('--- [2] 明るさと発熱 (白100%は約600mA) ---')
 
     for pct in (12, 50, 100):
         rgb25.set_brightness(pct)
         rgb25.fill_color(0xffffff)
-        draw(2, 6, "明るさ", "白 {} %".format(pct), "熱ければ B で中断")
+        draw(2, 7, "明るさ", "白 {} %".format(pct), "熱ければ B で中断")
         say('    白 {} %'.format(pct))
         time.sleep_ms(2500)
 
     rgb25.set_brightness(12)
     rgb25.fill_color(0x000000)
 
-    draw(2, 6, "明るさ", "12% に戻しました", "A:次へ  B:もう一度")
+    draw(2, 7, "明るさ", "12% に戻しました", "A:次へ  B:もう一度")
     say('    → 再起動しなければ OK。発熱の程度を記録すること')
     return wait_button()
 
@@ -123,13 +123,13 @@ def test_brightness():
 # === テスト3  I2C スキャン ==================================================
 
 def test_i2c():
-    draw(3, 6, "I2C スキャン", "PORT.A を確認中", "")
+    draw(3, 7, "I2C スキャン", "PORT.A を確認中", "")
     say('--- [3] I2C スキャン (PORT.A / G32=SDA G33=SCL) ---')
 
     try:
         found = i2c.scan()
     except Exception as e:
-        draw(3, 6, "I2C スキャン", "エラー", "配線を確認してください")
+        draw(3, 7, "I2C スキャン", "エラー", "配線を確認してください")
         say('    ERROR: ' + str(e))
         results.append(('I2C scan', 'ERROR'))
         return wait_button()
@@ -143,7 +143,7 @@ def test_i2c():
 
     msg = "0x44 {}   0x70 {}".format('OK' if ok44 else 'NG',
                                      'OK' if ok70 else 'NG')
-    draw(3, 6, "I2C スキャン", msg, "A:次へ  B:もう一度")
+    draw(3, 7, "I2C スキャン", msg, "A:次へ  B:もう一度")
 
     say('    0x44 SHT30   : ' + ('OK' if ok44 else 'NG ← ENV III を確認'))
     say('    0x70 QMP6988 : ' + ('OK' if ok70 else 'NG'))
@@ -164,7 +164,7 @@ def read_sht30():
 
 
 def test_sensor():
-    draw(4, 6, "温湿度センサー", "測定中", "息を吹きかけてみてください")
+    draw(4, 7, "温湿度センサー", "測定中", "息を吹きかけてみてください")
     say('--- [4] 温湿度センサー (SHT30 / 0x44) ---')
 
     first = None
@@ -176,7 +176,7 @@ def test_sensor():
         try:
             t, h = read_sht30()
         except Exception as e:
-            draw(4, 6, "温湿度センサー", "読み取り失敗", str(e)[:24])
+            draw(4, 7, "温湿度センサー", "読み取り失敗", str(e)[:24])
             say('    ERROR: ' + str(e))
             results.append(('Sensor', 'ERROR'))
             return wait_button()
@@ -185,7 +185,7 @@ def test_sensor():
             first = (t, h)
         last = (t, h)
 
-        draw(4, 6, "温湿度センサー",
+        draw(4, 7, "温湿度センサー",
              "{:.1f} ℃  {:.1f} %".format(t, h),
              "息を吹きかけて湿度が上がるか")
 
@@ -200,7 +200,7 @@ def test_sensor():
     rgb25.fill_color(0x000000)
     results.append(('Sensor', '{:.1f}C {:.1f}%'.format(last[0], last[1])))
 
-    draw(4, 6, "温湿度センサー", "{:.1f} ℃  {:.1f} %".format(last[0], last[1]),
+    draw(4, 7, "温湿度センサー", "{:.1f} ℃  {:.1f} %".format(last[0], last[1]),
          "A:次へ  B:もう一度")
     say('    → 息で湿度が上がれば OK。値だけ出ていても動作の証拠にならない')
     return wait_button()
@@ -208,8 +208,15 @@ def test_sensor():
 
 # === テスト5  サーボ ========================================================
 #
-# ★注意★ サーボの電源はブレッドボードから外部供給されているか、
-#         先に確認してください。M5Stack から取ると再起動します。
+# ★注意★ 接続を先に確認してください
+#
+#   ・サーボの電源はブレッドボードから外部供給されていること
+#     （M5Stack から取ると再起動します）
+#   ・信号線は G26 に繋がっていること
+#
+#   信号線の色は変換ケーブルの製品によって異なります。
+#   今回使用しているケーブルでは「白」が G26 でした。
+#   分からない場合は、このテストの前に [5b] で特定できます。
 
 PULSE_MIN_US = 500
 PULSE_MAX_US = 2400
@@ -225,9 +232,10 @@ def servo_deg(deg):
 
 
 def test_servo():
-    draw(5, 6, "サーボ", "90° に移動", "C で飛ばせます")
+    draw(5, 7, "サーボ", "90° に移動", "C で飛ばせます")
     say('--- [5] サーボ (PORT.B / G26) ---')
     say('    電源はブレッドボードから外部供給されていますか')
+    say('    信号線は G26 に繋がっていますか（色は製品により異なる）')
 
     servo_deg(90)
     time.sleep_ms(600)
@@ -241,7 +249,7 @@ def test_servo():
             n = int(deg * 10 / 180 + 0.5)
             for i in range(10):
                 rgb25.set_color(i, 0xff8c00 if i < n else 0x000000)
-            draw(5, 6, "サーボ",
+            draw(5, 7, "サーボ",
                  "{} °   {:.0f} µs".format(deg, PULSE_MIN_US +
                                            (PULSE_MAX_US - PULSE_MIN_US) * deg / 180),
                  "画面が消えたら電源系のミス")
@@ -251,17 +259,54 @@ def test_servo():
     rgb25.fill_color(0x000000)
     results.append(('Servo', '{}-{}us'.format(PULSE_MIN_US, PULSE_MAX_US)))
 
-    draw(5, 6, "サーボ", "往復しましたか", "A:次へ  B:もう一度")
+    draw(5, 7, "サーボ", "往復しましたか", "A:次へ  B:もう一度")
     say('    → 画面が消えなければ電源 OK')
     say('    → 両端で唸る場合は PULSE_MIN_US / PULSE_MAX_US を校正すること')
+    say('')
+    say('    ■ 動かなかった場合')
+    say('      1) ブレッドボードの +/- レール間に 5V が出ているか')
+    say('      2) M5Stack の黒線が - レールに繋がっているか（共通GND）')
+    say('      3) 信号線が G26 か → 次のテスト [5b] で特定できます')
+    return wait_button()
+
+
+# === テスト5b  信号線を特定する =============================================
+#
+# サーボが動かない原因の多くは「信号線の色が違う」ことです。
+# 変換ケーブルの製品によって、どの色が G26 に繋がっているかが変わります。
+#
+# このテストは G26 に既知のデューティ比を出すので、
+# テスターで各線を測れば、どれが信号線か分かります。
+
+def test_findsignal():
+    say('--- [5b] 信号線の特定（テスターが必要） ---')
+    say('    テスターの黒プローブ → ケーブルの黒線')
+    say('    テスターの赤プローブ → 他の線を1本ずつ')
+    say('')
+
+    for pct, ns in ((10, 2000000), (50, 10000000), (90, 18000000)):
+        servo.duty_ns(ns)
+        expect = 3.3 * pct / 100
+        draw(6, 7, "信号線の特定",
+             "{} %  → 約 {:.2f} V".format(pct, expect),
+             "各線を測ってください")
+        say('    デューティ {:2d}% → 信号線なら約 {:.2f} V'.format(pct, expect))
+        time.sleep_ms(4000)
+
+    servo.duty_ns(1500000)
+
+    draw(6, 7, "信号線の特定", "3段階で比例した線", "それが G26 です")
+    say('')
+    say('    → 電圧が 0.33V / 1.65V / 3.0V と比例した線が G26 です')
+    say('    → その線をサーボの橙（330Ω経由）に繋いでください')
     return wait_button()
 
 
 # === テスト6  シリアル送信 ==================================================
 
 def test_serial():
-    draw(6, 6, "シリアル送信", "JSON を10回送信", "IDE のターミナルを見てください")
-    say('--- [6] シリアル送信 (JSON Lines) ---')
+    draw(7, 7, "シリアル送信", "JSON を10回送信", "IDE のターミナルを見てください")
+    say('--- [7] シリアル送信 (JSON Lines) ---')
     say('    以下の10行がブラウザー側で受信できるか確認します')
 
     for i in range(10):
@@ -271,11 +316,11 @@ def test_serial():
             t, h = 0.0, 0.0
         payload = '{"t":%.1f,"h":%.1f,"n":%d}' % (t, h, i)
         print(payload)
-        draw(6, 6, "シリアル送信", "{} / 10".format(i + 1), "")
+        draw(7, 7, "シリアル送信", "{} / 10".format(i + 1), "")
         time.sleep_ms(500)
 
     results.append(('Serial', 'sent 10 lines'))
-    draw(6, 6, "シリアル送信", "10行 送信しました", "A:結果へ")
+    draw(7, 7, "シリアル送信", "10行 送信しました", "A:結果へ")
     return wait_button()
 
 
@@ -292,7 +337,7 @@ def show_summary():
     say('  この内容を記録用紙に貼り付けてください')
     say('')
 
-    draw(0, 6, "診断おわり", "結果はターミナルに", "B で最初からやり直せます")
+    draw(0, 7, "診断おわり", "結果はターミナルに", "B で最初からやり直せます")
     rgb25.fill_color(0x003c00)
 
     while True:
@@ -312,7 +357,7 @@ def setup():
     m5ui.init()
 
     page0 = m5ui.M5Page(bg_c=0x000000)
-    lblNo = m5ui.M5Label("[0/6]", x=15, y=10,
+    lblNo = m5ui.M5Label("[0/7]", x=15, y=10,
                          text_c=0x888888, bg_c=0x000000, bg_opa=0,
                          font=lv.AlibabaSans_JP24, parent=page0)
     lblTitle = m5ui.M5Label("自己診断", x=15, y=55,
@@ -337,6 +382,7 @@ def setup():
     say('=========================================')
     say('  M5Stack Core2 for AWS  自己診断')
     say('  A:次へ  B:やり直し  C:飛ばす')
+    say('  全 7 項目')
     say('=========================================')
 
     wait_button()
@@ -344,7 +390,8 @@ def setup():
 
 # === メイン =================================================================
 
-TESTS = [test_led, test_brightness, test_i2c, test_sensor, test_servo, test_serial]
+TESTS = [test_led, test_brightness, test_i2c, test_sensor,
+         test_servo, test_findsignal, test_serial]
 
 
 def run_all():
@@ -380,5 +427,6 @@ if __name__ == '__main__':
 #   [3] I2C     scan() の実際の出力（そのままコピー）
 #   [4] センサー 室温との差。息で湿度が上がるか
 #   [5] サーボ  両端の実測パルス幅。動作中に画面が消えないか
+#   [5b] 信号線 どの色が G26 か（変換ケーブルの製品差を確認）
 #   [6] シリアル ブラウザー側で10行すべて受信できるか
 # ---------------------------------------------------------------------------
