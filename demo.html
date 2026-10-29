@@ -11,48 +11,95 @@
     --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
   }
   *{box-sizing:border-box}
+
+  /* ======================================================================
+     横長のノート PC で、縦スクロールなしに全部が見えるようにしています。
+     画面の高さは機械によって違うので、高さを数値で決め打ちしていません。
+     余りや不足は「伸び縮みする要素」── テキストエリアとログと AI の返事 ──
+     が吸収します。画面が低ければそこが縮み、高ければそこが伸びます。
+     幅が 1180px を下回ったら、1列に戻して普通にスクロールします。
+     ====================================================================== */
+  html,body{height:100%}
   body{margin:0;background:var(--bg);color:var(--ink);
        font-family:'Hiragino Sans','Yu Gothic UI','Meiryo',sans-serif;
-       font-size:15px;line-height:1.7}
-  header{background:#1c1c1c;color:#fff;padding:14px 20px}
-  header h1{margin:0;font-size:17px}
-  header p{margin:3px 0 0;font-size:12px;color:#9aa0a6}
-  main{max-width:960px;margin:0 auto;padding:16px 20px 40px}
-  .row{display:flex;gap:16px;flex-wrap:wrap}
-  .col{flex:1 1 420px;min-width:320px}
-  .card{background:var(--card);border:1px solid var(--line);
-        border-radius:8px;padding:14px 16px;margin-bottom:14px}
-  .card h2{margin:0 0 10px;font-size:14px;letter-spacing:.02em}
-  button{font:inherit;padding:8px 14px;border-radius:6px;cursor:pointer;
+       font-size:17px;line-height:1.6;
+       display:flex;flex-direction:column;
+       /* ふつうのノート PC なら収まります。画面がよほど低いときだけ、
+          切り取らずにスクロールさせます（hidden にしない理由）。 */
+       overflow:auto}
+
+  header{flex:none;background:#1c1c1c;color:#fff;padding:10px 18px}
+  header h1{margin:0;font-size:23px;letter-spacing:.01em}
+  header p{margin:2px 0 0;font-size:15px;color:#a8afb6;line-height:1.5}
+
+  main{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;
+       gap:10px;padding:10px 14px 12px}
+
+  .note{flex:none;margin:0;background:#fdf0ee;border:1px solid #e8b6ae;
+        color:#a02c1c;border-radius:7px;padding:7px 14px;font-size:16px}
+
+  /* --- 3列 ------------------------------------------------------------- */
+  /* 1列目は操作だけなので細く、3列目はコードを見せるので広めに配分します */
+  .row{flex:1 1 auto;min-height:0;display:grid;gap:12px;
+       grid-template-columns:minmax(0,1.04fr) minmax(0,.92fr) minmax(0,1.04fr)}
+  .col{min-height:0;display:flex;flex-direction:column;gap:10px}
+
+  .card{flex:none;min-height:0;display:flex;flex-direction:column;
+        background:var(--card);border:1px solid var(--line);
+        border-radius:8px;padding:11px 14px}
+  .card h2{flex:none;margin:0 0 8px;font-size:17px;letter-spacing:.02em}
+  .card.grow{flex:1 1 0}             /* 余白を引き受ける札 */
+  .card.grow2{flex:1.8 1 0}          /* そのなかでも、多めに引き受ける札 */
+  .fill{flex:1 1 0;min-height:0}     /* その札の中で伸びる部品 */
+
+  button{font:inherit;padding:7px 14px;border-radius:6px;cursor:pointer;
          border:1px solid #c8ccd0;background:#fff}
   button:hover:not(:disabled){background:#f0f2f4}
   button:disabled{opacity:.45;cursor:not-allowed}
   button.main{background:#1c1c1c;color:#fff;border-color:#1c1c1c}
   button.main:hover:not(:disabled){background:#333}
-  .pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
-  .pills button{padding:6px 12px;font-size:13px}
+  .pills{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}
+  .pills button{padding:5px 11px;font-size:15.5px}
   input[type=text],textarea{width:100%;font:inherit;padding:8px 10px;
         border:1px solid #c8ccd0;border-radius:6px;background:#fff}
-  textarea{font-family:var(--mono);font-size:12.5px;line-height:1.6;resize:vertical}
-  .tag{display:inline-block;padding:2px 9px;border-radius:999px;
-       font-size:12px;border:1px solid var(--line);background:#f2f4f5;color:var(--sub)}
+  input[type=text]{font-size:18px}
+  textarea{font-family:var(--mono);font-size:14px;line-height:1.55;resize:none}
+  .tag{display:inline-block;padding:2px 10px;border-radius:999px;
+       font-size:14.5px;border:1px solid var(--line);background:#f2f4f5;color:var(--sub)}
   .tag.ok{background:#e7f5ee;color:var(--ok);border-color:#b9e0cd}
   .tag.ng{background:#fdeceb;color:var(--ng);border-color:#f2c2bd}
   .tag.work{background:#fdf3e3;color:var(--accent);border-color:#ecd5a8}
-  .big{font-family:var(--mono);font-size:28px;font-weight:700;letter-spacing:.02em}
-  .muted{color:var(--sub);font-size:12.5px}
-  pre{margin:0;font-family:var(--mono);font-size:12.5px;white-space:pre-wrap;
-      word-break:break-all;background:#f7f8f9;border:1px solid var(--line);
-      border-radius:6px;padding:10px 12px}
-  #log{height:150px;overflow:auto;background:#12161a;color:#cfd6dd;
-       border-radius:6px;padding:9px 11px;font-family:var(--mono);font-size:11.5px}
+  .big{font-family:var(--mono);font-size:46px;font-weight:700;
+       letter-spacing:.01em;line-height:1.1}
+  .big .unit{font-size:22px;font-weight:400}
+  .muted{color:var(--sub);font-size:14.5px}
+  pre{margin:0;font-family:var(--mono);font-size:14px;line-height:1.5;
+      white-space:pre-wrap;word-break:break-all;overflow:auto;
+      background:#f7f8f9;border:1px solid var(--line);
+      border-radius:6px;padding:9px 12px}
+  #log{overflow:auto;background:#12161a;color:#cfd6dd;min-height:52px;
+       border-radius:6px;padding:8px 11px;font-family:var(--mono);font-size:13px}
   #log div{white-space:pre-wrap;word-break:break-all}
   .log-tx{color:#7ec9ff}.log-rx{color:#8fe3b0}.log-ai{color:#ffd08a}.log-er{color:#ff9d93}
-  .note{background:#fdf0ee;border:1px solid #e8b6ae;color:#a02c1c;
-        border-radius:6px;padding:9px 12px;font-size:13px;margin-bottom:14px}
   .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  label{display:block;font-size:12.5px;color:var(--sub);margin:10px 0 4px}
+  label{display:block;font-size:14.5px;color:var(--sub);margin:9px 0 4px}
   .k{color:var(--accent);font-weight:700}
+  input[type=range]{width:100%;height:26px}
+
+  /* --- 幅が足りないときは、もとの1列に戻す ------------------------------ */
+  @media (max-width:1180px){
+    html,body{height:auto}
+    body{overflow:auto}
+    main{display:block;padding:14px 18px 40px}
+    .note{margin-bottom:14px}
+    .row{display:block}
+    .col{display:block}
+    .card{display:block;margin-bottom:14px}
+    textarea{height:190px;resize:vertical}
+    #log{height:190px}
+    #aiJson{min-height:90px}
+  }
+
   @media (prefers-color-scheme:dark){
     :root:not([data-theme="light"]){
       --bg:#14181b;--card:#1b2024;--line:#2c3339;--ink:#e8eaec;--sub:#9aa3ab}
@@ -60,6 +107,7 @@
     :root:not([data-theme="light"]) input,:root:not([data-theme="light"]) textarea{
       background:#232a2f;color:#e8eaec;border-color:#39424a}
     :root:not([data-theme="light"]) pre{background:#232a2f;border-color:#2c3339}
+    :root:not([data-theme="light"]) .note{background:#2a1c19;border-color:#5e332b;color:#f0a596}
   }
 </style>
 </head>
@@ -78,30 +126,23 @@
 
 <div class="row">
 
-  <!-- ===== 左 ===== -->
+  <!-- ===== 1列目：操作 ===================================================== -->
   <div class="col">
 
     <div class="card">
-      <h2>1. つなぐ</h2>
+      <h2>1. つなぐ　／　2. AI を準備する</h2>
       <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
         <button id="btnConn" class="main">ボードに接続</button>
         <button id="btnDisc" disabled>切断</button>
         <span id="tagConn" class="tag">未接続</span>
       </div>
-      <p class="muted" style="margin:8px 0 0">
-        UIFlow2 の <b>Disconnect</b> を押してから接続してください。シリアルポートは1つのアプリしか掴めません。
-      </p>
-    </div>
-
-    <div class="card">
-      <h2>2. AI を準備する</h2>
-      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px">
         <button id="btnAI" class="main">AI を準備</button>
         <span id="tagAI" class="tag">未準備</span>
         <span id="tagNet" class="tag"></span>
       </div>
-      <p class="muted" id="aiHint" style="margin:8px 0 0">
-        初回はモデルのダウンロードが走ることがあります。
+      <p class="muted" id="aiHint" style="margin:7px 0 0">
+        先に UIFlow2 の <b>Disconnect</b> を。ポートは1つのアプリしか掴めません。
       </p>
     </div>
 
@@ -123,74 +164,78 @@
       </div>
     </div>
 
+    <div class="card grow">
+      <h2>ログ</h2>
+      <div id="log" class="fill"></div>
+    </div>
+
+  </div>
+
+  <!-- ===== 2列目：いま起きていること ======================================= -->
+  <div class="col">
+
     <div class="card">
       <h2>いまの向き</h2>
       <div class="grid2">
         <div>
           <div class="muted">PAN（左右）</div>
-          <div class="big"><span id="vPan">--</span><span style="font-size:16px"> °</span></div>
+          <div class="big"><span id="vPan">--</span><span class="unit"> °</span></div>
           <div class="muted">指示 <span id="tPan">--</span> °</div>
         </div>
         <div>
           <div class="muted">TILT（上下）</div>
-          <div class="big"><span id="vTilt">--</span><span style="font-size:16px"> °</span></div>
+          <div class="big"><span id="vTilt">--</span><span class="unit"> °</span></div>
           <div class="muted">指示 <span id="tTilt">--</span> °</div>
         </div>
       </div>
-      <div class="muted" style="margin-top:6px">
-        大きい数字が<b>いま実際に向いている角度</b>、小さい数字が<b>ボードが目指している角度</b>です。<br>
-        動いている間は2つが違います。止まれば一致します。
+      <div class="muted" style="margin-top:4px">
+        大きい数字が<b>いま実際に向いている角度</b>、小さい数字が<b>ボードが目指している角度</b>。
+        動いている間は違い、止まれば一致します。
       </div>
 
       <label>手で動かす（AI なしでボードだけ確認する）</label>
       <div class="grid2">
         <div>
-          <input type="range" id="sPan" min="0" max="180" value="90" style="width:100%" disabled>
+          <input type="range" id="sPan" min="0" max="180" value="90" disabled>
           <div class="muted">pan <span id="sPanV">90</span></div>
         </div>
         <div>
-          <input type="range" id="sTilt" min="0" max="180" value="90" style="width:100%" disabled>
+          <input type="range" id="sTilt" min="0" max="180" value="90" disabled>
           <div class="muted">tilt <span id="sTiltV">90</span></div>
         </div>
       </div>
     </div>
 
+    <div class="card grow grow2">
+      <h2>AI の返事</h2>
+      <pre id="aiJson" class="fill">まだ推論していません</pre>
+      <div style="flex:none;margin-top:8px;font-size:22px;font-weight:700" id="aiMsg"></div>
+    </div>
+
   </div>
 
-  <!-- ===== 右 ===== -->
+  <!-- ===== 3列目：仕組み（書き換えて試せる） =============================== -->
   <div class="col">
 
-    <div class="card">
-      <h2>AI の返事</h2>
-      <pre id="aiJson">まだ推論していません</pre>
-      <div style="margin-top:8px;font-size:17px" id="aiMsg"></div>
-    </div>
-
-    <div class="card">
+    <div class="card grow grow2">
       <h2>出力スキーマ</h2>
-      <p class="muted" style="margin:0 0 8px">
+      <p class="muted" style="flex:none;margin:0 0 7px">
         <b>AI が返せる値を、この形に縛っています。</b>
         <span class="k">minimum / maximum は、この機械が実際に回れる範囲</span>です。
-        ここを書いておくと、サーボを壊す角度が返ってきません。
       </p>
-      <textarea id="taSch" rows="12" spellcheck="false"></textarea>
-      <div class="muted" id="schErr" style="color:var(--ng)"></div>
+      <textarea id="taSch" class="fill" spellcheck="false"></textarea>
+      <div class="muted" id="schErr" style="flex:none;color:var(--ng)"></div>
     </div>
 
-    <div class="card">
+    <div class="card grow">
       <h2>システムプロンプト</h2>
-      <p class="muted" style="margin:0 0 8px">
+      <p class="muted" style="flex:none;margin:0 0 7px">
         AI の役割。<b>向きが逆に出るときは、ここの説明を直してください。</b>
       </p>
-      <textarea id="taSys" rows="10" spellcheck="false"></textarea>
-      <div style="margin-top:8px">
+      <textarea id="taSys" class="fill" spellcheck="false"></textarea>
+      <div style="flex:none;margin-top:8px">
         <button id="btnReload">書き換えを反映（AI を作り直す）</button>
       </div>
-    </div>
-
-    <div class="card">
-      <h2>ログ</h2>
-      <div id="log"></div>
     </div>
 
   </div>
