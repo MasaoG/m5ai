@@ -1,0 +1,559 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>しるべナノ</title>
+<style>
+  :root{
+    --bg:#f6f7f8; --card:#fff; --line:#dfe3e1; --ink:#1c1c1c;
+    --sub:#5b6167; --accent:#b45309; --ok:#1a7f52; --ng:#b4342a;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font-family:'Hiragino Sans','Yu Gothic UI','Meiryo',sans-serif;
+       font-size:15px;line-height:1.7}
+  header{background:#1c1c1c;color:#fff;padding:14px 20px}
+  header h1{margin:0;font-size:17px}
+  header p{margin:3px 0 0;font-size:12px;color:#9aa0a6}
+  main{max-width:960px;margin:0 auto;padding:16px 20px 40px}
+  .row{display:flex;gap:16px;flex-wrap:wrap}
+  .col{flex:1 1 420px;min-width:320px}
+  .card{background:var(--card);border:1px solid var(--line);
+        border-radius:8px;padding:14px 16px;margin-bottom:14px}
+  .card h2{margin:0 0 10px;font-size:14px;letter-spacing:.02em}
+  button{font:inherit;padding:8px 14px;border-radius:6px;cursor:pointer;
+         border:1px solid #c8ccd0;background:#fff}
+  button:hover:not(:disabled){background:#f0f2f4}
+  button:disabled{opacity:.45;cursor:not-allowed}
+  button.main{background:#1c1c1c;color:#fff;border-color:#1c1c1c}
+  button.main:hover:not(:disabled){background:#333}
+  .pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+  .pills button{padding:6px 12px;font-size:13px}
+  input[type=text],textarea{width:100%;font:inherit;padding:8px 10px;
+        border:1px solid #c8ccd0;border-radius:6px;background:#fff}
+  textarea{font-family:var(--mono);font-size:12.5px;line-height:1.6;resize:vertical}
+  .tag{display:inline-block;padding:2px 9px;border-radius:999px;
+       font-size:12px;border:1px solid var(--line);background:#f2f4f5;color:var(--sub)}
+  .tag.ok{background:#e7f5ee;color:var(--ok);border-color:#b9e0cd}
+  .tag.ng{background:#fdeceb;color:var(--ng);border-color:#f2c2bd}
+  .tag.work{background:#fdf3e3;color:var(--accent);border-color:#ecd5a8}
+  .big{font-family:var(--mono);font-size:28px;font-weight:700;letter-spacing:.02em}
+  .muted{color:var(--sub);font-size:12.5px}
+  pre{margin:0;font-family:var(--mono);font-size:12.5px;white-space:pre-wrap;
+      word-break:break-all;background:#f7f8f9;border:1px solid var(--line);
+      border-radius:6px;padding:10px 12px}
+  #log{height:150px;overflow:auto;background:#12161a;color:#cfd6dd;
+       border-radius:6px;padding:9px 11px;font-family:var(--mono);font-size:11.5px}
+  #log div{white-space:pre-wrap;word-break:break-all}
+  .log-tx{color:#7ec9ff}.log-rx{color:#8fe3b0}.log-ai{color:#ffd08a}.log-er{color:#ff9d93}
+  .note{background:#fdf0ee;border:1px solid #e8b6ae;color:#a02c1c;
+        border-radius:6px;padding:9px 12px;font-size:13px;margin-bottom:14px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  label{display:block;font-size:12.5px;color:var(--sub);margin:10px 0 4px}
+  .k{color:var(--accent);font-weight:700}
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --bg:#14181b;--card:#1b2024;--line:#2c3339;--ink:#e8eaec;--sub:#9aa3ab}
+    :root:not([data-theme="light"]) button{background:#232a2f;color:#e8eaec;border-color:#39424a}
+    :root:not([data-theme="light"]) input,:root:not([data-theme="light"]) textarea{
+      background:#232a2f;color:#e8eaec;border-color:#39424a}
+    :root:not([data-theme="light"]) pre{background:#232a2f;border-color:#2c3339}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>しるべナノ</h1>
+  <p>Chrome の中のオンデバイス AI（Gemini Nano）が方向を考えて、実際のサーボ2基の簡易ロボットがその方向に向きます。推論は端末の中だけで完結しています。</p>
+</header>
+
+<main>
+
+<div class="note">
+  <b>デモの順番：</b> ① ボードに接続 → ② AI を準備 → ③ 話しかける → <b>④ 機内モードにして、もう一度話しかける</b>
+</div>
+
+<div class="row">
+
+  <!-- ===== 左 ===== -->
+  <div class="col">
+
+    <div class="card">
+      <h2>1. つなぐ</h2>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <button id="btnConn" class="main">ボードに接続</button>
+        <button id="btnDisc" disabled>切断</button>
+        <span id="tagConn" class="tag">未接続</span>
+      </div>
+      <p class="muted" style="margin:8px 0 0">
+        UIFlow2 の <b>Disconnect</b> を押してから接続してください。シリアルポートは1つのアプリしか掴めません。
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>2. AI を準備する</h2>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <button id="btnAI" class="main">AI を準備</button>
+        <span id="tagAI" class="tag">未準備</span>
+        <span id="tagNet" class="tag"></span>
+      </div>
+      <p class="muted" id="aiHint" style="margin:8px 0 0">
+        初回はモデルのダウンロードが走ることがあります。
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>3. 話しかける</h2>
+      <input type="text" id="txt" placeholder="例： 右のほうを見て" autocomplete="off">
+      <div style="display:flex;gap:8px;margin-top:8px;align-items:center">
+        <button id="btnGo" class="main" disabled>指差す</button>
+        <span id="tagLat" class="tag"></span>
+      </div>
+      <div class="pills">
+        <button class="preset" data-t="右を見て">右を見て</button>
+        <button class="preset" data-t="左のほう">左のほう</button>
+        <button class="preset" data-t="上を見上げて">上を見上げて</button>
+        <button class="preset" data-t="足もとを見て">足もとを見て</button>
+        <button class="preset" data-t="北極星はどこ？">北極星はどこ？</button>
+        <button class="preset" data-t="正面に戻って">正面に戻って</button>
+        <button class="preset" data-t="いちばん遠いところ">いちばん遠いところ</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>いまの向き</h2>
+      <div class="grid2">
+        <div>
+          <div class="muted">PAN（左右）</div>
+          <div class="big"><span id="vPan">--</span><span style="font-size:16px"> °</span></div>
+          <div class="muted">指示 <span id="tPan">--</span> °</div>
+        </div>
+        <div>
+          <div class="muted">TILT（上下）</div>
+          <div class="big"><span id="vTilt">--</span><span style="font-size:16px"> °</span></div>
+          <div class="muted">指示 <span id="tTilt">--</span> °</div>
+        </div>
+      </div>
+      <div class="muted" style="margin-top:6px">
+        大きい数字が<b>いま実際に向いている角度</b>、小さい数字が<b>ボードが目指している角度</b>です。<br>
+        動いている間は2つが違います。止まれば一致します。
+      </div>
+
+      <label>手で動かす（AI なしでボードだけ確認する）</label>
+      <div class="grid2">
+        <div>
+          <input type="range" id="sPan" min="0" max="180" value="90" style="width:100%" disabled>
+          <div class="muted">pan <span id="sPanV">90</span></div>
+        </div>
+        <div>
+          <input type="range" id="sTilt" min="0" max="180" value="90" style="width:100%" disabled>
+          <div class="muted">tilt <span id="sTiltV">90</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===== 右 ===== -->
+  <div class="col">
+
+    <div class="card">
+      <h2>AI の返事</h2>
+      <pre id="aiJson">まだ推論していません</pre>
+      <div style="margin-top:8px;font-size:17px" id="aiMsg"></div>
+    </div>
+
+    <div class="card">
+      <h2>出力スキーマ</h2>
+      <p class="muted" style="margin:0 0 8px">
+        <b>AI が返せる値を、この形に縛っています。</b>
+        <span class="k">minimum / maximum は、この機械が実際に回れる範囲</span>です。
+        ここを書いておくと、サーボを壊す角度が返ってきません。
+      </p>
+      <textarea id="taSch" rows="12" spellcheck="false"></textarea>
+      <div class="muted" id="schErr" style="color:var(--ng)"></div>
+    </div>
+
+    <div class="card">
+      <h2>システムプロンプト</h2>
+      <p class="muted" style="margin:0 0 8px">
+        AI の役割。<b>向きが逆に出るときは、ここの説明を直してください。</b>
+      </p>
+      <textarea id="taSys" rows="10" spellcheck="false"></textarea>
+      <div style="margin-top:8px">
+        <button id="btnReload">書き換えを反映（AI を作り直す）</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>ログ</h2>
+      <div id="log"></div>
+    </div>
+
+  </div>
+</div>
+</main>
+
+<script>
+/* ===========================================================================
+   しるべナノ — Plan B（生PWM 2軸）用のデモページ
+
+   プロトコル（1行1JSON）
+     ページ → ボード : {"pan":120,"tilt":95,"msg":"あちらです"}
+     ボード → ページ : {"pan":120,"tilt":95,"tp":150,"tt":90,"btn":0,"drop":0}
+
+       pan / tilt … いま実際に向いている角度
+       tp  / tt   … いまボードが目指している角度（= 指示が届いた結果）
+       drop       … ボードが読めなかった行の累計。増えたらどこかが詰まっている
+   =========================================================================== */
+
+const BAUD = 115200;
+
+/* --- ハードの実測値（2026/10/25） ------------------------------------- */
+const PAN_MIN = 0,  PAN_MAX = 180;
+const TILT_MIN = 0, TILT_MAX = 180;
+
+const DEFAULT_SCHEMA = `{
+  "type": "object",
+  "properties": {
+    "pan":  { "type": "integer", "minimum": ${PAN_MIN},  "maximum": ${PAN_MAX} },
+    "tilt": { "type": "integer", "minimum": ${TILT_MIN}, "maximum": ${TILT_MAX} },
+    "msg":  { "type": "string", "maxLength": 14 }
+  },
+  "required": ["pan", "tilt", "msg"],
+  "additionalProperties": false
+}`;
+
+const DEFAULT_SYS = `あなたは机の上の「指差しロボット」です。
+2つのサーボで向きを決めます。
+
+  pan  : 0 = 左いっぱい / 90 = 正面 / 180 = 右いっぱい
+  tilt : 0 = 下を向く  / 90 = 水平 / 180 = 上を向く
+
+人の言葉から、どちらを向くか決めてください。
+迷ったら 90 に近い値にしてください。
+
+msg は、その向きにした理由を14文字以内の日本語で短く。
+説明や数値は入れず、話しかけるように書いてください。`;
+
+const S = {
+  port:null, reader:null, writer:null, buf:'',
+  connected:false, ai:null, aiReady:false, busy:false,
+  schema:null, sys:'', drag:null, drop:0
+};
+
+const $ = (id) => document.getElementById(id);
+
+/* ===== ログ ============================================================ */
+function log(kind, text){
+  const el = document.createElement('div');
+  el.className = 'log-' + kind;
+  el.textContent = text;
+  $('log').appendChild(el);
+  $('log').scrollTop = $('log').scrollHeight;
+}
+
+/* ===== 1. ボードにつなぐ =============================================== */
+async function connect(){
+  if(!('serial' in navigator)){
+    log('er','この端末では Web Serial が使えません');
+    return;
+  }
+  try{
+    // 一度許可したポートは、クリックなしで取り出せます
+    const saved = await navigator.serial.getPorts();
+    S.port = saved.length ? saved[0] : await navigator.serial.requestPort();
+
+    await S.port.open({ baudRate: BAUD });
+    // これを呼ばないと、接続した瞬間にボードがリセットします
+    await S.port.setSignals({ dataTerminalReady:false, requestToSend:false });
+
+    const enc = new TextEncoderStream();
+    enc.readable.pipeTo(S.port.writable).catch(()=>{});
+    S.writer = enc.writable.getWriter();
+
+    const dec = new TextDecoderStream();
+    S.port.readable.pipeTo(dec.writable).catch(()=>{});
+    S.reader = dec.readable.getReader();
+
+    setConnected(true);
+    log('rx','接続しました');
+    readLoop();
+  }catch(e){
+    log('er','接続できません: ' + e.message);
+    log('er','UIFlow2 の Disconnect を押しましたか？');
+  }
+}
+
+async function disconnect(){
+  try{ if(S.reader){ await S.reader.cancel(); S.reader=null; } }catch(e){}
+  try{ if(S.writer){ await S.writer.close(); S.writer=null; } }catch(e){}
+  try{ if(S.port){ await S.port.close(); S.port=null; } }catch(e){}
+  setConnected(false);
+  log('rx','切断しました');
+}
+
+async function readLoop(){
+  try{
+    for(;;){
+      const {value, done} = await S.reader.read();
+      if(done) break;
+      S.buf += value;
+      let i;
+      // 改行が「1件の終わり」。溜めてから切ります
+      while((i = S.buf.indexOf('\n')) >= 0){
+        const line = S.buf.slice(0,i).trim();
+        S.buf = S.buf.slice(i+1);
+        if(line.startsWith('{')){
+          try{ onBoard(JSON.parse(line)); }catch(e){}
+        }
+      }
+    }
+  }catch(e){
+    log('er','受信が止まりました: ' + e.message);
+    setConnected(false);
+  }
+}
+
+function onBoard(d){
+  // 実際の角度
+  if(typeof d.pan  === 'number') $('vPan').textContent  = d.pan;
+  if(typeof d.tilt === 'number') $('vTilt').textContent = d.tilt;
+
+  // ボードが目指している角度（= こちらの指示が届いた結果）
+  if(typeof d.tp === 'number'){
+    $('tPan').textContent = d.tp;
+    // つまみを握っている最中に動かすと、操作と喧嘩します
+    if(S.drag !== 'sPan'){ $('sPan').value = d.tp; $('sPanV').textContent = d.tp; }
+  }
+  if(typeof d.tt === 'number'){
+    $('tTilt').textContent = d.tt;
+    if(S.drag !== 'sTilt'){ $('sTilt').value = d.tt; $('sTiltV').textContent = d.tt; }
+  }
+
+  // ボードが読めなかった行。増えたら、どこかが詰まっています
+  if(typeof d.drop === 'number' && d.drop !== S.drop){
+    if(d.drop > S.drop){
+      log('er','ボードが読めなかった行: 累計 ' + d.drop + ' 件');
+    }
+    S.drop = d.drop;
+  }
+}
+
+async function send(obj, quiet){
+  if(!S.writer) return;
+  const line = JSON.stringify(obj);
+  await S.writer.write(line + '\n');
+  if(!quiet) log('tx','→ ' + line);
+}
+
+/* --- スライダー用の送信（間引き） --------------------------------------
+   oninput は 1 秒に 60 回以上発火します。そのまま送るとボードが
+   捌ききれず、溢れた行が消えて「画面の数字と実際の向きが違う」状態に
+   なります。70ms ごとに、そのときの最新値だけを送ります。
+   途中の値に追いつく必要はないので、捨ててかまいません。             */
+const TX = { pan:null, tilt:null, timer:null };
+
+function queueMove(key, val){
+  TX[key] = val;
+  if(TX.timer) return;
+  TX.timer = setTimeout(() => {
+    TX.timer = null;
+    const o = {};
+    if(TX.pan  !== null){ o.pan  = TX.pan;  TX.pan  = null; }
+    if(TX.tilt !== null){ o.tilt = TX.tilt; TX.tilt = null; }
+    if(Object.keys(o).length) send(o, true);
+  }, 70);
+}
+
+function setConnected(on){
+  S.connected = on;
+  $('btnConn').disabled = on;
+  $('btnDisc').disabled = !on;
+  $('sPan').disabled = !on;
+  $('sTilt').disabled = !on;
+  $('tagConn').textContent = on ? '接続中' : '未接続';
+  $('tagConn').className = 'tag ' + (on ? 'ok' : '');
+  updateGo();
+}
+
+/* ===== 2. AI を準備する ================================================ */
+async function initAI(){
+  $('tagAI').textContent = '準備中';
+  $('tagAI').className = 'tag work';
+
+  if(!('LanguageModel' in self)){
+    $('tagAI').textContent = '非対応';
+    $('tagAI').className = 'tag ng';
+    log('er','この端末では Prompt API が使えません（Chrome 148 以上の公式ビルドが必要）');
+    return;
+  }
+
+  try{
+    const a = await LanguageModel.availability();
+    log('ai','availability: ' + a);
+
+    if(a === 'unavailable'){
+      $('tagAI').textContent = '利用不可';
+      $('tagAI').className = 'tag ng';
+      log('er','この端末では利用できません（RAM 16GB / 空き 22GB が必要）');
+      return;
+    }
+
+    if(S.ai){ try{ S.ai.destroy(); }catch(e){} S.ai = null; }
+
+    S.sys = $('taSys').value;
+    S.ai = await LanguageModel.create({
+      initialPrompts: [{ role:'system', content:S.sys }],
+      temperature: 0.2,
+      topK: 3,
+      monitor(m){
+        m.addEventListener('downloadprogress', e => {
+          const p = Math.round(e.loaded * 100);
+          $('aiHint').textContent = 'モデルをダウンロード中… ' + p + '%';
+          $('tagAI').textContent = p + '%';
+        });
+      }
+    });
+
+    S.aiReady = true;
+    $('tagAI').textContent = '準備完了';
+    $('tagAI').className = 'tag ok';
+    $('aiHint').textContent = '端末の中で動きます。ここから先、ネットは要りません。';
+    log('ai','AI の準備ができました');
+    updateGo();
+  }catch(e){
+    $('tagAI').textContent = 'エラー';
+    $('tagAI').className = 'tag ng';
+    log('er','AI の準備に失敗: ' + e.message);
+  }
+}
+
+/* ===== 3. 推論して指差す =============================================== */
+function readSchema(){
+  try{
+    S.schema = JSON.parse($('taSch').value);
+    $('schErr').textContent = '';
+    return true;
+  }catch(e){
+    $('schErr').textContent = 'スキーマが JSON として読めません: ' + e.message;
+    return false;
+  }
+}
+
+async function go(){
+  const text = $('txt').value.trim();
+  if(!text){ $('txt').focus(); return; }
+  if(!S.aiReady || S.busy) return;
+  if(!readSchema()) return;
+
+  S.busy = true;
+  $('btnGo').disabled = true;
+  $('tagLat').textContent = '考え中…';
+  $('tagLat').className = 'tag work';
+
+  const t0 = performance.now();
+  let session = null;
+
+  try{
+    // 毎回 clone して使い捨てます。
+    // Gemini Nano は文脈が短く、同じセッションに投げ続けると溢れます。
+    session = await S.ai.clone();
+
+    const raw = await session.prompt(text, { responseConstraint: S.schema });
+    const ms = Math.round(performance.now() - t0);
+    $('tagLat').textContent = ms + ' ms';
+    $('tagLat').className = 'tag';
+
+    let r;
+    try{
+      r = JSON.parse(raw);
+    }catch(e){
+      $('aiJson').textContent = raw;
+      log('er','JSON として読めません。スキーマを確認してください');
+      return;
+    }
+
+    $('aiJson').textContent = JSON.stringify(r, null, 2);
+    $('aiMsg').textContent = r.msg ? '「' + r.msg + '」' : '';
+    log('ai','AI: ' + JSON.stringify(r));
+
+    if(S.connected){
+      await send({ pan:r.pan, tilt:r.tilt, msg:r.msg });
+    }else{
+      log('er','ボードに接続していないので、送信はしていません');
+    }
+  }catch(e){
+    log('er','推論に失敗: ' + e.message);
+    $('tagLat').textContent = '失敗';
+    $('tagLat').className = 'tag ng';
+  }finally{
+    if(session){ try{ session.destroy(); }catch(e){} }
+    S.busy = false;
+    updateGo();
+  }
+}
+
+function updateGo(){
+  $('btnGo').disabled = !(S.aiReady && !S.busy);
+}
+
+/* ===== ネットの状態（機内モードの実演用） ============================== */
+function updateNet(){
+  const on = navigator.onLine;
+  $('tagNet').textContent = on ? 'ネット：つながっています' : 'ネット：切れています';
+  $('tagNet').className = 'tag ' + (on ? '' : 'ok');
+}
+
+/* ===== 起動 ============================================================ */
+window.addEventListener('DOMContentLoaded', () => {
+  $('taSch').value = DEFAULT_SCHEMA;
+  $('taSys').value = DEFAULT_SYS;
+  readSchema();
+  updateNet();
+
+  $('btnConn').onclick = connect;
+  $('btnDisc').onclick = disconnect;
+  $('btnAI').onclick   = initAI;
+  $('btnGo').onclick   = go;
+  $('btnReload').onclick = initAI;
+
+  $('txt').addEventListener('keydown', e => {
+    if(e.key === 'Enter') go();
+  });
+
+  document.querySelectorAll('.preset').forEach(b => {
+    b.onclick = () => { $('txt').value = b.dataset.t; go(); };
+  });
+
+  $('sPan').oninput = () => {
+    $('sPanV').textContent = $('sPan').value;
+    queueMove('pan', Number($('sPan').value));
+  };
+  $('sTilt').oninput = () => {
+    $('sTiltV').textContent = $('sTilt').value;
+    queueMove('tilt', Number($('sTilt').value));
+  };
+
+  // つまみを握っている間は、ボードからの報告でつまみを動かさない
+  ['sPan','sTilt'].forEach(id => {
+    $(id).addEventListener('pointerdown', () => S.drag = id);
+    $(id).addEventListener('focus',       () => S.drag = id);
+    $(id).addEventListener('blur',        () => { if(S.drag === id) S.drag = null; });
+  });
+  window.addEventListener('pointerup',     () => S.drag = null);
+  window.addEventListener('pointercancel', () => S.drag = null);
+
+  $('taSch').addEventListener('input', readSchema);
+
+  window.addEventListener('online',  updateNet);
+  window.addEventListener('offline', updateNet);
+
+  log('rx','準備できました。まず「ボードに接続」を押してください。');
+});
+</script>
+</body>
+</html>
