@@ -148,11 +148,13 @@ a{color:var(--ok)}
   <h2><span class="n">3</span>結果を運営に送る</h2>
   <div class="body">
     <p>下のボタンでテキストをコピーし、<strong>案内メールに返信して貼り付けてください。</strong>当日スムーズに始めるために使います。</p>
-    <div class="row" style="margin-bottom:11px">
+    <p>そのとき、<strong>当日「自分の PC」と「貸出 PC」のどちらを使うかも、あわせてお知らせください。</strong>下のテキストの最後にその行がありますので、<strong>どちらか一方を消して</strong>お送りください。</p>
+    <div class="note">手順2で「準備できました」と出なかった方は、<strong>貸出 PC</strong> をお選びください。台数を用意する都合がありますので、迷っている場合もその旨をお書き添えいただけると助かります。</div>
+    <div class="row" style="margin:11px 0">
       <button class="ghost" id="btnCopy">結果をコピー</button>
       <span id="copyMsg" style="font-size:13px;color:var(--ok)"></span>
     </div>
-    <textarea id="report" rows="9" spellcheck="false" readonly></textarea>
+    <textarea id="report" rows="12" spellcheck="false" readonly></textarea>
   </div>
 </div>
 
@@ -216,52 +218,6 @@ a{color:var(--ok)}
       <li>「M5Stack」で画像検索して、どんなデバイスか見ておく</li>
       <li>ブラウザーの開発者ツール（F12キー）を開いてみる</li>
     </ul>
-  </div>
-</div>
-
-<div class="card">
-  <h2><span class="n">M</span>メンターの方へ（追加のお願い）</h2>
-  <div class="body">
-    <p>上記の事前準備に加えて、<strong>ハンズオンを一度通しで体験しておいてください。</strong>当日チームに伴走していただく際、内容を知らないと支援ができません。所要は2〜3時間程度です。</p>
-
-    <table>
-      <tr><td>教材トップ</td><td><a href="./">ハンズオンページ</a></td></tr>
-      <tr><td>詳しい診断</td><td><a href="./check.html">check.html</a></td></tr>
-      <tr><td>配線図</td><td><a href="./docs/wiring-summary.md">docs/wiring-summary.md</a></td></tr>
-    </table>
-
-    <p>機材一式をお渡ししますので、HO-0 から HO-5 まで順に進めてください。</p>
-
-    <details open>
-      <summary>当日そのまま質問される4点</summary>
-      <div class="in">
-        <p>参加者が詰まる箇所は、ほぼこの4つに集中します。</p>
-        <table>
-          <tr><th>症状</th><th>原因</th></tr>
-          <tr><td><strong>ポートが選べない</strong></td><td><strong>IDEとページの両方が繋ごうとしている（質問No.1）</strong></td></tr>
-          <tr><td>サーボで再起動する</td><td>Groveケーブルの赤線がブレッドボードに刺さっている</td></tr>
-          <tr><td>サーボが暴れる</td><td>M5StackのGNDがブレッドボードと繋がっていない</td></tr>
-          <tr><td>AIでエラーが出る</td><td>スキーマ制約を使っていない</td></tr>
-        </table>
-      </div>
-    </details>
-
-    <details>
-      <summary>メンターの一番大事な仕事</summary>
-      <div class="in">
-        <p><strong>チームに機能を足させることではなく、削らせることです。</strong></p>
-        <p>Day2 の開発時間は約160分しかありません。親切心から「それも実装しよう」と言うと、発表までに動かなくなります。</p>
-        <p>中間の進捗共有では、各チームに以下を必ず言わせてください。</p>
-        <ul>
-          <li>今、何がどこまで<strong>動いているか</strong></li>
-          <li>一番詰まっていること</li>
-          <li><strong>間に合わないなら何を削るか</strong></li>
-        </ul>
-        <p>3つ目を言わせることで、諦めの意思決定が場に出ます。</p>
-      </div>
-    </details>
-
-    <p class="note">開催の1週間前に、60分程度のブリーフィングを予定しています。<strong>それまでに一度触っておいていただけると、議論が具体的になります。</strong>日程は別途ご連絡します。</p>
   </div>
 </div>
 
@@ -406,7 +362,7 @@ function buildReport() {
   L.push('OS: ' + (navigator.platform || '不明'));
   L.push('コア数: ' + (navigator.hardwareConcurrency || '不明'));
   L.push('');
-  L.push('当日は [ 自分のPC / 貸出PC ] を使います ← どちらか残してください');
+  L.push('当日は [ 自分の PC / 貸出 PC ] を使います ← どちらか一方を消してください');
   L.push('実施日時: ' + new Date().toLocaleString('ja-JP'));
   $('report').value = L.join('\n');
 }
