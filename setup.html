@@ -165,13 +165,15 @@ a{color:var(--ok)}
     <details>
       <summary>「この端末では利用できません」と出た</summary>
       <div class="in">
-        <p>AIを動かすには、以下が必要です。</p>
+        <p>AI を動かすには、<strong>次のどちらか一方</strong>を満たしている必要があります。両方ではありません。</p>
         <table>
-          <tr><td>メモリ（RAM）</td><td>16GB 以上</td></tr>
-          <tr><td>空きストレージ</td><td>22GB 以上</td></tr>
-          <tr><td>CPU</td><td>4コア以上</td></tr>
+          <tr><th>経路</th><th>条件</th></tr>
+          <tr><td>GPU で動かす</td><td>VRAM が <strong>4GB より大きい</strong></td></tr>
+          <tr><td>CPU で動かす</td><td>メモリ（RAM）<strong>16GB 以上</strong>、かつ <strong>4コア以上</strong></td></tr>
         </table>
-        <p><strong>満たさない場合でも問題ありません。</strong>当日は貸出用のPCをご用意しています。その旨を案内メールにご返信ください。</p>
+        <p>加えて、<strong>Chrome のプロファイルがあるドライブに 22GB 以上の空き</strong>が必要です。</p>
+        <div class="note">RAM が 16GB に届かなくても、GPU の条件を満たしていれば動きます。こちらの検証では、<strong>メモリ 8GB の MacBook でも 16GB の Windows PC と同じように動きました。</strong>条件は Chrome の公式ドキュメント（<a href="https://developer.chrome.com/docs/ai/prompt-api" target="_blank" rel="noopener">The Prompt API</a>）に基づきます。</div>
+        <p><strong>満たさない場合でも問題ありません。</strong>当日は貸出用の PC をご用意しています。その旨を案内メールにご返信ください。</p>
       </div>
     </details>
 
@@ -182,10 +184,17 @@ a{color:var(--ok)}
       </div>
     </details>
 
-    <details>
-      <summary>ダウンロードが途中で止まった</summary>
+    <details open>
+      <summary>ダウンロードが進まない・途中で止まる</summary>
       <div class="in">
-        <p>ページを再読み込みして、もう一度「準備を開始する」を押してください。途中まで進んだ分は無駄になりません。</p>
+        <p><strong>いちばん多い原因は、ディスクの空き容量不足です。</strong>メンター向けの事前確認でも、この現象が多く出ました。条件は「空き 22GB 以上」ですが、実際にはそれでは足りないことがあります。</p>
+        <p>こちらで試して、実際に解決したのは次の2つです。</p>
+        <table>
+          <tr><td>空きを増やす</td><td>「ディスク クリーンアップ（Disk Cleanup）」などで、<strong>40〜60GB 程度の空き</strong>を作る</td></tr>
+          <tr><td>USB メモリーを挿す</td><td><strong>64GB 以上の空きがある USB メモリー</strong>を挿したままにして、全体の空き容量を増やす</td></tr>
+        </table>
+        <p>どちらも、止まっていた PC で改善を確認しています。ただし<strong>2つめが効く理由は、こちらでも分かっていません。</strong>仕様上の条件はあくまで Chrome のプロファイルがあるドライブの空きなので、<strong>まず1つめを試してください。</strong></p>
+        <p>空きを作ったら、ページを再読み込みして、もう一度「準備を開始する」を押してください。<strong>途中まで進んだ分は無駄になりません。</strong></p>
       </div>
     </details>
 
@@ -193,10 +202,11 @@ a{color:var(--ok)}
       <summary>一度成功したのに、また「準備できていない」と出る</summary>
       <div class="in">
         <p>Chrome やモデルが更新されると、再ダウンロードが必要になることがあります。<strong>もう一度ボタンを押してください。</strong>異常ではありません。</p>
+        <p>もうひとつ、<strong>ダウンロードしたあとに空き容量が 10GB を下回ると、モデルは端末から自動的に削除されます。</strong>一度うまくいったのに消えてしまう場合は、空き容量を確保したうえで、もう一度お試しください。</p>
       </div>
     </details>
 
-    <p class="note">解決しない場合は、<strong>無理をせずそのまま当日お越しください。</strong>会場で対応します。貸出PCもご用意しています。</p>
+    <p class="note">解決しない場合は、<strong>無理をせずそのまま当日お越しください。</strong>会場で対応します。貸出 PC もご用意しています。</p>
   </div>
 </div>
 
@@ -289,7 +299,7 @@ async function run() {
   }
   if (!('LanguageModel' in self)) {
     return fail('この環境では使えません',
-      'AI機能が見つかりません。Chrome のバージョンをご確認ください。解決しない場合は、そのまま当日お越しください。貸出PCをご用意しています。');
+      'AI機能が見つかりません。Chrome のバージョンをご確認ください。解決しない場合は、そのまま当日お越しください。貸出 PC をご用意しています。');
   }
 
   // --- availability ---
@@ -304,7 +314,8 @@ async function run() {
 
   if (a === 'unavailable') {
     return fail('この端末では利用できません',
-      'メモリ16GB以上・空き22GB以上が必要です。当日は貸出PCをご用意していますので、そのままお越しください。');
+      'VRAM 4GB 超、または RAM 16GB 以上と 4コア以上のどちらかが必要です。あわせて空き 22GB 以上も必要です。'
+    + '当日は貸出 PC をご用意していますので、そのままお越しください。');
   }
 
   if (a === 'available') {

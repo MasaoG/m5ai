@@ -444,7 +444,7 @@ async function initAI(){
     if(a === 'unavailable'){
       $('tagAI').textContent = '利用不可';
       $('tagAI').className = 'tag ng';
-      log('er','この端末では利用できません（RAM 16GB / 空き 22GB が必要）');
+      log('er','この端末では利用できません（VRAM 4GB 超、または RAM 16GB 以上と 4コア以上。あわせて空き 22GB 以上）');
       return;
     }
 
