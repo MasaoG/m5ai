@@ -153,7 +153,37 @@ a{color:var(--ok)}
 </div>
 
 <div class="card">
-  <h2><span class="n">3</span>結果を運営に送る</h2>
+  <h2><span class="n">3</span>USB ドライバーを入れる</h2>
+  <div class="body">
+    <p><strong>当日ご自身の PC をお使いになる方だけ</strong>の手順です。貸出 PC をご希望の方は、そのまま手順4へ進んでください。</p>
+    <p>当日使うマイコンボード（M5Stack Core2 for AWS）は、USB で PC とやりとりします。そのための <strong>CP210x ドライバー</strong>を、あらかじめ入れておいてください。</p>
+
+    <table>
+      <tr><th>OS</th><th>入れるもの</th></tr>
+      <tr><td>Windows</td><td><code>CP210x_VCP_Windows</code></td></tr>
+      <tr><td>macOS</td><td><code>CP210x_VCP_MacOS</code></td></tr>
+    </table>
+
+    <p>M5Stack 公式の <a href="https://docs.m5stack.com/ja/core/Core2_For_AWS" target="_blank" rel="noopener">Core2 for AWS のページ</a>を開き、<strong>Driver</strong> の項目からダウンロードしてください。</p>
+
+    <div class="note">同じページに <code>CH9102</code> のドライバーも並んでいますが、<strong>今回お貸しするボードは全数 CP2104 であることを確認済み</strong>です。CH9102 は入れなくて構いません。</div>
+
+    <div class="note warn"><strong>⚠️ 入れられなくても問題ありません。</strong>インストールには管理者権限が必要です。お使いの PC に権限がない場合は、無理をせず<strong>貸出 PC をお選びください。</strong>手順4のメールにその旨をお書き添えいただければ、こちらで用意します。</div>
+
+    <details>
+      <summary>macOS の方へ — 許可と再起動が必要なことがあります</summary>
+      <div class="in">
+        <p>インストール後に「システム機能拡張がブロックされました」と表示されることがあります。その場合は <strong>システム設定 → プライバシーとセキュリティ</strong> を開き、下のほうに出る許可ボタンを押してから再起動してください。</p>
+        <p>なお、最近の macOS には同等のドライバーが最初から入っていることがあり、その場合はインストールが不要です。<strong>うまく入らないときも、そのままお越しください。</strong>当日その場で確認します。</p>
+      </div>
+    </details>
+
+    <p class="muted">※このドライバーは、<strong>ボードを挿して初めて効いているかどうかが分かります。</strong>いまの時点で確認する方法はありませんので、インストールが終わったら次へ進んでください。当日、会場で一緒に確認します。</p>
+  </div>
+</div>
+
+<div class="card">
+  <h2><span class="n">4</span>結果を運営に送る</h2>
   <div class="body">
     <p>下のボタンでテキストをコピーし、<strong>下記メールアドレスへ貼り付けてお送りください。</strong>当日スムーズに始めるために使います。</p>
 
@@ -172,7 +202,7 @@ a{color:var(--ok)}
       <button class="ghost" id="btnCopy">結果をコピー</button>
       <span id="copyMsg" style="font-size:13px;color:var(--ok)"></span>
     </div>
-    <textarea id="report" rows="12" spellcheck="false" readonly></textarea>
+    <textarea id="report" rows="13" spellcheck="false" readonly></textarea>
   </div>
 </div>
 
@@ -232,7 +262,8 @@ a{color:var(--ok)}
   <h2><span class="n">◆</span>当日の持ち物</h2>
   <div class="body">
     <p><strong>筆記用具のみお持ちください。</strong></p>
-    <p>PC、マイコンボード、センサー、その他の機材はすべてこちらでご用意します。ご自身のPCをお使いになりたい方は、手順2で「準備できました」と表示されることをご確認のうえ、お持ちください。</p>
+    <p>PC、マイコンボード、センサー、その他の機材はすべてこちらでご用意します。</p>
+    <p>ご自身の PC をお使いになりたい方は、<strong>手順2で「準備できました」と表示されること</strong>と、<strong>手順3の USB ドライバー</strong>をご確認のうえ、お持ちください。</p>
   </div>
 </div>
 
@@ -392,6 +423,7 @@ function buildReport() {
   L.push('コア数: ' + (navigator.hardwareConcurrency || '不明'));
   L.push('');
   L.push('当日は [ 自分の PC / 貸出 PC ] を使います ← どちらか一方を消してください');
+  L.push('USB ドライバー: [ 入れた / 入れられなかった / 貸出 PC なので不要 ] ← ひとつ残してください');
   L.push('実施日時: ' + new Date().toLocaleString('ja-JP'));
   $('report').value = L.join('\n');
 }
