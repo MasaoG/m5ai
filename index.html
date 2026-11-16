@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AI ブリッジ — Core2 × Prompt API</title>
+<title>AIブリッジ — Core2 × Prompt API</title>
 <!--
   外部リソースを一切読み込まないこと。
   機内モードでの動作デモが成立しなくなります。
@@ -133,7 +133,7 @@ footer{margin-top:26px;padding-top:14px;border-top:1px solid var(--rule);font-fa
 
 <header>
   <div>
-    <h1>AI ブリッジ</h1>
+    <h1>AIブリッジ</h1>
     <div class="sub">M5STACK CORE2 FOR AWS &nbsp;×&nbsp; CHROME PROMPT API</div>
   </div>
   <div class="spacer"></div>
@@ -241,7 +241,7 @@ footer{margin-top:26px;padding-top:14px;border-top:1px solid var(--rule);font-fa
 
         <div class="pane" id="paneLogic" hidden>
           <label for="taAsk">いつ AI を呼ぶか</label>
-          <p class="hint" style="margin:3px 0 6px">true を返すと推論します。<code>d</code> が今の値、<code>last</code> が前回呼んだときの値（初回は null）。</p>
+          <p class="hint" style="margin:3px 0 6px">true を返すと推論します。<code>d</code> が今の値、<code>last</code> が前回呼んだときの値（初回は null）。<br><code>d.t</code> 温度 ／ <code>d.h</code> 湿度 ／ <code>d.btn</code> ボタン（0 か 1）／ <code>d.elapsed</code> ボタンを押してからの経過分数。</p>
           <textarea id="taAsk" rows="7" spellcheck="false"></textarea>
 
           <label for="taCmd" style="display:block;margin-top:14px">AI の出力をボードへ渡す形</label>
