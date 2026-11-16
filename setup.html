@@ -70,6 +70,14 @@ code{font-family:var(--mono);font-size:13px;background:var(--grid);padding:1.5px
 textarea{width:100%;font-family:var(--mono);font-size:12px;line-height:1.6;border:1px solid var(--rule);
   border-radius:6px;padding:11px;background:#fcfcfb;resize:vertical}
 .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.muted{font-size:13.5px;color:var(--ink-2)}
+/* 送付先メールアドレス — 見落とされないように、本文から浮かせています */
+.addr{margin:13px 0 9px;padding:13px 16px;background:#f4faf8;
+  border:1px solid #bfdcd4;border-radius:6px}
+.addr-label{font-size:12px;color:var(--ink-3);letter-spacing:.04em;margin-bottom:3px}
+.addr-mail{display:inline-block;font-family:var(--mono);font-size:17px;font-weight:700;
+  color:var(--ok);text-decoration:none;word-break:break-all}
+.addr-mail:hover{text-decoration:underline}
 details{margin:10px 0;border:1px solid var(--rule);border-radius:6px;background:#fcfcfb}
 summary{cursor:pointer;padding:10px 14px;font-size:14px;font-weight:600}
 details .in{padding:0 14px 13px}
@@ -147,7 +155,17 @@ a{color:var(--ok)}
 <div class="card">
   <h2><span class="n">3</span>結果を運営に送る</h2>
   <div class="body">
-    <p>下のボタンでテキストをコピーし、<strong>案内メールに返信して貼り付けてください。</strong>当日スムーズに始めるために使います。</p>
+    <p>下のボタンでテキストをコピーし、<strong>下記メールアドレスへ貼り付けてお送りください。</strong>当日スムーズに始めるために使います。</p>
+
+    <div class="addr">
+      <div class="addr-label">メールアドレス</div>
+      <a class="addr-mail" href="mailto:newgrad-student@konicaminolta.com">newgrad-student@konicaminolta.com</a>
+    </div>
+
+    <p class="muted" style="margin:0 0 10px">
+      ※当事前準備をご案内したメールは<strong>送信専用アドレス</strong>のため、必ず上記記載のアドレスへご連絡ください。
+    </p>
+
     <p>そのとき、<strong>当日「自分の PC」と「貸出 PC」のどちらを使うかも、あわせてお知らせください。</strong>下のテキストの最後にその行がありますので、<strong>どちらか一方を消して</strong>お送りください。</p>
     <div class="note">手順2で「準備できました」と出なかった方は、<strong>貸出 PC</strong> をお選びください。台数を用意する都合がありますので、迷っている場合もその旨をお書き添えいただけると助かります。</div>
     <div class="row" style="margin:11px 0">
