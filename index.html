@@ -230,23 +230,23 @@ footer{margin-top:26px;padding-top:14px;border-top:1px solid var(--rule);font-fa
         </div>
 
         <div class="pane" id="paneSys">
-          <textarea id="taSys" rows="9"></textarea>
+          <textarea id="taSys" rows="12"></textarea>
           <p class="hint">ここを書き換えるだけで、コードを触らずに役割を変えられます。</p>
         </div>
 
         <div class="pane" id="paneSch" hidden>
-          <textarea id="taSch" rows="15"></textarea>
+          <textarea id="taSch" rows="36"></textarea>
           <p class="hint"><code>minimum</code> / <code>maximum</code> にサーボの可動範囲を書いておくと、AI は範囲外の角度を返せなくなります。</p>
         </div>
 
         <div class="pane" id="paneLogic" hidden>
           <label for="taAsk">いつ AI を呼ぶか</label>
           <p class="hint" style="margin:3px 0 6px">true を返すと推論します。<code>d</code> が今の値、<code>last</code> が前回呼んだときの値（初回は null）。<br><code>d.t</code> 温度 ／ <code>d.h</code> 湿度 ／ <code>d.btn</code> ボタン（0 か 1）／ <code>d.elapsed</code> ボタンを押してからの経過分数。</p>
-          <textarea id="taAsk" rows="7" spellcheck="false"></textarea>
+          <textarea id="taAsk" rows="9" spellcheck="false"></textarea>
 
           <label for="taCmd" style="display:block;margin-top:14px">AI の出力をボードへ渡す形</label>
           <p class="hint" style="margin:3px 0 6px">返したオブジェクトが JSON でボードに送られます。<code>r</code> が AI の返事。</p>
-          <textarea id="taCmd" rows="8" spellcheck="false"></textarea>
+          <textarea id="taCmd" rows="10" spellcheck="false"></textarea>
 
           <div class="warn" id="logicErr" style="display:none"></div>
         </div>
@@ -254,7 +254,7 @@ footer{margin-top:26px;padding-top:14px;border-top:1px solid var(--rule);font-fa
         <div class="pane" id="paneView" hidden>
           <label for="taView">画面に何を出すか</label>
           <p class="hint" style="margin:3px 0 6px"><code>box</code> が「AI の判断」の下に出る自由エリア、<code>d</code> がセンサー値、<code>r</code> が AI の返事（まだなければ null）。HTML を組み立てて <code>box.innerHTML</code> に入れます。</p>
-          <textarea id="taView" rows="12" spellcheck="false"></textarea>
+          <textarea id="taView" rows="17" spellcheck="false"></textarea>
           <div class="warn" id="viewErr" style="display:none"></div>
         </div>
 
