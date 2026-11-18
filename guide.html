@@ -224,6 +224,45 @@ figure.fig .zoom:hover{background:#fff;color:var(--ink)}
 </tbody>
 </table></div>
 <p><strong>HO-5 まで行くと、「話しかけたら機械が動く」ところまで到達します。</strong> そこがゴールです。</p>
+<h3>コードの置き場所</h3>
+<p><strong>今日使うコードは、すべてここにあります。</strong></p>
+<blockquote>
+<p><strong>https://github.com/MasaoG/m5ai/tree/main/board</strong></p>
+</blockquote>
+<p><strong>打ち込まずにコピーしてください。</strong> タイピングの練習の日ではありません。
+写し間違いを探す時間は、何も生みません。</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th></th>
+<th>やり方</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>コピーする</strong></td>
+<td>ファイルを開いて、右上の <strong>Raw</strong>（または「Copy raw file」アイコン）を押す。そこから全選択してコピーします</td>
+</tr>
+<tr>
+<td><strong>貼り付ける</strong></td>
+<td>UIFlow2 のエディターで <strong>全部消してから</strong>貼る。古い行が残っていると動きません</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p>⚠️ <strong>GitHub の画面上の文字を直接ドラッグして選ばないでください。</strong>
+行番号まで一緒にコピーされて、Python が必ずエラーになります。
+必ず <strong>Raw</strong> を経由してください。</p>
+<p>⚠️ <strong>貼り付けたあと、インデント（行頭の空白）が崩れていないか見てください。</strong>
+エディターによっては、貼り付け時に自動で字下げを足すことがあります。
+Python は字下げで構造が決まるので、ここが崩れると動きません。</p>
+</blockquote>
+<h3>ただし 🔧 改造課題は、手で書いてください</h3>
+<p><strong>本編のコードはコピーで構いません。改造課題だけは、自分で打ってください。</strong>
+どれも 3〜5 行です。</p>
+<p>写すと読み飛ばせますが、打つと読まざるを得ません。
+<strong>今日いちばん身につくのは、この 3〜5 行のほうです。</strong></p>
+<p>サンプル解答は <code>board/answers/</code> にありますが、<strong>まず自分で書いてから</strong>開いてください。</p>
 <h3>記号</h3>
 <div class="tw"><table>
 <thead>
@@ -591,6 +630,9 @@ if __name__ == '__main__':
 </code></pre>
 <p>次の HO-2 で湿度を読んだら、これに繋いでみてください。<strong>画面を見なくても状態が分かる出力</strong>になります。アイデアソンで「画面を見なくてもわかる」の制約カードを引いたチームは、これがそのまま使えます。</p>
 <p>💬 明るさの設定を <code>setup()</code> に置くのと <code>loop()</code> に置くのとで何が違うか、隣の人に説明してみてください。</p>
+<blockquote>
+<p>📄 <strong>サンプル解答: <code>board/answers/ex1_led.py</code></strong> — 課題1〜5 が全部入っています。ボタン C でモードを切り替えます（課題4 でボタン A を使うため）。<strong>まず自分で書いてみてから</strong>開いてください。</p>
+</blockquote>
 <hr />
 <h2 id="つまずいたら-2">つまずいたら</h2>
 <div class="tw"><table>
@@ -751,6 +793,9 @@ while True:
 <li><code>time.sleep(1)</code> を <code>time.sleep(0.1)</code> に変えるとどうなるか試す（<code>sleep_ms(20)</code> の意味を考えてみてください）</li>
 </ol>
 <p>💬 なぜ測定コマンドを送ったあとに 20ms 待つ必要があるのか、説明してみてください。</p>
+<blockquote>
+<p>📄 <strong>サンプル解答: <code>board/answers/ex2_env.py</code></strong> — 課題1〜4。ボタン C でモード切替、課題4 ではボタン A で 1秒 ⇄ 0.1秒 を切り替えます。</p>
+</blockquote>
 <h2 id="つまずいたら-3">つまずいたら</h2>
 <div class="tw"><table>
 <thead>
@@ -1450,6 +1495,9 @@ angle(180)
 <li><code>step=180</code>（＝一気に動かす）にすると何が起きるか観察する</li>
 </ol>
 <p>💬 なぜ段階的に動かすのか、説明してみてください。</p>
+<blockquote>
+<p>📄 <strong>サンプル解答: <code>board/answers/ex3_servo.py</code></strong> — 課題1〜3。課題3（一気に動かす）では Core2 が再起動することがありますが、<strong>それが観察対象です。</strong></p>
+</blockquote>
 <h2 id="つまずいたら-4">つまずいたら</h2>
 <div class="tw"><table>
 <thead>
@@ -1676,6 +1724,9 @@ while ((i = buf.indexOf('\n')) &gt;= 0) {   // 改行があるだけ取り出す
 <li>わざと壊れた JSON を送って、<code>try/except</code> が効いていることを確認する</li>
 </ol>
 <p>💬 なぜ「1行1JSON」という決まりが必要なのか、説明してみてください。</p>
+<blockquote>
+<p>📄 <strong>サンプル解答: <code>board/answers/ex4_bridge.py</code></strong> — 課題1〜3。ボタン C で送信間隔、ボタン B で壊れた JSON を1行送ります。</p>
+</blockquote>
 <h2 id="つまずいたら-5">つまずいたら</h2>
 <div class="tw"><table>
 <thead>
@@ -1965,6 +2016,9 @@ if (Math.abs(h - lastH) &gt; 5) {
 <li>制約なしで実行して、何が返ってくるか観察する</li>
 </ol>
 <p>💬 このアプリを「クラウドの AI」で作った場合、何が変わるか説明してみてください。</p>
+<blockquote>
+<p>📄 <strong>サンプル解答: <code>board/answers/ex5_ai_samples.md</code></strong> — 課題1〜4。HO-5 の課題は<strong>ボード側のコードを1行も変えません。</strong>貼り付け用のシステムプロンプト3種とスキーマ例が入っています。</p>
+</blockquote>
 <h2 id="つまずいたら-6">つまずいたら</h2>
 <div class="tw"><table>
 <thead>
