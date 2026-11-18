@@ -1,0 +1,1731 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HO別 機材・配線まとめ</title>
+<style>
+:root{
+  --paper:#f7f6f3; --panel:#fff; --ink:#1a1d21; --ink-2:#5b6167; --ink-3:#8d949a;
+  --rule:#dfe3e1; --grid:#eceeec; --ok:#0f766e; --warn:#b45309; --bad:#b91c1c;
+  --mono: ui-monospace,"SFMono-Regular","Menlo","Consolas","Liberation Mono",monospace;
+  --sans: system-ui,-apple-system,"Hiragino Sans","Yu Gothic UI","Meiryo",sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:22px 22px;color:var(--ink);font-family:var(--sans);font-size:15.5px;line-height:1.85}
+
+.top{position:sticky;top:0;z-index:30;background:rgba(247,246,243,.94);
+  backdrop-filter:blur(6px);border-bottom:1px solid var(--rule)}
+.top .in{max-width:1180px;margin:0 auto;padding:10px 18px;display:flex;align-items:center;gap:14px}
+.top .ttl{font-size:14.5px;font-weight:700}
+.top .sub{font-size:12px;color:var(--ink-3);font-family:var(--mono)}
+.top .sp{margin-left:auto}
+.top a.lnk{font-size:13px;color:var(--ok);text-decoration:none;border:1px solid #bfdcd4;
+  background:#f4faf8;border-radius:6px;padding:5px 11px;white-space:nowrap}
+.top a.lnk:hover{text-decoration:underline}
+#tocbtn{display:none;font:inherit;font-size:13px;border:1px solid var(--rule);background:#fff;
+  color:var(--ink);border-radius:6px;padding:5px 11px;cursor:pointer}
+
+.shell{max-width:1180px;margin:0 auto;padding:0 18px;display:flex;gap:30px;align-items:flex-start}
+nav.toc{flex:0 0 232px;position:sticky;top:56px;max-height:calc(100vh - 72px);overflow:auto;
+  padding:20px 0 40px;font-size:13.5px}
+nav.toc .h{font-size:11.5px;letter-spacing:.08em;color:var(--ink-3);font-family:var(--mono);margin-bottom:9px}
+nav.toc a{display:block;color:var(--ink-2);text-decoration:none;padding:3px 9px;border-left:2px solid transparent;
+  border-radius:0 4px 4px 0;line-height:1.5}
+nav.toc a:hover{background:#fff;color:var(--ink)}
+nav.toc a.l1{font-weight:700;color:var(--ink);margin-top:11px}
+nav.toc a.l2{padding-left:20px;font-size:12.8px}
+nav.toc a.on{border-left-color:var(--ok);background:#fff;color:var(--ok)}
+
+main{flex:1;min-width:0;max-width:860px;padding:22px 0 90px}
+main>h1:first-of-type{margin-top:4px}
+
+h1{font-size:25px;margin:54px 0 4px;padding-top:16px;border-top:2px solid var(--ink);letter-spacing:.01em;scroll-margin-top:62px}
+h2{font-size:18px;margin:34px 0 8px;scroll-margin-top:62px}
+h3{font-size:15.5px;margin:22px 0 6px;color:var(--ink-2)}
+p{margin:10px 0}
+ul,ol{padding-left:22px;margin:10px 0} li{margin:4px 0}
+strong{font-weight:700}
+a{color:var(--ok)}
+hr{border:0;border-top:1px solid var(--rule);margin:30px 0}
+
+code{font-family:var(--mono);font-size:13.5px;background:var(--grid);padding:1.5px 5px;border-radius:3px}
+pre{background:#1e2227;color:#e6e9ec;border-radius:8px;padding:15px 17px;overflow-x:auto;
+  font-size:13px;line-height:1.7;margin:14px 0}
+pre code{background:none;color:inherit;padding:0;font-size:13px}
+
+table{width:100%;border-collapse:collapse;font-size:14.5px;margin:14px 0;background:#fff;
+  border:1px solid var(--rule);border-radius:8px;overflow:hidden}
+th,td{padding:8px 11px;border-bottom:1px solid var(--grid);text-align:left;vertical-align:top}
+th{background:#f2f4f2;font-size:13px;color:var(--ink-2);font-weight:700}
+tr:last-child td{border-bottom:none}
+.tw{overflow-x:auto;margin:14px 0}
+
+blockquote{margin:14px 0;padding:12px 16px;background:#fcfcfb;border-left:3px solid var(--ok);
+  border-radius:0 6px 6px 0;color:var(--ink-2);font-size:14.5px}
+blockquote p{margin:6px 0}
+blockquote strong{color:var(--ink)}
+
+figure.fig{margin:18px 0;background:#fff;border:1px solid var(--rule);border-radius:9px;padding:14px}
+figure.fig svg{display:block;width:100%;height:auto;max-width:100%}
+figure.fig figcaption{display:flex;align-items:center;gap:10px;margin-top:9px;padding-top:9px;
+  border-top:1px solid var(--grid);font-size:12.5px;color:var(--ink-3);font-family:var(--mono)}
+figure.fig .zoom{margin-left:auto;font:inherit;font-family:var(--sans);font-size:12px;
+  border:1px solid var(--rule);background:#fcfcfb;color:var(--ink-2);border-radius:5px;
+  padding:3px 11px;cursor:pointer}
+figure.fig .zoom:hover{background:#fff;color:var(--ink)}
+
+#ov{position:fixed;inset:0;background:rgba(26,29,33,.9);z-index:90;display:none;
+  align-items:center;justify-content:center;padding:26px}
+#ov.on{display:flex}
+#ov .box{background:#fff;border-radius:10px;padding:18px;max-width:1500px;width:100%;
+  max-height:94vh;overflow:auto}
+#ov svg{display:block;width:100%;height:auto}
+#ov .cl{position:fixed;top:18px;right:22px;font:inherit;font-size:14px;background:#fff;
+  border:none;border-radius:7px;padding:8px 16px;cursor:pointer}
+
+@media (max-width:1040px){
+  nav.toc{position:fixed;inset:49px 0 auto;max-height:68vh;background:#fff;border-bottom:1px solid var(--rule);
+    padding:16px 20px 22px;display:none;z-index:25;flex:none}
+  nav.toc.open{display:block}
+  #tocbtn{display:block}
+  .shell{display:block;padding:0 16px}
+  main{max-width:none;padding-top:18px}
+  h1{font-size:22px} h2{font-size:17px}
+}
+@media print{
+  .top,nav.toc,#ov,figure.fig .zoom{display:none!important}
+  body{background:#fff;font-size:11pt}
+  .shell{display:block;padding:0}
+  main{max-width:none;padding:0}
+  h1{page-break-before:always;border-top:none} main>h1:first-of-type{page-break-before:avoid}
+  pre,figure.fig,table{page-break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<div class="top"><div class="in">
+  <div><div class="ttl">HO別 機材・配線まとめ</div><div class="sub">2026年 2Days 全社インターンシップ</div></div>
+  <div class="sp"></div>
+  <button id="tocbtn" type="button">目次</button>
+  <a class="lnk" href="./index.html">AIブリッジページ</a>
+</div></div>
+<div class="shell">
+<nav class="toc"><div class="h">目次</div>
+<a class="l1" href="#ho別-機材・配線まとめ">HO別 機材・配線まとめ</a>
+<a class="l2" href="#0-一覧表">0. 一覧表</a>
+<a class="l2" href="#1-機材リスト-1人分">1. 機材リスト（1人分）</a>
+<a class="l2" href="#2-ポート早見表">2. ポート早見表</a>
+<a class="l2" href="#3-ho-1-lチカ">3. HO-1　Lチカ</a>
+<a class="l2" href="#4-ho-2-温湿度センサー">4. HO-2　温湿度センサー</a>
+<a class="l2" href="#5-ho-3-サーボ">5. HO-3　サーボ</a>
+<a class="l2" href="#6-ho-4-ho-5-ブラウザー連携とai">6. HO-4 / HO-5　ブラウザー連携とAI</a>
+<a class="l2" href="#7-ho-6-pan-tilt-運営デモ-3日版のみ">7. HO-6　Pan-Tilt（運営デモ / 3日版のみ）</a>
+<a class="l2" href="#8-配線図ファイル一覧">8. 配線図ファイル一覧</a>
+<a class="l2" href="#9-トラブル時の切り分け">9. トラブル時の切り分け</a></nav>
+<main><h1 id="ho別-機材・配線まとめ">HO別 機材・配線まとめ</h1>
+<p><strong>対象</strong>: M5Stack Core2 for AWS
+<strong>用途</strong>: 実機検証時の準備確認、当日の配布物チェック、参加者向け早見表</p>
+<hr />
+<h2 id="0-一覧表">0. 一覧表</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th></th>
+<th>ハンズオン</th>
+<th>追加で繋ぐもの</th>
+<th>使うポート</th>
+<th>配線図</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HO-0</td>
+<td>自己診断</td>
+<td>すべて</td>
+<td>全部</td>
+<td>図1〜3</td>
+</tr>
+<tr>
+<td>HO-1</td>
+<td>Lチカ</td>
+<td><strong>なし</strong>（内蔵LED）</td>
+<td>G25（内部）</td>
+<td><strong>図0</strong></td>
+</tr>
+<tr>
+<td>HO-2</td>
+<td>温湿度センサー</td>
+<td>ENV Ⅲ</td>
+<td>PORT.A</td>
+<td><strong>図1</strong></td>
+</tr>
+<tr>
+<td>HO-3</td>
+<td>サーボ</td>
+<td>ブレッドボード一式 + SG90</td>
+<td>PORT.B</td>
+<td><strong>図2</strong></td>
+</tr>
+<tr>
+<td>HO-4</td>
+<td>ブラウザー連携</td>
+<td>HO-2 + HO-3 を同時に</td>
+<td>PORT.A + PORT.B</td>
+<td><strong>図3</strong></td>
+</tr>
+<tr>
+<td>HO-5</td>
+<td>AI 組み込み</td>
+<td><strong>なし</strong>（HO-4 と同じ）</td>
+<td>同上</td>
+<td>図3</td>
+</tr>
+<tr>
+<td>HO-6</td>
+<td>Pan-Tilt</td>
+<td>Pan-Tilt + 外部電源</td>
+<td><strong>PORT.C</strong>（独立バス）</td>
+<td><strong>図5</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>HO-1 と HO-5 は追加の配線がありません。</strong> HO-1 は内蔵 LED、HO-5 は HO-4 の配線のままソフトだけ変わります。</p>
+<hr />
+<h2 id="1-機材リスト-1人分">1. 機材リスト（1人分）</h2>
+<h3>全 HO で共通</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>品目</th>
+<th>数</th>
+<th>備考</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>M5Stack Core2 for AWS</td>
+<td>1</td>
+<td>本体のみ（拡張ベースは使いません）</td>
+</tr>
+<tr>
+<td>USB-C ケーブル</td>
+<td>1</td>
+<td><strong>データ通信対応品。充電専用は不可</strong></td>
+</tr>
+<tr>
+<td>PC</td>
+<td>1</td>
+<td>Chrome 148以上、RAM 16GB以上</td>
+</tr>
+<tr>
+<td>セルフパワー USBハブ</td>
+<td>4人に1台</td>
+<td>電源安定のため推奨</td>
+</tr>
+</tbody>
+</table></div>
+<h3>HO-2 以降</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>品目</th>
+<th>数</th>
+<th>備考</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ENV Ⅲ Unit</td>
+<td>1</td>
+<td>SHT30（0x44）+ QMP6988（0x70）</td>
+</tr>
+<tr>
+<td>Grove ケーブル</td>
+<td>1</td>
+<td>ENV Ⅲ 付属</td>
+</tr>
+</tbody>
+</table></div>
+<h3>HO-3 以降</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>品目</th>
+<th>数</th>
+<th>備考</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ブレッドボード（ハーフ）</td>
+<td>1</td>
+<td><strong>運営が事前に組立・動作確認</strong></td>
+</tr>
+<tr>
+<td>SG90 マイクロサーボ</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>USB AC アダプター 5V/2A</td>
+<td>1</td>
+<td><strong>モバイルバッテリー不可</strong></td>
+</tr>
+<tr>
+<td>USB電源取り出し基板</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>電解コンデンサー 1000µF/16V</td>
+<td>1</td>
+<td>極性注意</td>
+</tr>
+<tr>
+<td>カーボン抵抗 330Ω</td>
+<td>1</td>
+<td>GPIO保護用</td>
+</tr>
+<tr>
+<td>ピンヘッダー 3ピン</td>
+<td>1</td>
+<td>サーボを受ける</td>
+</tr>
+<tr>
+<td>Grove→ジャンパー変換ケーブル</td>
+<td>1</td>
+<td><strong>赤線は運営が切断・絶縁済み</strong></td>
+</tr>
+<tr>
+<td>ジャンパーワイヤ（オス-オス）</td>
+<td>数本</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<h3>HO-6（全体で1セットのみ・運営デモ用）</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>品目</th>
+<th>数</th>
+<th>備考</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Arducam Pan-Tilt キット</td>
+<td>1</td>
+<td>PCA9685系（0x40）+ サーボ2個</td>
+</tr>
+<tr>
+<td>I2Cレベルシフター（双方向）</td>
+<td>1</td>
+<td><strong>バス電圧を実測してから要否を判断</strong></td>
+</tr>
+<tr>
+<td>電解コンデンサー 470〜1000µF</td>
+<td>1</td>
+<td>Pan-Tilt 電源用</td>
+</tr>
+<tr>
+<td>USB AC アダプター</td>
+<td>1</td>
+<td>サーボ電源</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="2-ポート早見表">2. ポート早見表</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ポート</th>
+<th>場所</th>
+<th>ピン</th>
+<th>何を繋ぐか</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PORT.A</strong>（赤）</td>
+<td>本体上部</td>
+<td>G32 = SDA / G33 = SCL</td>
+<td>ENV Ⅲ（<strong>I2C バス0</strong>）</td>
+</tr>
+<tr>
+<td><strong>PORT.B</strong>（黒）</td>
+<td>本体上面の左</td>
+<td><strong>G26</strong> / G36（入力専用）</td>
+<td>サーボの PWM 信号</td>
+</tr>
+<tr>
+<td><strong>PORT.C</strong>（青）</td>
+<td>本体上面の右</td>
+<td>G14 = SDA / G13 = SCL</td>
+<td>Pan-Tilt（<strong>I2C バス1</strong>）</td>
+</tr>
+<tr>
+<td>LED バー</td>
+<td>ベース内部</td>
+<td><strong>G25</strong></td>
+<td>配線不要</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>使えないピン</strong>: GPIO16 / GPIO17（PSRAM が占有）</p>
+<hr />
+<h2 id="3-ho-1-lチカ">3. HO-1　Lチカ</h2><figure class="fig" data-cap="図0　LED バーの位置（HO-1 完成図）"><svg role="img" aria-label="図0　LED バーの位置（HO-1 完成図）" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 470" font-family="'Hiragino Sans','Yu Gothic UI','Meiryo',sans-serif" xmlns:c2pa="http://c2pa.org/manifest">
+<defs><linearGradient id="glow" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#5fe08a" stop-opacity=".95"/><stop offset="100%" stop-color="#2fbf66" stop-opacity=".8"/></linearGradient></defs>
+<rect width="880" height="470" fill="#ffffff"/>
+<text x="30" y="34" font-size="19" font-weight="700" fill="#1c1c1c" text-anchor="start">図0　LED バーの位置（HO-1 完成図）</text>
+<text x="30" y="58" font-size="13" font-weight="400" fill="#555" text-anchor="start">左右の側面に内蔵されているため、配線は不要です。USB ケーブルだけ繋げば光ります。</text>
+<rect x="40" y="160" width="150" height="96" rx="7" fill="#2b3038"/>
+<rect x="50" y="170" width="130" height="76" rx="3" fill="#f8f8f6"/>
+<polygon points="28,256 202,256 214,272 16,272" fill="#3b4149"/>
+<text x="115" y="294" font-size="13" font-weight="700" fill="#1c1c1c" text-anchor="middle">PC</text>
+<rect x="300" y="123" width="18" height="154" rx="8" fill="#2f343b"/>
+<circle cx="309.0" cy="134.0" r="7" fill="url(#glow)"/>
+<circle cx="309.0" cy="167.0" r="7" fill="url(#glow)"/>
+<circle cx="309.0" cy="200.0" r="7" fill="url(#glow)"/>
+<circle cx="309.0" cy="233.0" r="7" fill="url(#glow)"/>
+<circle cx="309.0" cy="266.0" r="7" fill="url(#glow)"/>
+<rect x="562" y="123" width="18" height="154" rx="8" fill="#2f343b"/>
+<circle cx="571.0" cy="134.0" r="7" fill="url(#glow)"/>
+<circle cx="571.0" cy="167.0" r="7" fill="url(#glow)"/>
+<circle cx="571.0" cy="200.0" r="7" fill="url(#glow)"/>
+<circle cx="571.0" cy="233.0" r="7" fill="url(#glow)"/>
+<circle cx="571.0" cy="266.0" r="7" fill="url(#glow)"/>
+<rect x="340" y="100" width="200" height="200" rx="16" fill="#f2a62b"/>
+<rect x="348" y="108" width="184" height="184" rx="11" fill="#2b3036"/>
+<rect x="362" y="132" width="156" height="120" rx="6" fill="#0d1218"/>
+<text x="440" y="186" font-size="21" font-weight="700" fill="#5fd3f3" text-anchor="middle">Lチカ</text>
+<text x="440" y="218" font-size="14" font-weight="400" fill="#7ce0b0" text-anchor="middle">rgb25</text>
+<circle cx="388" cy="276" r="8" fill="none" stroke="#767d86" stroke-width="1.6"/>
+<circle cx="440" cy="276" r="8" fill="none" stroke="#767d86" stroke-width="1.6"/>
+<circle cx="492" cy="276" r="8" fill="none" stroke="#767d86" stroke-width="1.6"/>
+<rect x="362" y="84" width="44" height="18" rx="4" fill="#242424"/>
+<text x="384" y="124" font-size="10" font-weight="700" fill="#8a9099" text-anchor="middle">PORT.B</text>
+<rect x="474" y="84" width="44" height="18" rx="4" fill="#2c5fa8"/>
+<text x="496" y="124" font-size="10" font-weight="700" fill="#9fc0e8" text-anchor="middle">PORT.C</text>
+<rect x="330" y="150" width="16" height="22" rx="4" fill="#9aa0a8"/>
+<rect x="328" y="194" width="18" height="28" rx="4" fill="#1a1d21"/>
+<rect x="330" y="250" width="16" height="42" rx="4" fill="#c0392b"/>
+<path d="M212 208 L300 208 L330 208" fill="none" stroke="#ffffff" stroke-width="15" stroke-linecap="round"/>
+<path d="M212 208 L300 208 L330 208" fill="none" stroke="#8d8d8d" stroke-width="8" stroke-linecap="round"/>
+<text x="250" y="196" font-size="12" font-weight="700" fill="#333" text-anchor="middle">USB</text>
+<text x="250" y="236" font-size="11" font-weight="400" fill="#666" text-anchor="middle">給電と書き込み</text>
+<text x="440" y="334" font-size="14" font-weight="700" fill="#1c1c1c" text-anchor="middle">M5Stack Core2 for AWS</text>
+<rect x="30" y="320" width="240" height="126" rx="9" fill="#fbfaf7" stroke="#c9c2b1" stroke-width="1.5"/>
+<text x="42" y="342" font-size="12" font-weight="700" fill="#1c1c1c" text-anchor="start">左側面には、上からこの順で並びます</text>
+<rect x="46" y="354" width="13" height="13" rx="3" fill="#9aa0a8"/>
+<text x="68" y="364" font-size="11.5" font-weight="400" fill="#333" text-anchor="start">電源 ON/OFF の押しスイッチ</text>
+<rect x="46" y="376" width="13" height="13" rx="3" fill="#1a1d21"/>
+<text x="68" y="386" font-size="11.5" font-weight="400" fill="#333" text-anchor="start">USB-C（PC と接続）</text>
+<rect x="46" y="398" width="13" height="13" rx="3" fill="#c0392b"/>
+<text x="68" y="408" font-size="11.5" font-weight="400" fill="#333" text-anchor="start">PORT.A（HO-1 では未使用）</text>
+<text x="42" y="434" font-size="11.5" font-weight="700" fill="#2a7a4f" text-anchor="start">LED バーは、これらより奥側にあります</text>
+<rect x="600" y="118" width="250" height="152" rx="10" fill="#fbfaf7" stroke="#c9c2b1" stroke-width="1.5"/>
+<text x="725" y="144" font-size="12" font-weight="700" fill="#1c1c1c" text-anchor="middle">SK6812　左右の側面に縦5個ずつ・計10個</text>
+<rect x="620" y="158" width="210" height="28" rx="6" fill="#2b3038"/>
+<circle cx="634.0" cy="172" r="6" fill="url(#glow)"/>
+<circle cx="654.3" cy="172" r="6" fill="url(#glow)"/>
+<circle cx="674.6" cy="172" r="6" fill="url(#glow)"/>
+<circle cx="694.9" cy="172" r="6" fill="url(#glow)"/>
+<circle cx="715.2" cy="172" r="6" fill="url(#glow)"/>
+<circle cx="735.5" cy="172" r="6" fill="url(#glow)"/>
+<circle cx="755.8" cy="172" r="6" fill="url(#glow)"/>
+<circle cx="776.1" cy="172" r="6" fill="url(#glow)"/>
+<circle cx="796.4" cy="172" r="6" fill="url(#glow)"/>
+<circle cx="816.7" cy="172" r="6" fill="url(#glow)"/>
+<text x="725" y="212" font-size="12" font-weight="700" fill="#333" text-anchor="middle">データ線 ＝ G25</text>
+<text x="725" y="232" font-size="11.5" font-weight="400" fill="#555" text-anchor="middle">すりガラス状の導光材ごしに光ります</text>
+<text x="725" y="252" font-size="11.5" font-weight="400" fill="#555" text-anchor="middle">0〜100% で明るさを指定</text>
+<line x1="582" y1="200" x2="598" y2="190" stroke="#999" stroke-width="1" stroke-dasharray="3 3"/>
+<rect x="600" y="288" width="250" height="68" rx="7" fill="#fdf2e3" stroke="#e8c9a0"/>
+<text x="616" y="312" font-size="12.5" font-weight="700" fill="#8a5a1c" text-anchor="start">明るさは 12% 程度で十分</text>
+<text x="616" y="334" font-size="11.5" font-weight="400" fill="#8a5a1c" text-anchor="start">白 100% で全部光らせると約 600mA</text>
+</svg><figcaption>図0　LED バーの位置（HO-1 完成図）<button class="zoom" type="button">拡大</button></figcaption></figure>
+<h3>配線</h3>
+<p><strong>ありません。</strong> USB ケーブルで PC と繋ぐだけです。</p>
+<p>→ <strong>図0</strong> を参照</p>
+<h3>押さえる点</h3>
+<p>LED バーは本体の左右の側面に 5 個ずつ（計 10 個）内蔵されていて、データ線は <strong>G25</strong> です。PORT.A や PORT.B とは競合しません。</p>
+<p><strong>明るさは 0〜100 のパーセント指定で、12% 程度で十分です。</strong> 白（<code>0xffffff</code>）で 10 個を 100% 点灯すると約 600mA になり、Core2 の入力仕様（5V @ 500mA）を超えます。</p>
+<pre><code class="language-python">rgb25 = RGB(io=25, n=10, type=&quot;SK6812&quot;)
+rgb25.set_brightness(12)
+</code></pre>
+<hr />
+<h2 id="4-ho-2-温湿度センサー">4. HO-2　温湿度センサー</h2><figure class="fig" data-cap="図1　温湿度センサーの接続（HO-2 完成図）"><svg role="img" aria-label="図1　温湿度センサーの接続（HO-2 完成図）" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 440" font-family="'Hiragino Sans','Yu Gothic UI','Meiryo',sans-serif" xmlns:c2pa="http://c2pa.org/manifest">
+  <rect x="0" y="0" width="800" height="440" fill="#ffffff"/>
+  <text x="30" y="36" font-size="19" font-weight="700" fill="#1c1c1c">図1　温湿度センサーの接続（HO-2 完成図）</text>
+
+  <!-- Grove cable -->
+  <path d="M78 262 L48 262 L48 66 L520 66 L520 203 L546 203" fill="none" stroke="#ffffff" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M78 262 L48 262 L48 66 L520 66 L520 203 L546 203" fill="none" stroke="#8d8d8d" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- base -->
+  
+  <!-- core body -->
+  <rect x="90" y="108" width="200" height="200" rx="16" fill="#f2a62b"/>
+  <rect x="98" y="116" width="184" height="184" rx="11" fill="#2b3036"/>
+  <circle cx="137" cy="280" r="8" fill="none" stroke="#767d86" stroke-width="1.6"/>
+  <circle cx="190" cy="280" r="8" fill="none" stroke="#767d86" stroke-width="1.6"/>
+  <circle cx="243" cy="280" r="8" fill="none" stroke="#767d86" stroke-width="1.6"/>
+  <rect x="110" y="132" width="160" height="126" rx="6" fill="#0d1218"/>
+  <text x="190" y="180" font-size="27" font-weight="700" fill="#5fd3f3" text-anchor="middle">24.8 °C</text>
+  <text x="190" y="216" font-size="22" font-weight="700" fill="#7ce0b0" text-anchor="middle">52.3 %</text>
+  <!-- PORT.B（上面の左・黒／今回は未使用） -->
+  <rect x="112" y="92" width="44" height="18" rx="3" fill="#242424"/>
+  <text x="134" y="126" font-size="10.5" font-weight="700" fill="#9aa0a8" text-anchor="middle">PORT.B</text>
+  <!-- PORT.C（上面の右・青／今回は未使用） -->
+  <rect x="224" y="92" width="44" height="18" rx="3" fill="#2c5fa8"/>
+  <text x="246" y="126" font-size="10.5" font-weight="700" fill="#9aa0a8" text-anchor="middle">PORT.C</text>
+  <!-- PORT.A（左側面の下・赤／今回使用） -->
+  <rect x="76" y="242" width="18" height="40" rx="3" fill="#c0392b"/>
+  <text x="70" y="300" font-size="11.5" font-weight="700" fill="#c0392b" text-anchor="end">PORT.A</text>
+  <text x="190" y="344" font-size="14" font-weight="600" fill="#1c1c1c" text-anchor="middle">M5Stack Core2 for AWS</text>
+
+  <!-- ENV III unit -->
+  <rect x="560" y="148" width="140" height="112" rx="10" fill="#f5f3ee" stroke="#b3ab9c" stroke-width="1.5"/>
+  <rect x="546" y="190" width="16" height="28" rx="3" fill="#c0392b"/>
+  <rect x="584" y="170" width="34" height="26" rx="3" fill="#3f4a54"/>
+  <rect x="638" y="176" width="24" height="20" rx="3" fill="#3f4a54"/>
+  <text x="630" y="232" font-size="16" font-weight="700" fill="#1c1c1c" text-anchor="middle">ENV Ⅲ</text>
+  <text x="630" y="286" font-size="13" fill="#333">SHT30 → 0x44（温湿度）</text>
+  <text x="630" y="308" font-size="13" fill="#333">QMP6988 → 0x70（気圧）</text>
+  <line x1="630" y1="262" x2="630" y2="272" stroke="#999" stroke-width="1"/>
+
+  <!-- annotations -->
+  <text x="316" y="60" font-size="13" font-weight="700" fill="#c0392b">PORT.A（左側面の下・赤いコネクター）</text>
+  <text x="316" y="100" font-size="13" fill="#333">I2C　G32 = SDA ／ G33 = SCL</text>
+  <text x="316" y="122" font-size="12" fill="#666">Groveケーブル 4線</text>
+  <text x="316" y="140" font-size="12" fill="#666">黄=SDA　白=SCL</text>
+  <text x="316" y="158" font-size="12" fill="#666">赤=5V　黒=GND</text>
+  <text x="316" y="232" font-size="11.5" fill="#9aa0a8">上面の PORT.B（黒）・PORT.C（青）は</text>
+  <text x="316" y="250" font-size="11.5" fill="#9aa0a8">HO-2 では使いません</text>
+
+  <rect x="60" y="404" width="680" height="26" rx="6" fill="#f2f4f7"/>
+  <text x="74" y="422" font-size="13" fill="#1c1c1c">確認方法：i2c.scan() の結果が <tspan font-weight="700">['0x44', '0x70']</tspan> の2つだけ。PORT.A は内蔵I2Cとは別バスです</text>
+</svg>
+<figcaption>図1　温湿度センサーの接続（HO-2 完成図）<button class="zoom" type="button">拡大</button></figcaption></figure>
+<h3>配線</h3>
+<pre><code>Core2 PORT.A ──Groveケーブル──→ ENV Ⅲ Unit
+（本体上部・赤）
+</code></pre>
+<p>Grove ケーブルを挿すだけです。向きは物理的に決まっているので、間違えようがありません。</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>線の色</th>
+<th>信号</th>
+<th>Core2 PORT.A</th>
+<th>ENV Ⅲ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>黒</td>
+<td>GND</td>
+<td>GND</td>
+<td>GND</td>
+</tr>
+<tr>
+<td>赤</td>
+<td>5V</td>
+<td>5V</td>
+<td>5V</td>
+</tr>
+<tr>
+<td><strong>黄</strong></td>
+<td><strong>SDA</strong></td>
+<td><strong>G32</strong></td>
+<td><strong>SDA</strong></td>
+</tr>
+<tr>
+<td><strong>白</strong></td>
+<td><strong>SCL</strong></td>
+<td><strong>G33</strong></td>
+<td><strong>SCL</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p>両者の割り当ては一致しているので、そのまま繋がります。</p>
+<blockquote>
+<p><strong>他社の Grove センサーを繋ぐ場合は注意が必要です。</strong> M5Stack の HY2.0-4P は、Seeed 社の本家 Grove 規格とは I2C のピン順が逆です（本家は 黄=SCL、M5Stack は 黄=SDA）。コネクターの形状は同じなので物理的には挿さりますが、信号が入れ替わります。</p>
+</blockquote>
+<p>→ <strong>図1</strong> を参照</p>
+<h3>確認方法</h3>
+<pre><code class="language-python">i2c = I2C(0, scl=Pin(33), sda=Pin(32), freq=100000)
+print([hex(a) for a in i2c.scan()])
+</code></pre>
+<ul>
+<li><code>0x44</code> = SHT30（温湿度）</li>
+<li><code>0x70</code> = QMP6988（気圧）</li>
+</ul>
+<p>実機では <strong><code>['0x44', '0x70']</code> の2つだけ</strong>が返ります。PORT.A は本体内部の I2C とは別系統です。</p>
+<p><strong><code>[]</code> が返ったら PORT.B に挿していないか確認してください。</strong></p>
+<hr />
+<h2 id="5-ho-3-サーボ">5. HO-3　サーボ</h2><figure class="fig" data-cap="図2　サーボの外部電源配線（HO-3 完成図）"><svg role="img" aria-label="図2　サーボの外部電源配線（HO-3 完成図）" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1020 650" font-family="'Hiragino Sans','Yu Gothic UI','Meiryo',sans-serif" xmlns:c2pa="http://c2pa.org/manifest">
+<rect width="1020" height="650" fill="#ffffff"/>
+<text x="30" y="36" font-size="20" font-weight="700" fill="#1c1c1c" text-anchor="start">図2　サーボの外部電源配線（HO-3 完成図）</text>
+<rect x="285" y="162" width="540" height="286" rx="7" fill="#ece8de" stroke="#c9c2b1" stroke-width="2"/>
+<rect x="293" y="304" width="524" height="18" fill="#e3ded1"/>
+<line x1="301" y1="172" x2="809" y2="172" stroke="#d64b3c" stroke-width="2"/>
+<text x="293" y="176.5" font-size="13" font-weight="700" fill="#d64b3c" text-anchor="middle">＋</text>
+<text x="817" y="176.5" font-size="13" font-weight="700" fill="#d64b3c" text-anchor="middle">＋</text>
+<line x1="301" y1="209" x2="809" y2="209" stroke="#3b6ea8" stroke-width="2"/>
+<text x="293" y="213.5" font-size="13" font-weight="700" fill="#3b6ea8" text-anchor="middle">−</text>
+<text x="817" y="213.5" font-size="13" font-weight="700" fill="#3b6ea8" text-anchor="middle">−</text>
+<line x1="301" y1="398" x2="809" y2="398" stroke="#3b6ea8" stroke-width="2"/>
+<text x="293" y="402.5" font-size="13" font-weight="700" fill="#3b6ea8" text-anchor="middle">−</text>
+<text x="817" y="402.5" font-size="13" font-weight="700" fill="#3b6ea8" text-anchor="middle">−</text>
+<line x1="301" y1="435" x2="809" y2="435" stroke="#d64b3c" stroke-width="2"/>
+<text x="293" y="439.5" font-size="13" font-weight="700" fill="#d64b3c" text-anchor="middle">＋</text>
+<text x="817" y="439.5" font-size="13" font-weight="700" fill="#d64b3c" text-anchor="middle">＋</text>
+<circle cx="303.0" cy="182" r="2.5" fill="#b0a795"/>
+<circle cx="320.5" cy="182" r="2.5" fill="#b0a795"/>
+<circle cx="338.0" cy="182" r="2.5" fill="#b0a795"/>
+<circle cx="355.5" cy="182" r="2.5" fill="#b0a795"/>
+<circle cx="373.0" cy="182" r="2.5" fill="#b0a795"/>
+<circle cx="408.0" cy="182" r="2.5" fill="#b0a795"/>
+<circle cx="425.5" cy="182" r="2.5" fill="#b0a795"/>
+<circle cx="443.0" cy="182" r="2.5" fill="#b0a795"/>
+<circle cx="460.5" cy="182" r="2.5" fill="#b0a795"/>
+<circle cx="478.0" cy="182" r="2.5" fill="#b0a795"/>
+<circle cx="513.0" cy="182" r="2.5" fill="#b0a795"/>
+<circle cx="530.5" cy="182" r="2.5" fill="#b0a795"/>
+<circle cx="548.0" cy="182" r="2.5" fill="#b0a795"/>
+<circle cx="565.5" cy="182" r="2.5" fill="#b0a795"/>
+<circle cx="583.0" cy="182" r="2.5" fill="#b0a795"/>
+<circle cx="618.0" cy="182" r="2.5" fill="#b0a795"/>
+<circle cx="635.5" cy="182" r="2.5" fill="#b0a795"/>
+<circle cx="653.0" cy="182" r="2.5" fill="#b0a795"/>
+<circle cx="670.5" cy="182" r="2.5" fill="#b0a795"/>
+<circle cx="688.0" cy="182" r="2.5" fill="#b0a795"/>
+<circle cx="723.0" cy="182" r="2.5" fill="#b0a795"/>
+<circle cx="740.5" cy="182" r="2.5" fill="#b0a795"/>
+<circle cx="758.0" cy="182" r="2.5" fill="#b0a795"/>
+<circle cx="775.5" cy="182" r="2.5" fill="#b0a795"/>
+<circle cx="793.0" cy="182" r="2.5" fill="#b0a795"/>
+<circle cx="303.0" cy="199" r="2.5" fill="#b0a795"/>
+<circle cx="320.5" cy="199" r="2.5" fill="#b0a795"/>
+<circle cx="338.0" cy="199" r="2.5" fill="#b0a795"/>
+<circle cx="355.5" cy="199" r="2.5" fill="#b0a795"/>
+<circle cx="373.0" cy="199" r="2.5" fill="#b0a795"/>
+<circle cx="408.0" cy="199" r="2.5" fill="#b0a795"/>
+<circle cx="425.5" cy="199" r="2.5" fill="#b0a795"/>
+<circle cx="443.0" cy="199" r="2.5" fill="#b0a795"/>
+<circle cx="460.5" cy="199" r="2.5" fill="#b0a795"/>
+<circle cx="478.0" cy="199" r="2.5" fill="#b0a795"/>
+<circle cx="513.0" cy="199" r="2.5" fill="#b0a795"/>
+<circle cx="530.5" cy="199" r="2.5" fill="#b0a795"/>
+<circle cx="548.0" cy="199" r="2.5" fill="#b0a795"/>
+<circle cx="565.5" cy="199" r="2.5" fill="#b0a795"/>
+<circle cx="583.0" cy="199" r="2.5" fill="#b0a795"/>
+<circle cx="618.0" cy="199" r="2.5" fill="#b0a795"/>
+<circle cx="635.5" cy="199" r="2.5" fill="#b0a795"/>
+<circle cx="653.0" cy="199" r="2.5" fill="#b0a795"/>
+<circle cx="670.5" cy="199" r="2.5" fill="#b0a795"/>
+<circle cx="688.0" cy="199" r="2.5" fill="#b0a795"/>
+<circle cx="723.0" cy="199" r="2.5" fill="#b0a795"/>
+<circle cx="740.5" cy="199" r="2.5" fill="#b0a795"/>
+<circle cx="758.0" cy="199" r="2.5" fill="#b0a795"/>
+<circle cx="775.5" cy="199" r="2.5" fill="#b0a795"/>
+<circle cx="793.0" cy="199" r="2.5" fill="#b0a795"/>
+<circle cx="303.0" cy="408" r="2.5" fill="#b0a795"/>
+<circle cx="320.5" cy="408" r="2.5" fill="#b0a795"/>
+<circle cx="338.0" cy="408" r="2.5" fill="#b0a795"/>
+<circle cx="355.5" cy="408" r="2.5" fill="#b0a795"/>
+<circle cx="373.0" cy="408" r="2.5" fill="#b0a795"/>
+<circle cx="408.0" cy="408" r="2.5" fill="#b0a795"/>
+<circle cx="425.5" cy="408" r="2.5" fill="#b0a795"/>
+<circle cx="443.0" cy="408" r="2.5" fill="#b0a795"/>
+<circle cx="460.5" cy="408" r="2.5" fill="#b0a795"/>
+<circle cx="478.0" cy="408" r="2.5" fill="#b0a795"/>
+<circle cx="513.0" cy="408" r="2.5" fill="#b0a795"/>
+<circle cx="530.5" cy="408" r="2.5" fill="#b0a795"/>
+<circle cx="548.0" cy="408" r="2.5" fill="#b0a795"/>
+<circle cx="565.5" cy="408" r="2.5" fill="#b0a795"/>
+<circle cx="583.0" cy="408" r="2.5" fill="#b0a795"/>
+<circle cx="618.0" cy="408" r="2.5" fill="#b0a795"/>
+<circle cx="635.5" cy="408" r="2.5" fill="#b0a795"/>
+<circle cx="653.0" cy="408" r="2.5" fill="#b0a795"/>
+<circle cx="670.5" cy="408" r="2.5" fill="#b0a795"/>
+<circle cx="688.0" cy="408" r="2.5" fill="#b0a795"/>
+<circle cx="723.0" cy="408" r="2.5" fill="#b0a795"/>
+<circle cx="740.5" cy="408" r="2.5" fill="#b0a795"/>
+<circle cx="758.0" cy="408" r="2.5" fill="#b0a795"/>
+<circle cx="775.5" cy="408" r="2.5" fill="#b0a795"/>
+<circle cx="793.0" cy="408" r="2.5" fill="#b0a795"/>
+<circle cx="303.0" cy="425" r="2.5" fill="#b0a795"/>
+<circle cx="320.5" cy="425" r="2.5" fill="#b0a795"/>
+<circle cx="338.0" cy="425" r="2.5" fill="#b0a795"/>
+<circle cx="355.5" cy="425" r="2.5" fill="#b0a795"/>
+<circle cx="373.0" cy="425" r="2.5" fill="#b0a795"/>
+<circle cx="408.0" cy="425" r="2.5" fill="#b0a795"/>
+<circle cx="425.5" cy="425" r="2.5" fill="#b0a795"/>
+<circle cx="443.0" cy="425" r="2.5" fill="#b0a795"/>
+<circle cx="460.5" cy="425" r="2.5" fill="#b0a795"/>
+<circle cx="478.0" cy="425" r="2.5" fill="#b0a795"/>
+<circle cx="513.0" cy="425" r="2.5" fill="#b0a795"/>
+<circle cx="530.5" cy="425" r="2.5" fill="#b0a795"/>
+<circle cx="548.0" cy="425" r="2.5" fill="#b0a795"/>
+<circle cx="565.5" cy="425" r="2.5" fill="#b0a795"/>
+<circle cx="583.0" cy="425" r="2.5" fill="#b0a795"/>
+<circle cx="618.0" cy="425" r="2.5" fill="#b0a795"/>
+<circle cx="635.5" cy="425" r="2.5" fill="#b0a795"/>
+<circle cx="653.0" cy="425" r="2.5" fill="#b0a795"/>
+<circle cx="670.5" cy="425" r="2.5" fill="#b0a795"/>
+<circle cx="688.0" cy="425" r="2.5" fill="#b0a795"/>
+<circle cx="723.0" cy="425" r="2.5" fill="#b0a795"/>
+<circle cx="740.5" cy="425" r="2.5" fill="#b0a795"/>
+<circle cx="758.0" cy="425" r="2.5" fill="#b0a795"/>
+<circle cx="775.5" cy="425" r="2.5" fill="#b0a795"/>
+<circle cx="793.0" cy="425" r="2.5" fill="#b0a795"/>
+<circle cx="303.0" cy="233" r="2.5" fill="#b0a795"/>
+<circle cx="320.5" cy="233" r="2.5" fill="#b0a795"/>
+<circle cx="338.0" cy="233" r="2.5" fill="#b0a795"/>
+<circle cx="355.5" cy="233" r="2.5" fill="#b0a795"/>
+<circle cx="373.0" cy="233" r="2.5" fill="#b0a795"/>
+<circle cx="390.5" cy="233" r="2.5" fill="#b0a795"/>
+<circle cx="408.0" cy="233" r="2.5" fill="#b0a795"/>
+<circle cx="425.5" cy="233" r="2.5" fill="#b0a795"/>
+<circle cx="443.0" cy="233" r="2.5" fill="#b0a795"/>
+<circle cx="460.5" cy="233" r="2.5" fill="#b0a795"/>
+<circle cx="478.0" cy="233" r="2.5" fill="#b0a795"/>
+<circle cx="495.5" cy="233" r="2.5" fill="#b0a795"/>
+<circle cx="513.0" cy="233" r="2.5" fill="#b0a795"/>
+<circle cx="530.5" cy="233" r="2.5" fill="#b0a795"/>
+<circle cx="548.0" cy="233" r="2.5" fill="#b0a795"/>
+<circle cx="565.5" cy="233" r="2.5" fill="#b0a795"/>
+<circle cx="583.0" cy="233" r="2.5" fill="#b0a795"/>
+<circle cx="600.5" cy="233" r="2.5" fill="#b0a795"/>
+<circle cx="618.0" cy="233" r="2.5" fill="#b0a795"/>
+<circle cx="635.5" cy="233" r="2.5" fill="#b0a795"/>
+<circle cx="653.0" cy="233" r="2.5" fill="#b0a795"/>
+<circle cx="670.5" cy="233" r="2.5" fill="#b0a795"/>
+<circle cx="688.0" cy="233" r="2.5" fill="#b0a795"/>
+<circle cx="705.5" cy="233" r="2.5" fill="#b0a795"/>
+<circle cx="723.0" cy="233" r="2.5" fill="#b0a795"/>
+<circle cx="740.5" cy="233" r="2.5" fill="#b0a795"/>
+<circle cx="758.0" cy="233" r="2.5" fill="#b0a795"/>
+<circle cx="775.5" cy="233" r="2.5" fill="#b0a795"/>
+<circle cx="793.0" cy="233" r="2.5" fill="#b0a795"/>
+<circle cx="810.5" cy="233" r="2.5" fill="#b0a795"/>
+<circle cx="303.0" cy="249" r="2.5" fill="#b0a795"/>
+<circle cx="320.5" cy="249" r="2.5" fill="#b0a795"/>
+<circle cx="338.0" cy="249" r="2.5" fill="#b0a795"/>
+<circle cx="355.5" cy="249" r="2.5" fill="#b0a795"/>
+<circle cx="373.0" cy="249" r="2.5" fill="#b0a795"/>
+<circle cx="390.5" cy="249" r="2.5" fill="#b0a795"/>
+<circle cx="408.0" cy="249" r="2.5" fill="#b0a795"/>
+<circle cx="425.5" cy="249" r="2.5" fill="#b0a795"/>
+<circle cx="443.0" cy="249" r="2.5" fill="#b0a795"/>
+<circle cx="460.5" cy="249" r="2.5" fill="#b0a795"/>
+<circle cx="478.0" cy="249" r="2.5" fill="#b0a795"/>
+<circle cx="495.5" cy="249" r="2.5" fill="#b0a795"/>
+<circle cx="513.0" cy="249" r="2.5" fill="#b0a795"/>
+<circle cx="530.5" cy="249" r="2.5" fill="#b0a795"/>
+<circle cx="548.0" cy="249" r="2.5" fill="#b0a795"/>
+<circle cx="565.5" cy="249" r="2.5" fill="#b0a795"/>
+<circle cx="583.0" cy="249" r="2.5" fill="#b0a795"/>
+<circle cx="600.5" cy="249" r="2.5" fill="#b0a795"/>
+<circle cx="618.0" cy="249" r="2.5" fill="#b0a795"/>
+<circle cx="635.5" cy="249" r="2.5" fill="#b0a795"/>
+<circle cx="653.0" cy="249" r="2.5" fill="#b0a795"/>
+<circle cx="670.5" cy="249" r="2.5" fill="#b0a795"/>
+<circle cx="688.0" cy="249" r="2.5" fill="#b0a795"/>
+<circle cx="705.5" cy="249" r="2.5" fill="#b0a795"/>
+<circle cx="723.0" cy="249" r="2.5" fill="#b0a795"/>
+<circle cx="740.5" cy="249" r="2.5" fill="#b0a795"/>
+<circle cx="758.0" cy="249" r="2.5" fill="#b0a795"/>
+<circle cx="775.5" cy="249" r="2.5" fill="#b0a795"/>
+<circle cx="793.0" cy="249" r="2.5" fill="#b0a795"/>
+<circle cx="810.5" cy="249" r="2.5" fill="#b0a795"/>
+<circle cx="303.0" cy="265" r="2.5" fill="#b0a795"/>
+<circle cx="320.5" cy="265" r="2.5" fill="#b0a795"/>
+<circle cx="338.0" cy="265" r="2.5" fill="#b0a795"/>
+<circle cx="355.5" cy="265" r="2.5" fill="#b0a795"/>
+<circle cx="373.0" cy="265" r="2.5" fill="#b0a795"/>
+<circle cx="390.5" cy="265" r="2.5" fill="#b0a795"/>
+<circle cx="408.0" cy="265" r="2.5" fill="#b0a795"/>
+<circle cx="425.5" cy="265" r="2.5" fill="#b0a795"/>
+<circle cx="443.0" cy="265" r="2.5" fill="#b0a795"/>
+<circle cx="460.5" cy="265" r="2.5" fill="#b0a795"/>
+<circle cx="478.0" cy="265" r="2.5" fill="#b0a795"/>
+<circle cx="495.5" cy="265" r="2.5" fill="#b0a795"/>
+<circle cx="513.0" cy="265" r="2.5" fill="#b0a795"/>
+<circle cx="530.5" cy="265" r="2.5" fill="#b0a795"/>
+<circle cx="548.0" cy="265" r="2.5" fill="#b0a795"/>
+<circle cx="565.5" cy="265" r="2.5" fill="#b0a795"/>
+<circle cx="583.0" cy="265" r="2.5" fill="#b0a795"/>
+<circle cx="600.5" cy="265" r="2.5" fill="#b0a795"/>
+<circle cx="618.0" cy="265" r="2.5" fill="#b0a795"/>
+<circle cx="635.5" cy="265" r="2.5" fill="#b0a795"/>
+<circle cx="653.0" cy="265" r="2.5" fill="#b0a795"/>
+<circle cx="670.5" cy="265" r="2.5" fill="#b0a795"/>
+<circle cx="688.0" cy="265" r="2.5" fill="#b0a795"/>
+<circle cx="705.5" cy="265" r="2.5" fill="#b0a795"/>
+<circle cx="723.0" cy="265" r="2.5" fill="#b0a795"/>
+<circle cx="740.5" cy="265" r="2.5" fill="#b0a795"/>
+<circle cx="758.0" cy="265" r="2.5" fill="#b0a795"/>
+<circle cx="775.5" cy="265" r="2.5" fill="#b0a795"/>
+<circle cx="793.0" cy="265" r="2.5" fill="#b0a795"/>
+<circle cx="810.5" cy="265" r="2.5" fill="#b0a795"/>
+<circle cx="303.0" cy="281" r="2.5" fill="#b0a795"/>
+<circle cx="320.5" cy="281" r="2.5" fill="#b0a795"/>
+<circle cx="338.0" cy="281" r="2.5" fill="#b0a795"/>
+<circle cx="355.5" cy="281" r="2.5" fill="#b0a795"/>
+<circle cx="373.0" cy="281" r="2.5" fill="#b0a795"/>
+<circle cx="390.5" cy="281" r="2.5" fill="#b0a795"/>
+<circle cx="408.0" cy="281" r="2.5" fill="#b0a795"/>
+<circle cx="425.5" cy="281" r="2.5" fill="#b0a795"/>
+<circle cx="443.0" cy="281" r="2.5" fill="#b0a795"/>
+<circle cx="460.5" cy="281" r="2.5" fill="#b0a795"/>
+<circle cx="478.0" cy="281" r="2.5" fill="#b0a795"/>
+<circle cx="495.5" cy="281" r="2.5" fill="#b0a795"/>
+<circle cx="513.0" cy="281" r="2.5" fill="#b0a795"/>
+<circle cx="530.5" cy="281" r="2.5" fill="#b0a795"/>
+<circle cx="548.0" cy="281" r="2.5" fill="#b0a795"/>
+<circle cx="565.5" cy="281" r="2.5" fill="#b0a795"/>
+<circle cx="583.0" cy="281" r="2.5" fill="#b0a795"/>
+<circle cx="600.5" cy="281" r="2.5" fill="#b0a795"/>
+<circle cx="618.0" cy="281" r="2.5" fill="#b0a795"/>
+<circle cx="635.5" cy="281" r="2.5" fill="#b0a795"/>
+<circle cx="653.0" cy="281" r="2.5" fill="#b0a795"/>
+<circle cx="670.5" cy="281" r="2.5" fill="#b0a795"/>
+<circle cx="688.0" cy="281" r="2.5" fill="#b0a795"/>
+<circle cx="705.5" cy="281" r="2.5" fill="#b0a795"/>
+<circle cx="723.0" cy="281" r="2.5" fill="#b0a795"/>
+<circle cx="740.5" cy="281" r="2.5" fill="#b0a795"/>
+<circle cx="758.0" cy="281" r="2.5" fill="#b0a795"/>
+<circle cx="775.5" cy="281" r="2.5" fill="#b0a795"/>
+<circle cx="793.0" cy="281" r="2.5" fill="#b0a795"/>
+<circle cx="810.5" cy="281" r="2.5" fill="#b0a795"/>
+<circle cx="303.0" cy="297" r="2.5" fill="#b0a795"/>
+<circle cx="320.5" cy="297" r="2.5" fill="#b0a795"/>
+<circle cx="338.0" cy="297" r="2.5" fill="#b0a795"/>
+<circle cx="355.5" cy="297" r="2.5" fill="#b0a795"/>
+<circle cx="373.0" cy="297" r="2.5" fill="#b0a795"/>
+<circle cx="390.5" cy="297" r="2.5" fill="#b0a795"/>
+<circle cx="408.0" cy="297" r="2.5" fill="#b0a795"/>
+<circle cx="425.5" cy="297" r="2.5" fill="#b0a795"/>
+<circle cx="443.0" cy="297" r="2.5" fill="#b0a795"/>
+<circle cx="460.5" cy="297" r="2.5" fill="#b0a795"/>
+<circle cx="478.0" cy="297" r="2.5" fill="#b0a795"/>
+<circle cx="495.5" cy="297" r="2.5" fill="#b0a795"/>
+<circle cx="513.0" cy="297" r="2.5" fill="#b0a795"/>
+<circle cx="530.5" cy="297" r="2.5" fill="#b0a795"/>
+<circle cx="548.0" cy="297" r="2.5" fill="#b0a795"/>
+<circle cx="565.5" cy="297" r="2.5" fill="#b0a795"/>
+<circle cx="583.0" cy="297" r="2.5" fill="#b0a795"/>
+<circle cx="600.5" cy="297" r="2.5" fill="#b0a795"/>
+<circle cx="618.0" cy="297" r="2.5" fill="#b0a795"/>
+<circle cx="635.5" cy="297" r="2.5" fill="#b0a795"/>
+<circle cx="653.0" cy="297" r="2.5" fill="#b0a795"/>
+<circle cx="670.5" cy="297" r="2.5" fill="#b0a795"/>
+<circle cx="688.0" cy="297" r="2.5" fill="#b0a795"/>
+<circle cx="705.5" cy="297" r="2.5" fill="#b0a795"/>
+<circle cx="723.0" cy="297" r="2.5" fill="#b0a795"/>
+<circle cx="740.5" cy="297" r="2.5" fill="#b0a795"/>
+<circle cx="758.0" cy="297" r="2.5" fill="#b0a795"/>
+<circle cx="775.5" cy="297" r="2.5" fill="#b0a795"/>
+<circle cx="793.0" cy="297" r="2.5" fill="#b0a795"/>
+<circle cx="810.5" cy="297" r="2.5" fill="#b0a795"/>
+<circle cx="303.0" cy="329" r="2.5" fill="#b0a795"/>
+<circle cx="320.5" cy="329" r="2.5" fill="#b0a795"/>
+<circle cx="338.0" cy="329" r="2.5" fill="#b0a795"/>
+<circle cx="355.5" cy="329" r="2.5" fill="#b0a795"/>
+<circle cx="373.0" cy="329" r="2.5" fill="#b0a795"/>
+<circle cx="390.5" cy="329" r="2.5" fill="#b0a795"/>
+<circle cx="408.0" cy="329" r="2.5" fill="#b0a795"/>
+<circle cx="425.5" cy="329" r="2.5" fill="#b0a795"/>
+<circle cx="443.0" cy="329" r="2.5" fill="#b0a795"/>
+<circle cx="460.5" cy="329" r="2.5" fill="#b0a795"/>
+<circle cx="478.0" cy="329" r="2.5" fill="#b0a795"/>
+<circle cx="495.5" cy="329" r="2.5" fill="#b0a795"/>
+<circle cx="513.0" cy="329" r="2.5" fill="#b0a795"/>
+<circle cx="530.5" cy="329" r="2.5" fill="#b0a795"/>
+<circle cx="548.0" cy="329" r="2.5" fill="#b0a795"/>
+<circle cx="565.5" cy="329" r="2.5" fill="#b0a795"/>
+<circle cx="583.0" cy="329" r="2.5" fill="#b0a795"/>
+<circle cx="600.5" cy="329" r="2.5" fill="#b0a795"/>
+<circle cx="618.0" cy="329" r="2.5" fill="#b0a795"/>
+<circle cx="635.5" cy="329" r="2.5" fill="#b0a795"/>
+<circle cx="653.0" cy="329" r="2.5" fill="#b0a795"/>
+<circle cx="670.5" cy="329" r="2.5" fill="#b0a795"/>
+<circle cx="688.0" cy="329" r="2.5" fill="#b0a795"/>
+<circle cx="705.5" cy="329" r="2.5" fill="#b0a795"/>
+<circle cx="723.0" cy="329" r="2.5" fill="#b0a795"/>
+<circle cx="740.5" cy="329" r="2.5" fill="#b0a795"/>
+<circle cx="758.0" cy="329" r="2.5" fill="#b0a795"/>
+<circle cx="775.5" cy="329" r="2.5" fill="#b0a795"/>
+<circle cx="793.0" cy="329" r="2.5" fill="#b0a795"/>
+<circle cx="810.5" cy="329" r="2.5" fill="#b0a795"/>
+<circle cx="303.0" cy="345" r="2.5" fill="#b0a795"/>
+<circle cx="320.5" cy="345" r="2.5" fill="#b0a795"/>
+<circle cx="338.0" cy="345" r="2.5" fill="#b0a795"/>
+<circle cx="355.5" cy="345" r="2.5" fill="#b0a795"/>
+<circle cx="373.0" cy="345" r="2.5" fill="#b0a795"/>
+<circle cx="390.5" cy="345" r="2.5" fill="#b0a795"/>
+<circle cx="408.0" cy="345" r="2.5" fill="#b0a795"/>
+<circle cx="425.5" cy="345" r="2.5" fill="#b0a795"/>
+<circle cx="443.0" cy="345" r="2.5" fill="#b0a795"/>
+<circle cx="460.5" cy="345" r="2.5" fill="#b0a795"/>
+<circle cx="478.0" cy="345" r="2.5" fill="#b0a795"/>
+<circle cx="495.5" cy="345" r="2.5" fill="#b0a795"/>
+<circle cx="513.0" cy="345" r="2.5" fill="#b0a795"/>
+<circle cx="530.5" cy="345" r="2.5" fill="#b0a795"/>
+<circle cx="548.0" cy="345" r="2.5" fill="#b0a795"/>
+<circle cx="565.5" cy="345" r="2.5" fill="#b0a795"/>
+<circle cx="583.0" cy="345" r="2.5" fill="#b0a795"/>
+<circle cx="600.5" cy="345" r="2.5" fill="#b0a795"/>
+<circle cx="618.0" cy="345" r="2.5" fill="#b0a795"/>
+<circle cx="635.5" cy="345" r="2.5" fill="#b0a795"/>
+<circle cx="653.0" cy="345" r="2.5" fill="#b0a795"/>
+<circle cx="670.5" cy="345" r="2.5" fill="#b0a795"/>
+<circle cx="688.0" cy="345" r="2.5" fill="#b0a795"/>
+<circle cx="705.5" cy="345" r="2.5" fill="#b0a795"/>
+<circle cx="723.0" cy="345" r="2.5" fill="#b0a795"/>
+<circle cx="740.5" cy="345" r="2.5" fill="#b0a795"/>
+<circle cx="758.0" cy="345" r="2.5" fill="#b0a795"/>
+<circle cx="775.5" cy="345" r="2.5" fill="#b0a795"/>
+<circle cx="793.0" cy="345" r="2.5" fill="#b0a795"/>
+<circle cx="810.5" cy="345" r="2.5" fill="#b0a795"/>
+<circle cx="303.0" cy="361" r="2.5" fill="#b0a795"/>
+<circle cx="320.5" cy="361" r="2.5" fill="#b0a795"/>
+<circle cx="338.0" cy="361" r="2.5" fill="#b0a795"/>
+<circle cx="355.5" cy="361" r="2.5" fill="#b0a795"/>
+<circle cx="373.0" cy="361" r="2.5" fill="#b0a795"/>
+<circle cx="390.5" cy="361" r="2.5" fill="#b0a795"/>
+<circle cx="408.0" cy="361" r="2.5" fill="#b0a795"/>
+<circle cx="425.5" cy="361" r="2.5" fill="#b0a795"/>
+<circle cx="443.0" cy="361" r="2.5" fill="#b0a795"/>
+<circle cx="460.5" cy="361" r="2.5" fill="#b0a795"/>
+<circle cx="478.0" cy="361" r="2.5" fill="#b0a795"/>
+<circle cx="495.5" cy="361" r="2.5" fill="#b0a795"/>
+<circle cx="513.0" cy="361" r="2.5" fill="#b0a795"/>
+<circle cx="530.5" cy="361" r="2.5" fill="#b0a795"/>
+<circle cx="548.0" cy="361" r="2.5" fill="#b0a795"/>
+<circle cx="565.5" cy="361" r="2.5" fill="#b0a795"/>
+<circle cx="583.0" cy="361" r="2.5" fill="#b0a795"/>
+<circle cx="600.5" cy="361" r="2.5" fill="#b0a795"/>
+<circle cx="618.0" cy="361" r="2.5" fill="#b0a795"/>
+<circle cx="635.5" cy="361" r="2.5" fill="#b0a795"/>
+<circle cx="653.0" cy="361" r="2.5" fill="#b0a795"/>
+<circle cx="670.5" cy="361" r="2.5" fill="#b0a795"/>
+<circle cx="688.0" cy="361" r="2.5" fill="#b0a795"/>
+<circle cx="705.5" cy="361" r="2.5" fill="#b0a795"/>
+<circle cx="723.0" cy="361" r="2.5" fill="#b0a795"/>
+<circle cx="740.5" cy="361" r="2.5" fill="#b0a795"/>
+<circle cx="758.0" cy="361" r="2.5" fill="#b0a795"/>
+<circle cx="775.5" cy="361" r="2.5" fill="#b0a795"/>
+<circle cx="793.0" cy="361" r="2.5" fill="#b0a795"/>
+<circle cx="810.5" cy="361" r="2.5" fill="#b0a795"/>
+<circle cx="303.0" cy="377" r="2.5" fill="#b0a795"/>
+<circle cx="320.5" cy="377" r="2.5" fill="#b0a795"/>
+<circle cx="338.0" cy="377" r="2.5" fill="#b0a795"/>
+<circle cx="355.5" cy="377" r="2.5" fill="#b0a795"/>
+<circle cx="373.0" cy="377" r="2.5" fill="#b0a795"/>
+<circle cx="390.5" cy="377" r="2.5" fill="#b0a795"/>
+<circle cx="408.0" cy="377" r="2.5" fill="#b0a795"/>
+<circle cx="425.5" cy="377" r="2.5" fill="#b0a795"/>
+<circle cx="443.0" cy="377" r="2.5" fill="#b0a795"/>
+<circle cx="460.5" cy="377" r="2.5" fill="#b0a795"/>
+<circle cx="478.0" cy="377" r="2.5" fill="#b0a795"/>
+<circle cx="495.5" cy="377" r="2.5" fill="#b0a795"/>
+<circle cx="513.0" cy="377" r="2.5" fill="#b0a795"/>
+<circle cx="530.5" cy="377" r="2.5" fill="#b0a795"/>
+<circle cx="548.0" cy="377" r="2.5" fill="#b0a795"/>
+<circle cx="565.5" cy="377" r="2.5" fill="#b0a795"/>
+<circle cx="583.0" cy="377" r="2.5" fill="#b0a795"/>
+<circle cx="600.5" cy="377" r="2.5" fill="#b0a795"/>
+<circle cx="618.0" cy="377" r="2.5" fill="#b0a795"/>
+<circle cx="635.5" cy="377" r="2.5" fill="#b0a795"/>
+<circle cx="653.0" cy="377" r="2.5" fill="#b0a795"/>
+<circle cx="670.5" cy="377" r="2.5" fill="#b0a795"/>
+<circle cx="688.0" cy="377" r="2.5" fill="#b0a795"/>
+<circle cx="705.5" cy="377" r="2.5" fill="#b0a795"/>
+<circle cx="723.0" cy="377" r="2.5" fill="#b0a795"/>
+<circle cx="740.5" cy="377" r="2.5" fill="#b0a795"/>
+<circle cx="758.0" cy="377" r="2.5" fill="#b0a795"/>
+<circle cx="775.5" cy="377" r="2.5" fill="#b0a795"/>
+<circle cx="793.0" cy="377" r="2.5" fill="#b0a795"/>
+<circle cx="810.5" cy="377" r="2.5" fill="#b0a795"/>
+<circle cx="303.0" cy="393" r="2.5" fill="#b0a795"/>
+<circle cx="320.5" cy="393" r="2.5" fill="#b0a795"/>
+<circle cx="338.0" cy="393" r="2.5" fill="#b0a795"/>
+<circle cx="355.5" cy="393" r="2.5" fill="#b0a795"/>
+<circle cx="373.0" cy="393" r="2.5" fill="#b0a795"/>
+<circle cx="390.5" cy="393" r="2.5" fill="#b0a795"/>
+<circle cx="408.0" cy="393" r="2.5" fill="#b0a795"/>
+<circle cx="425.5" cy="393" r="2.5" fill="#b0a795"/>
+<circle cx="443.0" cy="393" r="2.5" fill="#b0a795"/>
+<circle cx="460.5" cy="393" r="2.5" fill="#b0a795"/>
+<circle cx="478.0" cy="393" r="2.5" fill="#b0a795"/>
+<circle cx="495.5" cy="393" r="2.5" fill="#b0a795"/>
+<circle cx="513.0" cy="393" r="2.5" fill="#b0a795"/>
+<circle cx="530.5" cy="393" r="2.5" fill="#b0a795"/>
+<circle cx="548.0" cy="393" r="2.5" fill="#b0a795"/>
+<circle cx="565.5" cy="393" r="2.5" fill="#b0a795"/>
+<circle cx="583.0" cy="393" r="2.5" fill="#b0a795"/>
+<circle cx="600.5" cy="393" r="2.5" fill="#b0a795"/>
+<circle cx="618.0" cy="393" r="2.5" fill="#b0a795"/>
+<circle cx="635.5" cy="393" r="2.5" fill="#b0a795"/>
+<circle cx="653.0" cy="393" r="2.5" fill="#b0a795"/>
+<circle cx="670.5" cy="393" r="2.5" fill="#b0a795"/>
+<circle cx="688.0" cy="393" r="2.5" fill="#b0a795"/>
+<circle cx="705.5" cy="393" r="2.5" fill="#b0a795"/>
+<circle cx="723.0" cy="393" r="2.5" fill="#b0a795"/>
+<circle cx="740.5" cy="393" r="2.5" fill="#b0a795"/>
+<circle cx="758.0" cy="393" r="2.5" fill="#b0a795"/>
+<circle cx="775.5" cy="393" r="2.5" fill="#b0a795"/>
+<circle cx="793.0" cy="393" r="2.5" fill="#b0a795"/>
+<circle cx="810.5" cy="393" r="2.5" fill="#b0a795"/>
+<rect x="299" y="390" width="512" height="53" rx="4" fill="#ffffff" opacity=".5"/>
+<text x="555.0" y="466" font-size="12" font-weight="700" fill="#6c737c" text-anchor="middle">下側の ＋／− レールは今回使いません。上下のレールはつながっていません。</text>
+<rect x="523.0" y="223" width="15" height="84" rx="7" fill="#fff6ea" stroke="#e08a2e" stroke-width="1.6" stroke-dasharray="3.5 3"/>
+<rect x="593.0" y="223" width="15" height="84" rx="7" fill="#fff6ea" stroke="#e08a2e" stroke-width="1.6" stroke-dasharray="3.5 3"/>
+<path d="M 530.5 265 L 530.5 251 L 600.5 251 L 600.5 265" fill="none" stroke="#8a8a86" stroke-width="2"/>
+<rect x="541.5" y="242" width="48.0" height="18" rx="7" fill="#d9c8a0" stroke="#b09f78"/>
+<rect x="550.5" y="242" width="4.5" height="18" fill="#d36a1f"/>
+<rect x="559.5" y="242" width="4.5" height="18" fill="#1c1c1c"/>
+<rect x="568.5" y="242" width="4.5" height="18" fill="#8a6a2a"/>
+<circle cx="530.5" cy="265" r="4.6" fill="#8a8a86" stroke="#ffffff" stroke-width="1.2"/>
+<circle cx="600.5" cy="265" r="4.6" fill="#8a8a86" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="544.5" y="267" width="48" height="20" rx="5" fill="#ffffff" opacity="0.94"/>
+<text x="568.5" y="282" font-size="13" font-weight="700" fill="#1c1c1c" text-anchor="middle">330 Ω</text>
+<rect x="616.5" y="235" width="198" height="50" rx="6" fill="#ffffff" opacity="0.92"/>
+<text x="624.5" y="251" font-size="12" font-weight="700" fill="#e08a2e" text-anchor="start">抵抗の足と同じ「列」に挿す</text>
+<text x="624.5" y="269" font-size="11" font-weight="400" fill="#6c737c" text-anchor="start">縦の5穴は中でつながっています</text>
+<rect x="634" y="100" width="32" height="48" rx="6" fill="#3b4149"/>
+<rect x="634" y="100" width="11" height="48" rx="5" fill="#9fb3c8"/>
+<text x="639.5" y="130" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">−</text>
+<path d="M 643 148 L 643 192 L 635.5 199" fill="none" stroke="#8a8a86" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 657 148 L 657 158 L 723.0 182" fill="none" stroke="#8a8a86" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="635.5" cy="199" r="4.6" fill="#8a8a86" stroke="#ffffff" stroke-width="1.2"/>
+<circle cx="723.0" cy="182" r="4.6" fill="#8a8a86" stroke="#ffffff" stroke-width="1.2"/>
+<text x="731.0" y="176" font-size="12" font-weight="700" fill="#d64b3c" text-anchor="start">＋</text>
+<text x="690" y="118" font-size="12.5" font-weight="700" fill="#1c1c1c" text-anchor="start">電解コンデンサー 1000µF</text>
+<text x="690" y="136" font-size="11" font-weight="400" fill="#6c737c" text-anchor="start">足の長い方が ＋ ／ 白帯が −</text>
+<text x="690" y="152" font-size="11" font-weight="400" fill="#6c737c" text-anchor="start">長い足を寝かせて、外側の赤い行へ挿す</text>
+<rect x="40" y="86" width="186" height="62" rx="9" fill="#3b4149"/>
+<rect x="18" y="102" width="24" height="30" rx="4" fill="#8a9099"/>
+<text x="133" y="112" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">USB ACアダプター</text>
+<text x="133" y="132" font-size="11.5" font-weight="400" fill="#c9ced4" text-anchor="middle">5V / 2A 以上</text>
+<path d="M 226 104 L 364 104 L 364 192 L 355.5 199" fill="none" stroke="#3b6ea8" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="355.5" cy="199" r="4.6" fill="#3b6ea8" stroke="#ffffff" stroke-width="1.2"/>
+<path d="M 226 134 L 320.5 134 L 320.5 182" fill="none" stroke="#d64b3c" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="320.5" cy="182" r="4.6" fill="#d64b3c" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="40" y="318" width="196" height="196" rx="16" fill="#f2a62b"/>
+  <rect x="48" y="326" width="180" height="180" rx="11" fill="#2b3036"/>
+  <circle cx="91" cy="481" r="7" fill="none" stroke="#767d86" stroke-width="1.6"/>
+  <circle cx="139" cy="481" r="7" fill="none" stroke="#767d86" stroke-width="1.6"/>
+  <circle cx="187" cy="481" r="7" fill="none" stroke="#767d86" stroke-width="1.6"/>
+<rect x="58" y="344" width="160" height="118" rx="4" fill="#0d1218"/>
+<text x="138" y="394" font-size="19" font-weight="700" fill="#5fd3f3" text-anchor="middle">SERVO</text>
+<text x="138" y="424" font-size="16" font-weight="700" fill="#7ce0b0" text-anchor="middle">90°</text>
+<rect x="76" y="304" width="36" height="18" rx="4" fill="#111"/>
+<rect x="160" y="304" width="36" height="18" rx="4" fill="#2c5fa8"/>
+<rect x="28" y="466" width="18" height="34" rx="4" fill="#c0392b"/>
+<text x="94" y="337" font-size="10.5" font-weight="700" fill="#ffffff" text-anchor="middle">PORT.B</text>
+<text x="178" y="337" font-size="10.5" font-weight="700" fill="#9fc0e8" text-anchor="middle">PORT.C</text>
+<text x="138" y="538" font-size="13" font-weight="700" fill="#1c1c1c" text-anchor="middle">M5Stack Core2 for AWS</text>
+<text x="138" y="559" font-size="11" font-weight="400" fill="#6c737c" text-anchor="middle">上面の左が PORT.B（今回使用）／右が PORT.C</text>
+<text x="138" y="577" font-size="11" font-weight="400" fill="#6c737c" text-anchor="middle">左側面の下が PORT.A（HO-2 のセンサー用）</text>
+<path d="M 88 304 L 88 199 L 303.0 199" fill="none" stroke="#1c1c1c" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="303.0" cy="199" r="4.6" fill="#1c1c1c" stroke="#ffffff" stroke-width="1.2"/>
+<path d="M 102 304 L 102 220 L 530.5 220 L 530.5 233" fill="none" stroke="#7f7f7f" stroke-width="6.4" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 102 304 L 102 220 L 530.5 220 L 530.5 233" fill="none" stroke="#f7f7f4" stroke-width="4.0" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="530.5" cy="233" r="4.6" fill="#f7f7f4" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="124" y="252" width="20" height="6" rx="3" fill="#f7f7f4" stroke="#8a8a86"/>
+<text x="152" y="258" font-size="12" font-weight="700" fill="#1c1c1c" text-anchor="start">白 ＝ G26（信号）</text>
+<rect x="124" y="274" width="20" height="6" rx="3" fill="#1c1c1c"/>
+<text x="152" y="280" font-size="12" font-weight="700" fill="#1c1c1c" text-anchor="start">黒 ＝ GND</text>
+<rect x="876" y="286" width="104" height="128" rx="8" fill="#3b6ea8"/>
+<rect x="876" y="322" width="104" height="26" fill="#2f5f93"/>
+<circle cx="928" cy="272" r="19" fill="#e6e6e2"/>
+<rect x="924" y="234" width="8" height="26" rx="3" fill="#d9d9d4"/>
+<text x="928" y="436" font-size="14" font-weight="700" fill="#1c1c1c" text-anchor="middle">SG90</text>
+<path d="M 600.5 297 L 600.5 313 L 832 313 L 876 308" fill="none" stroke="#e08a2e" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="600.5" cy="297" r="4.6" fill="#e08a2e" stroke="#ffffff" stroke-width="1.2"/>
+<path d="M 876 360 L 838 360 L 838 199 L 758.0 199" fill="none" stroke="#7a5230" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="758.0" cy="199" r="4.6" fill="#7a5230" stroke="#ffffff" stroke-width="1.2"/>
+<path d="M 876 334 L 846 334 L 846 182 L 793.0 182" fill="none" stroke="#d64b3c" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="793.0" cy="182" r="4.6" fill="#d64b3c" stroke="#ffffff" stroke-width="1.2"/>
+<rect x="876" y="453" width="18" height="5" rx="2.5" fill="#e08a2e"/>
+<text x="902" y="458" font-size="12" font-weight="700" fill="#1c1c1c" text-anchor="start">橙 ＝ 信号</text>
+<rect x="876" y="473" width="18" height="5" rx="2.5" fill="#d64b3c"/>
+<text x="902" y="478" font-size="12" font-weight="700" fill="#1c1c1c" text-anchor="start">赤 ＝ 5V</text>
+<rect x="876" y="493" width="18" height="5" rx="2.5" fill="#7a5230"/>
+<text x="902" y="498" font-size="12" font-weight="700" fill="#1c1c1c" text-anchor="start">茶 ＝ GND</text>
+<rect x="300" y="556" width="690" height="60" rx="8" fill="#fdf0ee" stroke="#e8b6ae" stroke-width="1.5"/>
+<text x="322" y="582" font-size="13.5" font-weight="700" fill="#a02c1c" text-anchor="start">注意：Grove 変換ケーブルは 黒(GND) と 白(G26) の2本だけを使う。</text>
+<text x="322" y="603" font-size="13.5" font-weight="700" fill="#a02c1c" text-anchor="start">赤(5V) と 黄 は根元で切断しておく。赤を繋ぐと M5Stack が再起動します。</text>
+</svg><figcaption>図2　サーボの外部電源配線（HO-3 完成図）<button class="zoom" type="button">拡大</button></figcaption></figure><figure class="fig" data-cap="図4　パルス幅と回転角の対応"><svg role="img" aria-label="図4　パルス幅と回転角の対応" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 470" font-family="'Hiragino Sans','Yu Gothic UI','Meiryo',sans-serif" xmlns:c2pa="http://c2pa.org/manifest">
+  <defs>
+    <marker id="a4" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M2 1 L8 5 L2 9" fill="none" stroke="#555" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="840" height="470" fill="#ffffff"/>
+  <text x="30" y="34" font-size="19" font-weight="700" fill="#1c1c1c">図4　パルス幅と回転角の対応（HO-3 の校正）</text>
+
+  <!-- period bracket -->
+  <line x1="150" y1="88" x2="650" y2="88" stroke="#555" stroke-width="1.4" marker-start="url(#a4)" marker-end="url(#a4)"/>
+  <text x="400" y="78" font-size="13" font-weight="700" fill="#333" text-anchor="middle">PWM 周期 20 ms（50 Hz）</text>
+  <line x1="150" y1="96" x2="150" y2="378" stroke="#bbb" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="650" y1="96" x2="650" y2="378" stroke="#bbb" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- row 1 : 0.5ms -->
+  <path d="M150 150 L150 104 L162.5 104 L162.5 150 L650 150" fill="none" stroke="#2e86c1" stroke-width="2.6" stroke-linejoin="round"/>
+  <text x="140" y="132" font-size="14" font-weight="700" fill="#1c1c1c" text-anchor="end">0.5 ms</text>
+  <text x="140" y="152" font-size="13" fill="#555" text-anchor="end">→ 0°</text>
+  <circle cx="730" cy="126" r="30" fill="#f4f6f8" stroke="#b9c2cb"/>
+  <path d="M700 126 A30 30 0 0 1 760 126" fill="none" stroke="#d5dce2" stroke-width="5"/>
+  <line x1="730" y1="126" x2="702" y2="126" stroke="#d64b3c" stroke-width="3.4" stroke-linecap="round"/>
+  <circle cx="730" cy="126" r="3.6" fill="#333"/>
+
+  <!-- row 2 : 1.45ms -->
+  <path d="M150 260 L150 214 L186 214 L186 260 L650 260" fill="none" stroke="#2e86c1" stroke-width="2.6" stroke-linejoin="round"/>
+  <text x="140" y="242" font-size="14" font-weight="700" fill="#1c1c1c" text-anchor="end">1.45 ms</text>
+  <text x="140" y="262" font-size="13" fill="#555" text-anchor="end">→ 90°</text>
+  <circle cx="730" cy="236" r="30" fill="#f4f6f8" stroke="#b9c2cb"/>
+  <path d="M700 236 A30 30 0 0 1 760 236" fill="none" stroke="#d5dce2" stroke-width="5"/>
+  <line x1="730" y1="236" x2="730" y2="208" stroke="#d64b3c" stroke-width="3.4" stroke-linecap="round"/>
+  <circle cx="730" cy="236" r="3.6" fill="#333"/>
+
+  <!-- row 3 : 2.4ms -->
+  <path d="M150 370 L150 324 L210 324 L210 370 L650 370" fill="none" stroke="#2e86c1" stroke-width="2.6" stroke-linejoin="round"/>
+  <text x="140" y="352" font-size="14" font-weight="700" fill="#1c1c1c" text-anchor="end">2.4 ms</text>
+  <text x="140" y="372" font-size="13" fill="#555" text-anchor="end">→ 180°</text>
+  <circle cx="730" cy="346" r="30" fill="#f4f6f8" stroke="#b9c2cb"/>
+  <path d="M700 346 A30 30 0 0 1 760 346" fill="none" stroke="#d5dce2" stroke-width="5"/>
+  <line x1="730" y1="346" x2="758" y2="346" stroke="#d64b3c" stroke-width="3.4" stroke-linecap="round"/>
+  <circle cx="730" cy="346" r="3.6" fill="#333"/>
+
+  <text x="230" y="120" font-size="11.5" fill="#666">正パルスの「幅」だけで角度が決まる（周期は常に 20 ms）</text>
+
+  <rect x="30" y="398" width="780" height="56" rx="6" fill="#f2f4f7"/>
+  <text x="46" y="420" font-size="12.5" fill="#1c1c1c">MicroPython では <tspan font-family="monospace" font-weight="700">duty_ns()</tspan> でパルス幅をナノ秒指定する（<tspan font-family="monospace">duty()</tspan> は分解能不足で動きがカクつく）。</text>
+  <text x="46" y="442" font-size="12.5" fill="#1c1c1c">両端の値には個体差があるため、PULSE_MIN_US / PULSE_MAX_US を各自の実機で探すところまでを演習に含める。</text>
+</svg>
+<figcaption>図4　パルス幅と回転角の対応<button class="zoom" type="button">拡大</button></figcaption></figure>
+<p><strong>ここだけ配線が複雑です。</strong> ブレッドボードは運営が事前に組み立てて配ります。</p>
+<h3>配線</h3>
+<pre><code>                   ┌──────── ブレッドボード（組立済） ────────┐
+USB ACアダプター ────┼─ ＋5V ─┬──────────────────────────────┼→ サーボ 赤
+                   │        │                              │
+                   │   電解コンデンサー 1000µF                │
+                   │        │                              │
+Core2 PORT.B ──────┼─ 330Ω ─┼──────────────────────────────┼→ サーボ 橙（信号）
+  白 (G26)       │        │                              │
+Core2 PORT.B ──────┼─ GND ──┴──────────────────────────────┼→ サーボ 茶
+  黒 (GND)       │                                        │
+                   └────────────────────────────────────────┘
+</code></pre>
+<p>→ <strong>図2</strong> を参照</p>
+<h3>使う線は2本だけ</h3>
+<p>変換ケーブルは、<strong>黒（GND）と信号線の2本だけ</strong>を使います。赤（5V）と未使用の線は、運営が事前に根元で切断・絶縁しておきます。</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>線</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>黒</strong></td>
+<td>GND → ブレッドボードの −レール</td>
+</tr>
+<tr>
+<td><strong>信号線</strong></td>
+<td>G26 → 330Ω → サーボの橙</td>
+</tr>
+<tr>
+<td>赤</td>
+<td><strong>切断済み</strong>（繋ぐと再起動します）</td>
+</tr>
+<tr>
+<td>もう1本</td>
+<td><strong>切断済み</strong>（G36 は入力専用で使えません）</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p><strong>信号線の色は、変換ケーブルの製品によって異なります。</strong> 今回使用しているケーブルでは <strong>白</strong> が G26 でした。公式ドキュメントでは PORT.B の黄が G26 ですが、変換ケーブル内部で入れ替わっている製品があります。</p>
+<p><strong>配布前に1本テスターで実測し、信号線を特定してください。</strong>（手順は §9 を参照）</p>
+</blockquote>
+<h3>参加者がやること（2手のみ）</h3>
+<ol>
+<li>サーボの3ピンをブレッドボードのヘッダーに挿す（<strong>橙 赤 茶</strong> の並び）</li>
+<li>Grove 変換ケーブルを <strong>PORT.B</strong> に挿す</li>
+</ol>
+<p><strong>通電は最後</strong>です。配線を済ませてから AC アダプターをコンセントに挿します。</p>
+<h3>絶対に守ること</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th></th>
+<th>理由</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>使うのは黒と白の2本だけ</strong></td>
+<td>赤を繋ぐと外部電源とM5Stackの5Vが衝突し、再起動する</td>
+</tr>
+<tr>
+<td><strong>GND は必ず共通にする</strong></td>
+<td>基準電位が定まらず、サーボが暴れる</td>
+</tr>
+<tr>
+<td>ホーンには紙の指示針だけ</td>
+<td>指を挟む・机から落ちる事故を防ぐ</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>赤（5V）と黄（G36・未使用）は、運営が事前に根元で切断し熱収縮チューブで絶縁</strong>しておきます。手元に残るのは黒と白の2本だけになり、挿し間違えようがなくなります。</p>
+<hr />
+<h2 id="6-ho-4-ho-5-ブラウザー連携とai">6. HO-4 / HO-5　ブラウザー連携とAI</h2><figure class="fig" data-cap="図7　HO-4 の完成図"><svg role="img" aria-label="図7　HO-4 の完成図" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" font-family="'Hiragino Sans','Yu Gothic UI','Meiryo',sans-serif" xmlns:c2pa="http://c2pa.org/manifest">
+<rect x="0" y="0" width="960" height="600" fill="#ffffff"/>
+<text x="30" y="36" font-size="20" font-weight="700" fill="#1c1c1c" text-anchor="start">図7　HO-4 の完成図</text>
+<text x="30" y="60" font-size="13" font-weight="400" fill="#6c737c" text-anchor="start">ブラウザーが「自分で書いたルール」で判断する</text>
+<line x1="30" y1="74" x2="930" y2="74" stroke="#c9c2b1" stroke-width="1"/>
+<rect x="30" y="96" width="330" height="372" rx="7" fill="#fcfcfb" stroke="#c9c2b1" stroke-width="1.5"/>
+<text x="48" y="122" font-size="14" font-weight="700" fill="#1c1c1c" text-anchor="start">ボード側</text>
+<text x="48" y="140" font-size="11" font-weight="400" fill="#6c737c" text-anchor="start">main.py が走り続けている</text>
+<rect x="56" y="156" width="278" height="64" rx="7" fill="#ffffff" stroke="#c9c2b1" stroke-width="1.5"/>
+<text x="72" y="180" font-size="14" font-weight="700" fill="#1c1c1c" text-anchor="start">ENV Ⅲ Unit</text>
+<text x="72" y="200" font-size="10.5" font-weight="400" fill="#6c737c" text-anchor="start">PORT.A（左側面の下・赤）I2C</text>
+<line x1="195" y1="220" x2="195" y2="248" stroke="#6c737c" stroke-width="2"/>
+<path d="M 195 254 L 189 244 L 201 244 Z" fill="#6c737c"/>
+<rect x="56" y="256" width="278" height="86" rx="7" fill="#eef4fa" stroke="#2e86c1" stroke-width="2.5"/>
+<text x="72" y="282" font-size="14" font-weight="700" fill="#1c1c1c" text-anchor="start">M5Stack Core2 for AWS</text>
+<text x="72" y="302" font-size="11" font-weight="400" fill="#6c737c" text-anchor="start">センサーを読む → 送る</text>
+<text x="72" y="320" font-size="11" font-weight="400" fill="#6c737c" text-anchor="start">受け取る → サーボと画面に反映</text>
+<line x1="195" y1="342" x2="195" y2="370" stroke="#6c737c" stroke-width="2"/>
+<path d="M 195 376 L 189 366 L 201 366 Z" fill="#6c737c"/>
+<rect x="56" y="378" width="133" height="70" rx="7" fill="#ffffff" stroke="#c9c2b1" stroke-width="1.5"/>
+<text x="72" y="402" font-size="13" font-weight="700" fill="#1c1c1c" text-anchor="start">SG90</text>
+<text x="72" y="420" font-size="10.5" font-weight="400" fill="#6c737c" text-anchor="start">PORT.B（上面の左・黒）</text>
+<text x="72" y="437" font-size="11" font-weight="700" fill="#c0392b" text-anchor="start">信号は白</text>
+<rect x="201" y="378" width="133" height="70" rx="7" fill="#ffffff" stroke="#c9c2b1" stroke-width="1.5"/>
+<text x="217" y="402" font-size="13" font-weight="700" fill="#1c1c1c" text-anchor="start">本体の画面</text>
+<text x="217" y="420" font-size="11" font-weight="400" fill="#6c737c" text-anchor="start">msg をそのまま</text>
+<text x="217" y="437" font-size="11" font-weight="400" fill="#6c737c" text-anchor="start">表示する</text>
+<text x="480" y="118" font-size="12" font-weight="700" fill="#1c1c1c" text-anchor="middle">USB ケーブル 1 本</text>
+<text x="480" y="136" font-size="11" font-weight="400" fill="#6c737c" text-anchor="middle">（Web Serial API）</text>
+<line x1="372" y1="188" x2="574" y2="188" stroke="#2e86c1" stroke-width="3" stroke-linecap="round"/><path d="M 588 188 L 574 180 L 574 196 Z" fill="#2e86c1"/><text x="480.0" y="172" font-size="12" font-weight="700" fill="#2e86c1" text-anchor="middle">① ボード → PC</text>
+<rect x="378" y="200" width="204" height="30" rx="5" fill="#ffffff" stroke="#b8d4ea" stroke-width="1"/>
+<text x="480" y="220" font-size="11" font-weight="400" fill="#1c1c1c" text-anchor="middle" font-family="ui-monospace,'SFMono-Regular',Menlo,Consolas,monospace">{"t":24.8,"h":52.3,"btn":0}</text>
+<line x1="588" y1="388" x2="386" y2="388" stroke="#2e86c1" stroke-width="3" stroke-linecap="round"/><path d="M 372 388 L 386 380 L 386 396 Z" fill="#2e86c1"/><text x="480.0" y="372" font-size="12" font-weight="700" fill="#2e86c1" text-anchor="middle">② PC → ボード</text>
+<rect x="378" y="400" width="204" height="30" rx="5" fill="#ffffff" stroke="#b8d4ea" stroke-width="1"/>
+<text x="480" y="420" font-size="10.5" font-weight="400" fill="#1c1c1c" text-anchor="middle" font-family="ui-monospace,'SFMono-Regular',Menlo,Consolas,monospace">{"servo":120,"msg":"換気推奨"}</text>
+<text x="480" y="452" font-size="11" font-weight="700" fill="#6c737c" text-anchor="middle">1 行に 1 つの JSON。改行が「1 件の終わり」</text>
+<rect x="600" y="96" width="330" height="372" rx="7" fill="#fcfcfb" stroke="#c9c2b1" stroke-width="1.5"/>
+<text x="618" y="122" font-size="14" font-weight="700" fill="#1c1c1c" text-anchor="start">PC 側（Chrome）</text>
+<text x="618" y="140" font-size="11" font-weight="400" fill="#6c737c" text-anchor="start">AIブリッジページ</text>
+<rect x="626" y="156" width="278" height="52" rx="7" fill="#ffffff" stroke="#c9c2b1" stroke-width="1.5"/>
+<text x="642" y="178" font-size="11" font-weight="400" fill="#6c737c" text-anchor="start">受け取った値</text>
+<text x="642" y="198" font-size="15" font-weight="700" fill="#1c1c1c" text-anchor="start">24.8 ℃ ／ 52.3 %</text>
+<line x1="765" y1="208" x2="765" y2="213" stroke="#6c737c" stroke-width="2"/>
+<path d="M 765 219 L 759 209 L 771 209 Z" fill="#6c737c"/>
+<rect x="626" y="220" width="278" height="104" rx="7" fill="#f2f3f4" stroke="#9aa3ab" stroke-width="2.5"/>
+<text x="642" y="244" font-size="14" font-weight="700" fill="#1c1c1c" text-anchor="start">「ロジック」タブ</text>
+<text x="642" y="264" font-size="11" font-weight="400" fill="#6c737c" text-anchor="start">自分で書いた if 文</text>
+<rect x="642" y="272" width="246" height="42" rx="5" fill="#ffffff" stroke="#d7dadd" stroke-width="1"/>
+<text x="654" y="289" font-size="11" font-weight="400" fill="#1c1c1c" text-anchor="start" font-family="ui-monospace,'SFMono-Regular',Menlo,Consolas,monospace">if (h &gt; 60) servo = 120;</text>
+<text x="654" y="306" font-size="11" font-weight="400" fill="#1c1c1c" text-anchor="start" font-family="ui-monospace,'SFMono-Regular',Menlo,Consolas,monospace">else            servo = 60;</text>
+<line x1="765" y1="324" x2="765" y2="329" stroke="#6c737c" stroke-width="2"/>
+<path d="M 765 335 L 759 325 L 771 325 Z" fill="#6c737c"/>
+<rect x="626" y="336" width="278" height="52" rx="7" fill="#ffffff" stroke="#c9c2b1" stroke-width="1.5"/>
+<text x="642" y="358" font-size="11" font-weight="400" fill="#6c737c" text-anchor="start">送る内容</text>
+<text x="642" y="378" font-size="11" font-weight="400" fill="#1c1c1c" text-anchor="start" font-family="ui-monospace,'SFMono-Regular',Menlo,Consolas,monospace">{ "servo": 120, "msg": "換気推奨" }</text>
+<text x="618" y="418" font-size="11" font-weight="400" fill="#6c737c" text-anchor="start">💬 画面を見ずに、サーボの動きだけで</text>
+<text x="618" y="436" font-size="11" font-weight="400" fill="#6c737c" text-anchor="start">　 分かるようにできますか？</text>
+<rect x="30" y="490" width="900" height="86" rx="8" fill="#f2f3f4" stroke="#9aa3ab" stroke-width="2"/>
+<text x="52" y="518" font-size="16" font-weight="700" fill="#1c1c1c" text-anchor="start">ここまでで「一周」がつながりました。</text>
+<text x="52" y="542" font-size="12.5" font-weight="400" fill="#1c1c1c" text-anchor="start">現実 → センサー → USB → ブラウザー → 判断 → USB → サーボ → 現実。</text>
+<text x="52" y="562" font-size="12.5" font-weight="400" fill="#1c1c1c" text-anchor="start">どこか 1 か所でも切れると動きません。判断の中身は、次の HO-5 で AI に置き換えます。</text>
+</svg><figcaption>図7　HO-4 の完成図<button class="zoom" type="button">拡大</button></figcaption></figure><figure class="fig" data-cap="図8　HO-5 の完成図"><svg role="img" aria-label="図8　HO-5 の完成図" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" font-family="'Hiragino Sans','Yu Gothic UI','Meiryo',sans-serif" xmlns:c2pa="http://c2pa.org/manifest">
+<rect x="0" y="0" width="960" height="600" fill="#ffffff"/>
+<text x="30" y="36" font-size="20" font-weight="700" fill="#1c1c1c" text-anchor="start">図8　HO-5 の完成図</text>
+<text x="30" y="60" font-size="13" font-weight="400" fill="#6c737c" text-anchor="start">ブラウザーが「端末の中の AI」に判断させる</text>
+<line x1="30" y1="74" x2="930" y2="74" stroke="#c9c2b1" stroke-width="1"/>
+<rect x="30" y="96" width="330" height="372" rx="7" fill="#fcfcfb" stroke="#c9c2b1" stroke-width="1.5"/>
+<text x="48" y="122" font-size="14" font-weight="700" fill="#1c1c1c" text-anchor="start">ボード側</text>
+<text x="48" y="140" font-size="11" font-weight="400" fill="#6c737c" text-anchor="start">main.py が走り続けている</text>
+<rect x="56" y="156" width="278" height="64" rx="7" fill="#ffffff" stroke="#c9c2b1" stroke-width="1.5"/>
+<text x="72" y="180" font-size="14" font-weight="700" fill="#1c1c1c" text-anchor="start">ENV Ⅲ Unit</text>
+<text x="72" y="200" font-size="10.5" font-weight="400" fill="#6c737c" text-anchor="start">PORT.A（左側面の下・赤）I2C</text>
+<line x1="195" y1="220" x2="195" y2="248" stroke="#6c737c" stroke-width="2"/>
+<path d="M 195 254 L 189 244 L 201 244 Z" fill="#6c737c"/>
+<rect x="56" y="256" width="278" height="86" rx="7" fill="#eef4fa" stroke="#2e86c1" stroke-width="2.5"/>
+<text x="72" y="282" font-size="14" font-weight="700" fill="#1c1c1c" text-anchor="start">M5Stack Core2 for AWS</text>
+<text x="72" y="302" font-size="11" font-weight="400" fill="#6c737c" text-anchor="start">センサーを読む → 送る</text>
+<text x="72" y="320" font-size="11" font-weight="400" fill="#6c737c" text-anchor="start">受け取る → サーボと画面に反映</text>
+<line x1="195" y1="342" x2="195" y2="370" stroke="#6c737c" stroke-width="2"/>
+<path d="M 195 376 L 189 366 L 201 366 Z" fill="#6c737c"/>
+<rect x="56" y="378" width="133" height="70" rx="7" fill="#ffffff" stroke="#c9c2b1" stroke-width="1.5"/>
+<text x="72" y="402" font-size="13" font-weight="700" fill="#1c1c1c" text-anchor="start">SG90</text>
+<text x="72" y="420" font-size="10.5" font-weight="400" fill="#6c737c" text-anchor="start">PORT.B（上面の左・黒）</text>
+<text x="72" y="437" font-size="11" font-weight="700" fill="#c0392b" text-anchor="start">信号は白</text>
+<rect x="201" y="378" width="133" height="70" rx="7" fill="#ffffff" stroke="#c9c2b1" stroke-width="1.5"/>
+<text x="217" y="402" font-size="13" font-weight="700" fill="#1c1c1c" text-anchor="start">本体の画面</text>
+<text x="217" y="420" font-size="11" font-weight="400" fill="#6c737c" text-anchor="start">msg をそのまま</text>
+<text x="217" y="437" font-size="11" font-weight="400" fill="#6c737c" text-anchor="start">表示する</text>
+<text x="480" y="118" font-size="12" font-weight="700" fill="#1c1c1c" text-anchor="middle">USB ケーブル 1 本</text>
+<text x="480" y="136" font-size="11" font-weight="400" fill="#6c737c" text-anchor="middle">（Web Serial API）</text>
+<line x1="372" y1="188" x2="574" y2="188" stroke="#2e86c1" stroke-width="3" stroke-linecap="round"/><path d="M 588 188 L 574 180 L 574 196 Z" fill="#2e86c1"/><text x="480.0" y="172" font-size="12" font-weight="700" fill="#2e86c1" text-anchor="middle">① ボード → PC</text>
+<rect x="378" y="200" width="204" height="30" rx="5" fill="#ffffff" stroke="#b8d4ea" stroke-width="1"/>
+<text x="480" y="220" font-size="11" font-weight="400" fill="#1c1c1c" text-anchor="middle" font-family="ui-monospace,'SFMono-Regular',Menlo,Consolas,monospace">{"t":24.8,"h":52.3,"btn":0}</text>
+<line x1="588" y1="388" x2="386" y2="388" stroke="#2e86c1" stroke-width="3" stroke-linecap="round"/><path d="M 372 388 L 386 380 L 386 396 Z" fill="#2e86c1"/><text x="480.0" y="372" font-size="12" font-weight="700" fill="#2e86c1" text-anchor="middle">② PC → ボード</text>
+<rect x="378" y="400" width="204" height="30" rx="5" fill="#ffffff" stroke="#b8d4ea" stroke-width="1"/>
+<text x="480" y="420" font-size="10.5" font-weight="400" fill="#1c1c1c" text-anchor="middle" font-family="ui-monospace,'SFMono-Regular',Menlo,Consolas,monospace">{"servo":120,"msg":"換気推奨"}</text>
+<text x="480" y="452" font-size="11" font-weight="700" fill="#6c737c" text-anchor="middle">1 行に 1 つの JSON。改行が「1 件の終わり」</text>
+<rect x="600" y="96" width="330" height="372" rx="7" fill="#fcfcfb" stroke="#c9c2b1" stroke-width="1.5"/>
+<text x="618" y="122" font-size="14" font-weight="700" fill="#1c1c1c" text-anchor="start">PC 側（Chrome）</text>
+<text x="618" y="140" font-size="11" font-weight="400" fill="#6c737c" text-anchor="start">AIブリッジページ</text>
+<rect x="626" y="156" width="278" height="52" rx="7" fill="#ffffff" stroke="#c9c2b1" stroke-width="1.5"/>
+<text x="642" y="178" font-size="11" font-weight="400" fill="#6c737c" text-anchor="start">受け取った値</text>
+<text x="642" y="198" font-size="15" font-weight="700" fill="#1c1c1c" text-anchor="start">24.8 ℃ ／ 52.3 %</text>
+<line x1="765" y1="208" x2="765" y2="213" stroke="#6c737c" stroke-width="2"/>
+<path d="M 765 219 L 759 209 L 771 209 Z" fill="#6c737c"/>
+<rect x="626" y="220" width="278" height="104" rx="7" fill="#f3efff" stroke="#5a4aa5" stroke-width="2.5"/>
+<text x="642" y="244" font-size="14" font-weight="700" fill="#5a4aa5" text-anchor="start">Prompt API → Gemini Nano</text>
+<text x="642" y="264" font-size="11" font-weight="400" fill="#6c737c" text-anchor="start">端末の中だけで推論する</text>
+<rect x="642" y="272" width="246" height="42" rx="5" fill="#ffffff" stroke="#c3b4ef" stroke-width="1"/>
+<text x="654" y="289" font-size="10.5" font-weight="400" fill="#1c1c1c" text-anchor="start" font-family="ui-monospace,'SFMono-Regular',Menlo,Consolas,monospace">"servo": { "type":"integer",</text>
+<text x="654" y="306" font-size="10.5" font-weight="700" fill="#5a4aa5" text-anchor="start" font-family="ui-monospace,'SFMono-Regular',Menlo,Consolas,monospace">  "minimum":0, "maximum":180 }</text>
+<line x1="765" y1="324" x2="765" y2="329" stroke="#6c737c" stroke-width="2"/>
+<path d="M 765 335 L 759 325 L 771 325 Z" fill="#6c737c"/>
+<rect x="626" y="336" width="278" height="52" rx="7" fill="#ffffff" stroke="#c9c2b1" stroke-width="1.5"/>
+<text x="642" y="358" font-size="11" font-weight="400" fill="#5a4aa5" text-anchor="start">AI が返した JSON（そのまま送る）</text>
+<text x="642" y="378" font-size="11" font-weight="400" fill="#1c1c1c" text-anchor="start" font-family="ui-monospace,'SFMono-Regular',Menlo,Consolas,monospace">{ "servo": 120, "msg": "換気推奨" }</text>
+<text x="618" y="418" font-size="11" font-weight="400" fill="#6c737c" text-anchor="start">💬 画面を見ずに、サーボの動きだけで</text>
+<text x="618" y="436" font-size="11" font-weight="400" fill="#6c737c" text-anchor="start">　 分かるようにできますか？</text>
+<rect x="30" y="490" width="900" height="86" rx="8" fill="#f3efff" stroke="#5a4aa5" stroke-width="2"/>
+<text x="52" y="518" font-size="16" font-weight="700" fill="#5a4aa5" text-anchor="start">変わったのは、真ん中の 1 ブロックだけです。</text>
+<text x="52" y="542" font-size="12.5" font-weight="400" fill="#1c1c1c" text-anchor="start">if 文は「当たるか、何も起きないか」。AI は、曖昧な言い方でも何かを返します。</text>
+<text x="52" y="562" font-size="12.5" font-weight="700" fill="#1c1c1c" text-anchor="start">minimum / maximum に書いてあるのは、このサーボが実際に回れる角度です。</text>
+</svg><figcaption>図8　HO-5 の完成図<button class="zoom" type="button">拡大</button></figcaption></figure><figure class="fig" data-cap="図3　システム全体の完成図"><svg role="img" aria-label="図3　システム全体の完成図" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" font-family="'Hiragino Sans','Yu Gothic UI','Meiryo',sans-serif" xmlns:c2pa="http://c2pa.org/manifest">
+  <defs>
+    <pattern id="holes3" width="12" height="12" patternUnits="userSpaceOnUse">
+      <circle cx="6" cy="6" r="1.7" fill="#c6bfae"/>
+    </pattern>
+  </defs>
+  <rect x="0" y="0" width="960" height="560" fill="#ffffff"/>
+  <text x="30" y="34" font-size="19" font-weight="700" fill="#1c1c1c">図3　システム全体の完成図（HO-4・HO-5 完成形）</text>
+
+  <!-- laptop -->
+  <rect x="50" y="130" width="300" height="196" rx="8" fill="#2b3038"/>
+  <rect x="62" y="142" width="276" height="172" rx="3" fill="#f8f8f6"/>
+  <rect x="62" y="142" width="276" height="22" rx="3" fill="#e2e2df"/>
+  <circle cx="75" cy="153" r="3.5" fill="#b9b9b5"/>
+  <circle cx="86" cy="153" r="3.5" fill="#b9b9b5"/>
+  <circle cx="97" cy="153" r="3.5" fill="#b9b9b5"/>
+  <rect x="110" y="147" width="180" height="12" rx="6" fill="#ffffff"/>
+  <text x="118" y="157" font-size="8" fill="#8a8a86">https://…github.io/starter/</text>
+  <text x="76" y="186" font-size="13" font-weight="700" fill="#1c1c1c">AIブリッジ</text>
+  <rect x="76" y="194" width="66" height="20" rx="5" fill="#2e86c1"/>
+  <text x="109" y="208" font-size="11" fill="#ffffff" text-anchor="middle">接続</text>
+  <text x="76" y="238" font-size="15" font-weight="700" fill="#1c1c1c">24.8 ℃ ／ 52.3 %</text>
+  <rect x="76" y="248" width="248" height="52" rx="5" fill="#eef4fa" stroke="#b8d4ea"/>
+  <text x="86" y="268" font-size="11" fill="#1c4b70">AI：「湿度が高めです。換気を」</text>
+  <text x="86" y="288" font-size="11" fill="#1c4b70">{ "servo": 120, "msg": "換気推奨" }</text>
+  <polygon points="34,326 366,326 390,348 10,348" fill="#3b4149"/>
+  <text x="200" y="374" font-size="14" font-weight="600" fill="#1c1c1c" text-anchor="middle">PC（Chrome 148 以上）</text>
+
+  <!-- gemini callout -->
+  <rect x="50" y="394" width="300" height="60" rx="10" fill="#f3efff" stroke="#c3b4ef" stroke-width="1.5"/>
+  <text x="200" y="418" font-size="13" font-weight="700" fill="#4b3a95" text-anchor="middle">Prompt API → Gemini Nano</text>
+  <text x="200" y="440" font-size="11.5" fill="#5a4aa5" text-anchor="middle">推論は端末の中で完結（ネット接続不要）</text>
+  <line x1="200" y1="380" x2="200" y2="392" stroke="#8f7fd6" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+  <!-- usb cable -->
+  <path d="M392 300 L452 300 L452 272 L494 272" fill="none" stroke="#7f7f7f" stroke-width="7" stroke-linecap="round"/>
+  <text x="416" y="292" font-size="11.5" font-weight="700" fill="#333" text-anchor="middle">USB</text>
+  <text x="408" y="330" font-size="11" fill="#555" text-anchor="middle">Web Serial</text>
+
+  <!-- core2 -->
+  <rect x="500" y="180" width="180" height="200" rx="14" fill="#f2a62b"/>
+  <rect x="508" y="188" width="164" height="184" rx="9" fill="#2b3036"/>
+  <circle cx="541" cy="336" r="7" fill="none" stroke="#767d86" stroke-width="1.6"/>
+  <circle cx="590" cy="336" r="7" fill="none" stroke="#767d86" stroke-width="1.6"/>
+  <circle cx="639" cy="336" r="7" fill="none" stroke="#767d86" stroke-width="1.6"/>
+  <rect x="518" y="200" width="144" height="112" rx="6" fill="#0d1218"/>
+  <text x="590" y="238" font-size="16" font-weight="700" fill="#5fd3f3" text-anchor="middle">24.8℃ 52.3%</text>
+  <text x="590" y="266" font-size="13" fill="#7ce0b0" text-anchor="middle">換気推奨</text>
+  <text x="590" y="292" font-size="12" fill="#e2b423" text-anchor="middle">servo 120°</text>
+  <!-- PORT.B（上面の左・黒／サーボ信号） -->
+  <rect x="520" y="164" width="42" height="18" rx="3" fill="#242424"/>
+  <text x="541" y="196" font-size="10" font-weight="700" fill="#c9ced4" text-anchor="middle">PORT.B</text>
+  <!-- PORT.C（上面の右・青／未使用） -->
+  <rect x="618" y="164" width="42" height="18" rx="3" fill="#2c5fa8"/>
+  <text x="639" y="196" font-size="10" font-weight="700" fill="#8a9099" text-anchor="middle">PORT.C</text>
+  <!-- PORT.A（左側面の下・赤／センサー） -->
+  <rect x="492" y="300" width="16" height="40" rx="3" fill="#c0392b"/>
+  <text x="516" y="362" font-size="10.5" font-weight="700" fill="#ff9c8c" text-anchor="start">PORT.A</text>
+  <text x="590" y="412" font-size="14" font-weight="600" fill="#1c1c1c" text-anchor="middle">M5Stack Core2 for AWS</text>
+  <text x="590" y="432" font-size="11" fill="#666" text-anchor="middle">PORT.A（左側面の下）＝ センサー</text>
+  <text x="590" y="449" font-size="11" fill="#666" text-anchor="middle">PORT.B（上面の左）＝ サーボ信号</text>
+
+  <!-- grove A to ENV III -->
+  <path d="M492 320 L470 320 L470 120 L726 120 L726 162 L742 162" fill="none" stroke="#ffffff" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M492 320 L470 320 L470 120 L726 120 L726 162 L742 162" fill="none" stroke="#8d8d8d" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- USB は Grove と交差するので、白フチつきで上に描き直す -->
+  <path d="M392 300 L452 300 L452 272 L494 272" fill="none" stroke="#ffffff" stroke-width="13" stroke-linecap="round"/>
+  <path d="M392 300 L452 300 L452 272 L494 272" fill="none" stroke="#7f7f7f" stroke-width="7" stroke-linecap="round"/>
+  <rect x="486" y="260" width="14" height="24" rx="3" fill="#242424"/>
+  <text x="516" y="252" font-size="10.5" font-weight="700" fill="#c9ced4" text-anchor="start">USB-C</text>
+  <rect x="758" y="118" width="122" height="94" rx="10" fill="#f5f3ee" stroke="#b3ab9c" stroke-width="1.5"/>
+  <rect x="744" y="149" width="16" height="26" rx="3" fill="#c0392b"/>
+  <rect x="780" y="138" width="30" height="24" rx="3" fill="#3f4a54"/>
+  <rect x="828" y="144" width="22" height="18" rx="3" fill="#3f4a54"/>
+  <text x="819" y="192" font-size="15" font-weight="700" fill="#1c1c1c" text-anchor="middle">ENV Ⅲ</text>
+  <text x="819" y="230" font-size="11" fill="#555" text-anchor="middle">温度・湿度・気圧</text>
+
+  <!-- grove B to external unit -->
+  <path d="M541 164 L541 152 L716 152 L716 322 L748 322" fill="none" stroke="#ffffff" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M541 164 L541 152 L716 152 L716 322 L748 322" fill="none" stroke="#8d8d8d" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- external power unit group -->
+  <rect x="736" y="256" width="196" height="238" rx="10" fill="#fbfaf7" stroke="#9aa0a8" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="834" y="278" font-size="12" font-weight="700" fill="#555" text-anchor="middle">外部電源ユニット（詳細は図2）</text>
+  <rect x="750" y="290" width="168" height="66" rx="5" fill="#ece8de" stroke="#c9c2b1"/>
+  <line x1="758" y1="300" x2="910" y2="300" stroke="#d64b3c" stroke-width="1.4"/>
+  <line x1="758" y1="348" x2="910" y2="348" stroke="#3b6ea8" stroke-width="1.4"/>
+  <rect x="758" y="310" width="152" height="30" fill="url(#holes3)"/>
+  <rect x="778" y="312" width="20" height="26" rx="4" fill="#2c3a4a"/>
+  <rect x="836" y="318" width="34" height="11" rx="5" fill="#d9c8a0" stroke="#b09f78"/>
+  <rect x="750" y="382" width="74" height="42" rx="7" fill="#454b54"/>
+  <text x="787" y="402" font-size="10" fill="#ffffff" text-anchor="middle">USB AC</text>
+  <text x="787" y="416" font-size="10" fill="#cfd4da" text-anchor="middle">5V / 2A</text>
+  <path d="M787 382 L787 366 L800 366 L800 356" fill="none" stroke="#7f7f7f" stroke-width="4"/>
+  <rect x="846" y="382" width="72" height="62" rx="7" fill="#2e86c1"/>
+  <rect x="846" y="400" width="72" height="28" fill="#256fa3"/>
+  <circle cx="882" cy="378" r="11" fill="#e8e8e8" stroke="#aaa"/>
+  <line x1="882" y1="378" x2="882" y2="356" stroke="#e8e8e8" stroke-width="5" stroke-linecap="round"/>
+  <text x="882" y="462" font-size="12" font-weight="700" fill="#1c1c1c" text-anchor="middle">SG90</text>
+  <path d="M878 356 L878 374" fill="none" stroke="#7f7f7f" stroke-width="4"/>
+
+  <!-- flow legend -->
+  <rect x="30" y="504" width="900" height="34" rx="6" fill="#f2f4f7"/>
+  <text x="46" y="526" font-size="12.5" fill="#1c1c1c">① ENV Ⅲ が測定 → ② Core2 が JSON で送信 → ③ Chrome が受信 → ④ Gemini Nano が判断 → ⑤ 角度コマンドを返信 → ⑥ サーボが動く</text>
+</svg>
+<figcaption>図3　システム全体の完成図<button class="zoom" type="button">拡大</button></figcaption></figure>
+<h3>配線</h3>
+<p>HO-2 と HO-3 の配線を<strong>同時に</strong>行います。追加の部品はありません。</p>
+<pre><code>PC ──USB──→ Core2 ──PORT.A──→ ENV Ⅲ
+                    └─PORT.B──→ ブレッドボード ──→ サーボ
+                                      ↑
+                              USB ACアダプター
+</code></pre>
+<p>→ <strong>図3</strong> を参照</p>
+<p><strong>PORT.A と PORT.B は別系統なので、Grove ハブは不要です。</strong></p>
+<h3>HO-5 で追加するもの</h3>
+<p><strong>ありません。</strong> 配線は HO-4 のまま、ブラウザー側のコードだけが変わります。</p>
+<h3>通信の約束</h3>
+<pre><code>ボード → PC:  {&quot;t&quot;:25.3,&quot;h&quot;:48.1,&quot;btn&quot;:0}
+PC → ボード:  {&quot;servo&quot;:120,&quot;status&quot;:&quot;HUMID&quot;,&quot;msg&quot;:&quot;換気しましょう&quot;}
+</code></pre>
+<h3>注意</h3>
+<p><strong>IDE とブラウザーページは同時に接続できません。</strong> シリアルポートは1つのアプリしか掴めないため、IDE の「Disconnect」を押してからページの「接続」を押します。</p>
+<hr />
+<h2 id="7-ho-6-pan-tilt-運営デモ-3日版のみ">7. HO-6　Pan-Tilt（運営デモ / 3日版のみ）</h2>
+<h3>配線（Grove ハブは使いません）</h3>
+<p><strong>ENV Ⅲ と Pan-Tilt を、別々のポートに独立して繋ぎます。</strong></p>
+<pre><code>Core2 PORT.A ──Groveケーブル──→ ENV Ⅲ           … I2C バス0
+（赤・本体上部）  G32=SDA / G33=SCL
+
+Core2 PORT.C ──Groveケーブル──→ Pan-Tilt 制御基板 … I2C バス1
+（青・本体上面の右） G14=SDA / G13=SCL    ※赤線は使わない
+                                          │
+          USB ACアダプター ── 4.8〜5V ───────┘  ← サーボ電源
+               GND は Grove の黒線経由で Core2 と共通
+</code></pre>
+<p>→ <strong>図5</strong> を参照</p>
+<h3>なぜ2つのポートに分けられるのか</h3>
+<p>ESP32 には <strong>I2C コントローラが2系統</strong>あります。<code>I2C(0)</code> と <code>I2C(1)</code> を別々のピンに割り当てれば、2本の独立したバスとして同時に使えます。</p>
+<pre><code class="language-python">i2c_env = I2C(0, scl=Pin(33), sda=Pin(32), freq=100000)   # PORT.A
+i2c_pca = I2C(1, scl=Pin(13), sda=Pin(14), freq=100000)   # PORT.C
+</code></pre>
+<p><strong>PORT.B は I2C に使えません。</strong> G36 が入力専用ピンで、双方向通信が必要な SDA を割り当てられないためです。したがって2つ目の I2C は PORT.C 一択になります。</p>
+<h3>バスを分ける利点</h3>
+<p><strong>0x70 のアドレス衝突が原理的に起きなくなります。</strong></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>デバイス</th>
+<th>アドレス</th>
+<th>バス</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SHT30（温湿度）</td>
+<td>0x44</td>
+<td>バス0</td>
+</tr>
+<tr>
+<td>QMP6988（気圧）</td>
+<td><strong>0x70</strong></td>
+<td>バス0</td>
+</tr>
+<tr>
+<td>PCA9685</td>
+<td>0x40</td>
+<td>バス1</td>
+</tr>
+<tr>
+<td>PCA9685 の All Call</td>
+<td><strong>0x70</strong></td>
+<td>バス1</td>
+</tr>
+</tbody>
+</table></div>
+<p>同じ 0x70 が2つありますが、<strong>別のバスなので出会いません。</strong> 「同じ番地の家が2軒あっても、通りが違えば郵便は届く」ということです。</p>
+<p>ALLCALL の無効化は、この構成では必須ではありません。ただし将来このバスに別のデバイスを足す可能性と、<code>scan()</code> の結果が紛らわしくなるのを避けるため、コードには残してあります。</p>
+<h3>3つのポートを同時に使える</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ポート</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PORT.A</td>
+<td>ENV Ⅲ（温湿度）</td>
+</tr>
+<tr>
+<td>PORT.B</td>
+<td>SG90（1軸サーボ・HO-3）</td>
+</tr>
+<tr>
+<td>PORT.C</td>
+<td>Pan-Tilt（2軸サーボ）</td>
+</tr>
+</tbody>
+</table></div>
+<p>互いに干渉しないので、<strong>全部同時に動かせます。</strong></p>
+<h3>繋ぐ前に必ず測ること</h3>
+<p><strong>PORT.C に繋ぐ前に、Pan-Tilt 基板側の SDA / SCL のアイドル電圧をテスターで測定してください。</strong></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>実測値</th>
+<th>対応</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3.3V</td>
+<td>そのまま繋いでよい</td>
+</tr>
+<tr>
+<td>5V</td>
+<td><strong>I2Cレベルシフターが必須</strong>（ESP32 は5Vトレラントではない）</td>
+</tr>
+</tbody>
+</table></div>
+<p>判断に迷うなら、最初からレベルシフターを入れるのが安全です。</p>
+<blockquote>
+<p><strong>PORT.C に5Vのバスを直結すると、Core2 の I2C が壊れる可能性があります。</strong> バス0（PORT.A）まで巻き添えになると、センサーも読めなくなります。順番を守ってください。</p>
+</blockquote>
+<h3>PORT.C のピン割り当ては実機で確認</h3>
+<p>図とコードでは <strong>黄 = G14 = SDA、白 = G13 = SCL</strong> としています。これは M5Stack 公式のピンマップどおりです。</p>
+<p>ただし Pan-Tilt 基板側のコネクター結線までは保証できないため、<code>scan()</code> に何も出ない場合は入れ替えて試してください。</p>
+<pre><code class="language-python"># 逆だった場合
+i2c_pca = I2C(1, scl=Pin(14), sda=Pin(13), freq=100000)
+</code></pre>
+<h3>コード側で必ずやること</h3>
+<pre><code class="language-python">pca.set_freq(50)       # ★初期状態は50Hzではない★
+</code></pre>
+<h3>可動範囲のリミット</h3>
+<p>ブラケットの構造上、180度全域は回りません。<strong>範囲外の指令を出し続けるとギヤが傷みます。</strong></p>
+<pre><code class="language-python">PAN_LIMIT  = (30, 150)     # 実機で確認した値に
+TILT_LIMIT = (70, 130)
+</code></pre>
+<h3>付属カメラについて</h3>
+<p>Pan-Tilt キットのカメラは <strong>Raspberry Pi の CSI 接続用</strong>で、Core2 では使えません。画像を扱いたい場合は PC の Web カメラと Prompt API のマルチモーダル入力を使ってください。</p>
+<hr />
+<h2 id="8-配線図ファイル一覧">8. 配線図ファイル一覧</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>図</th>
+<th>内容</th>
+<th>ファイル</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>図0</td>
+<td>LED バーの位置（HO-1）</td>
+<td><code>fig0_ledbar.svg</code></td>
+</tr>
+<tr>
+<td>図1</td>
+<td>センサー接続（HO-2）</td>
+<td><code>fig1_sensor.svg</code></td>
+</tr>
+<tr>
+<td>図2</td>
+<td>サーボ外部電源（HO-3）</td>
+<td><code>fig2_servo_wiring.svg</code></td>
+</tr>
+<tr>
+<td>図3</td>
+<td>システム全体の俯瞰</td>
+<td><code>fig3_system.svg</code></td>
+</tr>
+<tr>
+<td><strong>図7</strong></td>
+<td><strong>HO-4 の完成図</strong>（判断はブラウザーの if 文）</td>
+<td><code>fig7_ho4_complete.svg</code></td>
+</tr>
+<tr>
+<td><strong>図8</strong></td>
+<td><strong>HO-5 の完成図</strong>（判断は Gemini Nano）</td>
+<td><code>fig8_ho5_complete.svg</code></td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p><strong>PowerPoint に貼るときは <code>docs/png/</code> の PNG を使ってください。</strong>
+SVG も貼れますが、<strong>PowerPoint は <code>paint-order</code> に対応していないため</strong>、文字の縁取りが文字の上から描かれて白抜きになることがありました。2026/11/16 に全図を縁取り2回描きの書き方に直したので、いまの SVG はそのまま貼れます。<strong>古い版を貼ってある資料は差し替えてください。</strong>
+| 図4 | パルス幅と角度の対応 | <code>fig4_pulse.svg</code> |
+| 図5 | Pan-Tilt 接続（HO-6・<strong>推奨</strong>） | <code>fig5_pantilt_separate.svg</code> |
+| 図5参考 | Pan-Tilt を Grove ハブで分岐する場合 | <code>fig5_pantilt.svg</code> |</p>
+</blockquote>
+<p>すべて SVG なので、拡大しても劣化しません。手順書やスライドにそのまま貼れます。</p>
+<hr />
+<h2 id="9-トラブル時の切り分け">9. トラブル時の切り分け</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>症状</th>
+<th>第一容疑</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ボードが認識されない</td>
+<td>ケーブルが充電専用 / IDE が繋ぎっぱなし</td>
+</tr>
+<tr>
+<td>LED が光らない</td>
+<td><code>set_brightness()</code> が 0 になっていないか</td>
+</tr>
+<tr>
+<td>本体が熱い</td>
+<td>明るさを上げすぎ。12% に戻す</td>
+</tr>
+<tr>
+<td><code>i2c.scan()</code> が <code>[]</code></td>
+<td>PORT.B に挿している</td>
+</tr>
+<tr>
+<td><strong>サーボで再起動する</strong></td>
+<td><strong>切断したはずの赤線が繋がっている</strong></td>
+</tr>
+<tr>
+<td><strong>サーボが無反応（電源は正常）</strong></td>
+<td><strong>信号線の色が想定と違う。テスターで実測する</strong></td>
+</tr>
+<tr>
+<td><strong>サーボが暴れる</strong></td>
+<td><strong>共通 GND が繋がっていない</strong></td>
+</tr>
+<tr>
+<td>サーボが無反応</td>
+<td>AC アダプター未通電 / 信号が G36 側</td>
+</tr>
+<tr>
+<td>サーボが唸る</td>
+<td>可動範囲超過。すぐ止めて校正</td>
+</tr>
+<tr>
+<td>画面が真っ黒</td>
+<td><code>page0.screen_load()</code> を呼んでいない</td>
+</tr>
+<tr>
+<td>日本語が □</td>
+<td><code>lv.AlibabaSans_JP24</code> 以外を指定している</td>
+</tr>
+<tr>
+<td>Pan-Tilt が動かない</td>
+<td><code>set_freq(50)</code> を呼んでいない</td>
+</tr>
+</tbody>
+</table></div>
+<h3>変換ケーブルの信号線を特定する</h3>
+<p>ケーブルを PORT.B に挿し、WebTerminal で以下を実行します。</p>
+<pre><code class="language-python">from machine import Pin, PWM
+s = PWM(Pin(26), freq=50)
+s.duty_ns(10000000)      # デューティ比 50%
+</code></pre>
+<p>テスターの黒プローブを<strong>ケーブルの黒線</strong>、赤プローブを他の線に当てます。</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>測定値</th>
+<th>判断</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>約 1.65V</strong></td>
+<td><strong>その線が G26（信号線）</strong></td>
+</tr>
+<tr>
+<td>0V 付近</td>
+<td>違う線</td>
+</tr>
+</tbody>
+</table></div>
+<p>さらに確実を期すなら、デューティ比を変えて比例することを確認します。</p>
+<pre><code class="language-python">s.duty_ns(2000000)     # 10% → 約 0.33V
+s.duty_ns(18000000)    # 90% → 約 3.0V
+</code></pre>
+<p><strong>電圧が比例して変化すれば、その線が信号線で確定です。</strong>
+| バス1に何も出ない | PORT.C の SDA/SCL が逆。Pin(13)/Pin(14) を交換 |
+| バス1で ETIMEDOUT | プルアップ不足、またはレベルシフターが必要 |
+| <strong>バス0まで壊れた</strong> | <strong>PORT.C に5Vバスを直結した可能性。要テスター確認</strong> |</p></main>
+</div>
+<div id="ov"><button class="cl" type="button">閉じる</button><div class="box"></div></div>
+<script>
+(function(){
+  var ov=document.getElementById('ov'), box=ov.querySelector('.box');
+  document.addEventListener('click',function(e){
+    var b=e.target.closest('.zoom');
+    if(b){ box.innerHTML=b.closest('figure').querySelector('svg').outerHTML; ov.classList.add('on'); return; }
+    if(e.target===ov||e.target.closest('.cl')){ ov.classList.remove('on'); box.innerHTML=''; }
+  });
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'){ ov.classList.remove('on'); box.innerHTML=''; }
+  });
+  var tb=document.getElementById('tocbtn'), toc=document.querySelector('nav.toc');
+  tb.addEventListener('click',function(){ toc.classList.toggle('open'); });
+  toc.addEventListener('click',function(e){ if(e.target.tagName==='A') toc.classList.remove('open'); });
+  var links=[].slice.call(toc.querySelectorAll('a')), map={};
+  links.forEach(function(a){ map[a.getAttribute('href').slice(1)]=a; });
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(en){
+      var a=map[en.target.id]; if(!a) return;
+      if(en.isIntersecting){ links.forEach(function(x){x.classList.remove('on');}); a.classList.add('on'); }
+    });
+  },{rootMargin:'-60px 0px -75% 0px'});
+  document.querySelectorAll('main h1[id],main h2[id]').forEach(function(h){ io.observe(h); });
+})();
+</script>
+</body>
+</html>

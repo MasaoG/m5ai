@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 660" width="960" height="660" font-family="'Hiragino Sans','Yu Gothic UI','Meiryo',sans-serif" xmlns:c2pa="http://c2pa.org/manifest"><metadata><c2pa:manifest>AAAWgmp1bWIAAAAeanVtZGMycGEAEQAQgAAAqgA4m3EDYzJwYQAAABZcanVtYgAAAEdqdW1kYzJtYQARABCAAACqADibcQN1cm46YzJwYTpiZDgxNDA3NS1lYWQ0LTRmZjEtYWRmOC0wZDg5OTA0MTIzYTgAAAADl2p1bWIAAAApanVtZGMyYXMAEQAQgAAAqgA4m3EDYzJwYS5hc3NlcnRpb25zAAAAALxqdW1iAAAARGp1bWRjYm9yABEAEIAAAKoAOJtxE2MycGEuaW5ncmVkaWVudC52MwAAAAAYYzJzaIXqa7NN10fgf5Hyd+rOiicAAABwY2JvcqNpZGM6Zm9ybWF0bWltYWdlL3N2Zyt4bWxqaW5zdGFuY2VJRHgseG1wOmlpZDo0OTdhMWIwNS04MGM4LTRlZmMtYWRiNi02OGIwNWNiNDE4Y2JscmVsYXRpb25zaGlwaHBhcmVudE9mAAAB4mp1bWIAAABBanVtZGNib3IAEQAQgAAAqgA4m3ETYzJwYS5hY3Rpb25zLnYyAAAAABhjMnNoEq3QN9wtL2hjlNI9lyjHmwAAAZljYm9yomdhY3Rpb25zgqJmYWN0aW9ua2MycGEub3BlbmVkanBhcmFtZXRlcnOha2luZ3JlZGllbnRzgaJjdXJseC1zZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmluZ3JlZGllbnQudjNkaGFzaFggSP0K0l7a4cmzbkQpogRSRss7MFWNRspmVxQzCnSDlsCkZmFjdGlvbngdY29tLmFudGhyb3BpYy5jbGF1ZGUucHJvdmlkZWRqcGFyYW1ldGVyc6F4H2NvbS5hbnRocm9waWMub3JpZ2luLWNvbmZpZGVuY2VndW5rbm93bmtkZXNjcmlwdGlvbnhmQ2xhdWRlIHByb3ZpZGVkIHRoaXMgZmlsZSBhdCB0aGUgcmVxdWVzdCBvZiBhIHVzZXIgYW5kIG1heSBoYXZlIGNyZWF0ZWQgb3IgbW9kaWZpZWQgdGhlIGZpbGUgY29udGVudHMubXNvZnR3YXJlQWdlbnShZG5hbWVmQ2xhdWRlcmFsbEFjdGlvbnNJbmNsdWRlZPUAAADIanVtYgAAAEBqdW1kY2JvcgARABCAAACqADibcRNjMnBhLmhhc2guZGF0YQAAAAAYYzJzaGFR2ciHzmCEmNA/KaYoG1EAAACAY2JvcqVjYWxnZnNoYTI1NmNwYWRNAAAAAAAAAAAAAAAAAGRoYXNoWCDO08Pzof0+w9zdcsVFb83Xjc0YD5LZdIEXIdmP/BSvwWRuYW1lbmp1bWJmIG1hbmlmZXN0amV4Y2x1c2lvbnOBomVzdGFydBjXZmxlbmd0aBkeBAAAAj5qdW1iAAAAJ2p1bWRjMmNsABEAEIAAAKoAOJtxA2MycGEuY2xhaW0udjIAAAACD2Nib3KlY2FsZ2ZzaGEyNTZpc2lnbmF0dXJleE1zZWxmI2p1bWJmPS9jMnBhL3VybjpjMnBhOmJkODE0MDc1LWVhZDQtNGZmMS1hZGY4LTBkODk5MDQxMjNhOC9jMnBhLnNpZ25hdHVyZWppbnN0YW5jZUlEeCx4bXA6aWlkOjk2MTA1YjUzLTEwYzctNDMzOS05MjEzLTMzNTY1MjkxMmU5M3JjcmVhdGVkX2Fzc2VydGlvbnODomN1cmx4LXNlbGYjanVtYmY9YzJwYS5hc3NlcnRpb25zL2MycGEuaW5ncmVkaWVudC52M2RoYXNoWCBI/QrSXtrhybNuRCmiBFJGyzswVY1GymZXFDMKdIOWwKJjdXJseCpzZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmFjdGlvbnMudjJkaGFzaFgggeACStqmSYzpZSTknGeJMBPpJdfQpRix8/RqLBPUP8aiY3VybHgpc2VsZiNqdW1iZj1jMnBhLmFzc2VydGlvbnMvYzJwYS5oYXNoLmRhdGFkaGFzaFggqeVZ8NO8GuNukWdNgirwfWu7RkQRlUO+POEQcR0ALoB0Y2xhaW1fZ2VuZXJhdG9yX2luZm+jZG5hbWVvQW50aHJvcGljIEZpbGVzZ3ZlcnNpb25lMS4wLjBrc3BlY1ZlcnNpb25lMi40LjAAABA4anVtYgAAAChqdW1kYzJjcwARABCAAACqADibcQNjMnBhLnNpZ25hdHVyZQAAABAIY2JvctKEWQISogEmGCFZAgowggIGMIIBjaADAgECAhRA5aAK7sI50L64g/oGQgU9Z1UTADAKBggqhkjOPQQDAzBJMRcwFQYDVQQKEw5BbnRocm9waWMsIFBCQzEuMCwGA1UEAxMlQW50aHJvcGljIENvbnRlbnQgQ3JlZGVudGlhbHMgUm9vdCBDQTAeFw0yNjA4MDcxODQzNTZaFw0yODA4MDYxOTQzNTZaMEQxFzAVBgNVBAoTDkFudGhyb3BpYywgUEJDMSkwJwYDVQQDEyBBbnRocm9waWMgQ2xhdWRlIENvbnRlbnQgU2lnbmluZzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABJh6CmvLUBgFFNU0vUKlOVtE6djd17L5SuwX0LemFisBM3dkd/3cyjxFA3Qo5S46fX0/ihY0VZ7mfb9KF703t5OjWDBWMA4GA1UdDwEB/wQEAwIHgDAVBgNVHSUEDjAMBgorBgEEAYPoXgIBMAwGA1UdEwEB/wQCMAAwHwYDVR0jBBgwFoAUzlHiBIFOZFsj+OPEz5o+nMHXXMIwCgYIKoZIzj0EAwMDZwAwZAIwMXMdFJ4BetLLVY7ORuE9noqbbAZOZn/aArXyTwFAZfKrPzxF2vPoJNf1+UCdg1XGAjBwX1zd9WGqYkqmL5SFqw1QySjr1zJfpJM9+1rdDwSPLMOPOjKuiXjoU/pUUeG9RwmhY3BhZFkNngAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPZYQMb7bnoQmDAkkB93Tpjsz2eDXMvatnG9x6hq6CXyH1R4kJ0x32iIUIWTMYoPkJyez6pEQW3bQdo2vrYxiQiWBp4=</c2pa:manifest></metadata>
+  <defs>
+    <pattern id="holes6" width="14" height="14" patternUnits="userSpaceOnUse">
+      <circle cx="7" cy="7" r="2.1" fill="#c6bfae"/>
+    </pattern>
+  </defs>
+  <rect x="0" y="0" width="960" height="660" fill="#ffffff"/>
+  <text x="30" y="34" font-size="19" font-weight="700" fill="#1c1c1c">図6　Pan-Tilt を生PWMで動かす（Plan B 完成図）</text>
+  <text x="30" y="56" font-size="12.5" fill="#666">PCA9685 を使わず、Core2 の GPIO から 2軸を直接駆動する。HO-3 と同じことを 2回やるだけ。</text>
+
+  <!-- ===== breadboard ===== -->
+  <rect x="290" y="170" width="390" height="300" rx="8" fill="#ece8de" stroke="#c9c2b1" stroke-width="1.5"/>
+  <line x1="305" y1="198" x2="665" y2="198" stroke="#d64b3c" stroke-width="1.6"/>
+  <line x1="305" y1="442" x2="665" y2="442" stroke="#3b6ea8" stroke-width="1.6"/>
+  <text x="298" y="191" font-size="11" fill="#d64b3c" font-weight="700">＋5V ライン</text>
+  <text x="588" y="436" font-size="11" fill="#3b6ea8" font-weight="700">GND ライン</text>
+  <rect x="305" y="225" width="360" height="190" fill="url(#holes6)"/>
+  <rect x="305" y="316" width="360" height="14" fill="#e3ddd0"/>
+
+  <!-- capacitor -->
+  <line x1="334" y1="268" x2="334" y2="198" stroke="#9a9a9a" stroke-width="2.5"/>
+  <line x1="356" y1="314" x2="356" y2="442" stroke="#9a9a9a" stroke-width="2.5"/>
+  <rect x="322" y="268" width="46" height="46" rx="9" fill="#2c3a4a"/>
+  <rect x="322" y="268" width="12" height="46" rx="6" fill="#9fb0c0"/>
+  <text x="328" y="296" font-size="11" fill="#2c3a4a" font-weight="700">−</text>
+
+  <!-- resistor : tilt -->
+  <line x1="450" y1="250" x2="470" y2="250" stroke="#9a9a9a" stroke-width="2.5"/>
+  <line x1="528" y1="250" x2="548" y2="250" stroke="#9a9a9a" stroke-width="2.5"/>
+  <rect x="470" y="242" width="58" height="17" rx="8" fill="#d9c8a0" stroke="#b09f78"/>
+  <rect x="479" y="242" width="5" height="17" fill="#d95f2b"/>
+  <rect x="489" y="242" width="5" height="17" fill="#333"/>
+  <rect x="499" y="242" width="5" height="17" fill="#8a5a2b"/>
+  <rect x="514" y="242" width="5" height="17" fill="#c9a227"/>
+
+  <!-- resistor : pan -->
+  <line x1="450" y1="380" x2="470" y2="380" stroke="#9a9a9a" stroke-width="2.5"/>
+  <line x1="528" y1="380" x2="548" y2="380" stroke="#9a9a9a" stroke-width="2.5"/>
+  <rect x="470" y="372" width="58" height="17" rx="8" fill="#d9c8a0" stroke="#b09f78"/>
+  <rect x="479" y="372" width="5" height="17" fill="#d95f2b"/>
+  <rect x="489" y="372" width="5" height="17" fill="#333"/>
+  <rect x="499" y="372" width="5" height="17" fill="#8a5a2b"/>
+  <rect x="514" y="372" width="5" height="17" fill="#c9a227"/>
+
+  <!-- ===== USB adapter ===== -->
+  <rect x="40" y="78" width="176" height="62" rx="10" fill="#454b54"/>
+  <rect x="20" y="96" width="22" height="26" rx="4" fill="#6d747d"/>
+  <text x="128" y="106" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">USB ACアダプター</text>
+  <text x="128" y="126" font-size="12" fill="#cfd4da" text-anchor="middle">5V / 2A 以上</text>
+
+  <!-- ===== Core2 ===== -->
+  <!-- PORT.B（上面の左・黒）／PORT.C（上面の右・青） -->
+  <rect x="72" y="182" width="44" height="18" rx="3" fill="#242424"/>
+  <rect x="164" y="182" width="44" height="18" rx="3" fill="#2c5fa8"/>
+  <rect x="50" y="200" width="180" height="204" rx="14" fill="#f2a62b"/>
+  <rect x="58" y="208" width="164" height="188" rx="9" fill="#2b3036"/>
+  <text x="94" y="226" font-size="10" font-weight="700" fill="#c9ced4" text-anchor="middle">PORT.B</text>
+  <text x="186" y="226" font-size="10" font-weight="700" fill="#9fc0e8" text-anchor="middle">PORT.C</text>
+  <circle cx="91" cy="366" r="7" fill="none" stroke="#767d86" stroke-width="1.6"/>
+  <circle cx="140" cy="366" r="7" fill="none" stroke="#767d86" stroke-width="1.6"/>
+  <circle cx="189" cy="366" r="7" fill="none" stroke="#767d86" stroke-width="1.6"/>
+  <rect x="68" y="234" width="144" height="112" rx="6" fill="#0d1218"/>
+  <text x="140" y="280" font-size="16" font-weight="700" fill="#5fd3f3" text-anchor="middle">PAN   90°</text>
+  <text x="140" y="310" font-size="16" font-weight="700" fill="#7ce0b0" text-anchor="middle">TILT 100°</text>
+  <text x="140" y="432" font-size="14" font-weight="600" fill="#1c1c1c" text-anchor="middle">M5Stack Core2 for AWS</text>
+  <text x="140" y="452" font-size="11" fill="#666" text-anchor="middle">2つのポートは本体の上面にあります</text>
+
+  <!-- ===== wires : halo ===== -->
+  <g fill="none" stroke="#ffffff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M216 96 L380 96 L380 198"/>
+    <path d="M60 140 L30 140 L30 548 L440 548 L440 442"/>
+    <path d="M178 182 L178 168 L262 168 L262 250 L450 250"/>
+    <path d="M86 182 L86 148 L286 148 L286 380 L450 380"/>
+    <path d="M194 182 L194 178 L250 178 L250 490 L330 490 L330 442"/>
+    <path d="M102 182 L102 158 L274 158 L274 512 L392 512 L392 442"/>
+    <path d="M548 250 L740 250"/>
+    <path d="M548 380 L740 380"/>
+    <path d="M620 198 L706 198 L706 266 L740 266"/>
+    <path d="M706 266 L706 398 L740 398"/>
+    <path d="M600 442 L722 442 L722 414 L740 414"/>
+    <path d="M722 414 L722 282 L740 282"/>
+  </g>
+
+  <!-- ===== wires : colored ===== -->
+  <g fill="none" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M216 96 L380 96 L380 198" stroke="#d64b3c"/>
+    <path d="M60 140 L30 140 L30 548 L440 548 L440 442" stroke="#2a2a2a"/>
+    <path d="M178 182 L178 168 L262 168 L262 250 L450 250" stroke="#c9ccd0"/>
+    <path d="M86 182 L86 148 L286 148 L286 380 L450 380" stroke="#c9ccd0"/>
+    <path d="M194 182 L194 178 L250 178 L250 490 L330 490 L330 442" stroke="#2a2a2a"/>
+    <path d="M102 182 L102 158 L274 158 L274 512 L392 512 L392 442" stroke="#2a2a2a"/>
+    <path d="M548 250 L740 250" stroke="#e07b20"/>
+    <path d="M548 380 L740 380" stroke="#e07b20"/>
+    <path d="M620 198 L706 198 L706 266 L740 266" stroke="#d64b3c"/>
+    <path d="M706 266 L706 398 L740 398" stroke="#d64b3c"/>
+    <path d="M600 442 L722 442 L722 414 L740 414" stroke="#6b4a2f"/>
+    <path d="M722 414 L722 282 L740 282" stroke="#6b4a2f"/>
+  </g>
+  <circle cx="706" cy="266" r="4.5" fill="#d64b3c"/>
+  <circle cx="722" cy="414" r="4.5" fill="#6b4a2f"/>
+
+  <!-- ===== Pan-Tilt assembly ===== -->
+  <rect x="716" y="456" width="152" height="20" rx="4" fill="#b9bec4" stroke="#9aa0a6"/>
+
+  <rect x="740" y="362" width="104" height="86" rx="6" fill="#2e86c1"/>
+  <rect x="740" y="388" width="104" height="38" fill="#256fa3"/>
+  <circle cx="792" cy="358" r="12" fill="#e8e8e8" stroke="#aaa"/>
+  <text x="792" y="443" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">パン用</text>
+
+  <rect x="756" y="322" width="72" height="40" rx="4" fill="#ccd1d6" stroke="#a8aeb4"/>
+
+  <rect x="740" y="236" width="104" height="86" rx="6" fill="#2e86c1"/>
+  <rect x="740" y="262" width="104" height="38" fill="#256fa3"/>
+  <text x="792" y="317" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">チルト用</text>
+  <circle cx="792" cy="232" r="13" fill="#e8e8e8" stroke="#aaa"/>
+  <line x1="792" y1="232" x2="792" y2="198" stroke="#e8e8e8" stroke-width="7" stroke-linecap="round"/>
+  <polygon points="792,198 828,186 792,174" fill="#fdfdfd" stroke="#c9c9c9"/>
+  <text x="836" y="184" font-size="11" fill="#1c1c1c">紙の指示針</text>
+  <text x="792" y="496" font-size="12.5" font-weight="600" fill="#1c1c1c" text-anchor="middle">Pan-Tilt（サーボ 2個）</text>
+  <text x="792" y="514" font-size="11" fill="#666" text-anchor="middle">制御基板は使いません</text>
+
+  <!-- ===== labels ===== -->
+  <g font-size="12" stroke="#ffffff" stroke-width="4.5" stroke-linejoin="round" fill="none">
+    <text x="372" y="406" font-weight="700">PORT.C の白 ＝ G14 ＝ チルトの信号</text>
+    <text x="462" y="524" font-weight="700">PORT.B の白 ＝ G26 ＝ パンの信号</text>
+    <text x="462" y="546">黒は 2本とも −レール（GND）へ</text>
+    <text x="378" y="296">電解コンデンサー 1000µF</text>
+    <text x="499" y="232" text-anchor="middle" font-weight="700">330 Ω</text>
+    <text x="499" y="362" text-anchor="middle" font-weight="700">330 Ω</text>
+    <text x="636" y="240" font-size="11">橙＝信号</text>
+    <text x="636" y="370" font-size="11">橙＝信号</text>
+    <text x="634" y="214" font-size="11">赤＝5V（2個で共用）</text>
+    <text x="556" y="468" font-size="11">茶＝GND（2個で共用）</text>
+ </g><g font-size="12" fill="#1c1c1c" stroke="none">
+    <text x="372" y="406" font-weight="700">PORT.C の白 ＝ G14 ＝ チルトの信号</text>
+    <text x="462" y="524" font-weight="700">PORT.B の白 ＝ G26 ＝ パンの信号</text>
+    <text x="462" y="546">黒は 2本とも −レール（GND）へ</text>
+    <text x="378" y="296">電解コンデンサー 1000µF</text>
+    <text x="499" y="232" text-anchor="middle" font-weight="700">330 Ω</text>
+    <text x="499" y="362" text-anchor="middle" font-weight="700">330 Ω</text>
+    <text x="636" y="240" font-size="11">橙＝信号</text>
+    <text x="636" y="370" font-size="11">橙＝信号</text>
+    <text x="634" y="214" font-size="11">赤＝5V（2個で共用）</text>
+    <text x="556" y="468" font-size="11">茶＝GND（2個で共用）</text>
+ </g>>
+
+  <!-- ===== warning ===== -->
+  <rect x="30" y="586" width="900" height="52" rx="6" fill="#fdf0ee" stroke="#e8b6ae"/>
+  <text x="44" y="608" font-size="13" fill="#a02c1c" font-weight="700">注意：変換ケーブルは 黒(GND) と 白(信号) の2本だけを使う。赤(5V) は絶対に挿さない — Core2 が再起動します。</text>
+  <text x="44" y="629" font-size="12.5" fill="#a02c1c">GND は PORT.B・PORT.C とも −レールへ。繋がないとサーボが不規則に暴れます。／ 信号線は PORT.B・PORT.C とも「白」。2026/10/25 に実測確認済み。</text>
+</svg>
